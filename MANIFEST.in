@@ -1,0 +1,11 @@
+include feffery_maplibre/feffery_maplibre.min.js
+include feffery_maplibre/feffery_maplibre.min.js.map
+include feffery_maplibre/async-*.js
+include feffery_maplibre/async-*.js.map
+include feffery_maplibre/*-shared.js
+include feffery_maplibre/*-shared.js.map
+include feffery_maplibre/metadata.json
+include feffery_maplibre/package-info.json
+include README.md
+include LICENSE
+include package.json

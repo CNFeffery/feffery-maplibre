@@ -1,0 +1,4 @@
+/* 强制覆盖浏览器默认body节点的margin: 8px */
+body {
+    margin: 0;
+}
