@@ -2,7 +2,7 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable prefer-const */
 // react核心
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
 import {
@@ -86,6 +86,8 @@ const MapContainer = (props) => {
         keyboard,
         scrollZoom,
         touchPitch,
+        clickListenLayerIds,
+        clickListenBoxSize,
         enableDraw,
         mapboxAccessToken,
         locale,
@@ -116,6 +118,9 @@ const MapContainer = (props) => {
             return newFeatures
         })
     }, [])
+
+    // 地图ref
+    const mapRef = useRef(null);
 
     // 初始化prop同步
     useEffect(() => {
@@ -161,7 +166,8 @@ const MapContainer = (props) => {
     )
 
     return (
-        <MapGL id={id}
+        <MapGL ref={mapRef}
+            id={id}
             key={key}
             style={style}
             cursor={cursor}
@@ -187,6 +193,7 @@ const MapContainer = (props) => {
             keyboard={keyboard}
             scrollZoom={scrollZoom}
             touchPitch={touchPitch}
+            interactiveLayerIds={clickListenLayerIds}
             mapboxAccessToken={mapboxAccessToken}
             locale={locale}
             interactive={interactive}
@@ -198,14 +205,27 @@ const MapContainer = (props) => {
                 // 防抖监听地图视角
                 listenViewStateDebounce(e)
             }}
-            onClick={(e) => setProps({
-                // 监听地图点击事件
-                clickedLngLat: {
-                    lng: Number(e.lngLat.lng.toFixed(6)),
-                    lat: Number(e.lngLat.lat.toFixed(6)),
-                    timestamp: new Date().getTime()
-                }
-            })}
+            onClick={(e) => {
+
+                const bbox = [
+                    [e.point.x - clickListenBoxSize, e.point.y - clickListenBoxSize],
+                    [e.point.x + clickListenBoxSize, e.point.y + clickListenBoxSize]
+                ];
+
+                const selectedFeatures = mapRef.current.queryRenderedFeatures(bbox, {
+                    layers: clickListenLayerIds
+                });
+                console.log(selectedFeatures)
+
+                setProps({
+                    // 监听地图点击事件
+                    clickedLngLat: {
+                        lng: Number(e.lngLat.lng.toFixed(6)),
+                        lat: Number(e.lngLat.lat.toFixed(6)),
+                        timestamp: new Date().getTime()
+                    }
+                })
+            }}
             mapLib={maplibregl}
         >
             {children}
@@ -410,6 +430,18 @@ MapContainer.propTypes = {
      */
     touchPitch: PropTypes.bool,
 
+    /**
+     * 设置通过地图交互事件允许监听的图层id数组
+     * 默认：[]
+     */
+    clickListenLayerIds: PropTypes.array,
+
+    /**
+     * 设置通过地图点击事件针对interactiveLayerIds所指定的图层进行监听时，以鼠标点击点为中心外扩box范围的像素边长
+     * 默认：5
+     */
+    clickListenBoxSize: PropTypes.number,
+
     // 其他参数
     /**
      * 用于设置是否为当前地图启用绘制控件功能
@@ -511,6 +543,8 @@ MapContainer.defaultProps = {
     keyboard: true,
     scrollZoom: true,
     touchPitch: true,
+    clickListenLayerIds: [],
+    clickListenBoxSize: 5,
     enableDraw: false,
     interactive: true,
     workerCount: 2
