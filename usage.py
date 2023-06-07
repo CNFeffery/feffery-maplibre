@@ -1,6 +1,6 @@
 import json
 import feffery_maplibre as fm
-from dash import Dash, callback, html, Input, Output
+from dash import Dash, html, Input, Output, State
 
 app = Dash(__name__)
 
@@ -22,6 +22,7 @@ app.layout = html.Div(
                                 'type': 'fill',
                                 'paint':  {
                                     'fill-color': 'green',
+                                    'fill-opacity': 0.4,
                                     'fill-outline-color': 'green'
                                 }
                             },
@@ -110,6 +111,10 @@ app.layout = html.Div(
                 html.Button(
                     '添加测试图层',
                     id='add-demo-layers'
+                ),
+                html.Button(
+                    '更新图层样式',
+                    id='update-demo-layers-style'
                 )
             ]
         ),
@@ -189,6 +194,7 @@ def add_demo_source(n_clicks):
                 'type': 'fill',
                 'paint':  {
                     'fill-color': 'green',
+                    'fill-opacity': 0.4,
                     'fill-outline-color': 'green'
                 }
             },
@@ -204,6 +210,23 @@ def add_demo_source(n_clicks):
         )
     ]
 
+
+@app.callback(
+    Output('mapbox-demo-layer-landuse', 'layerProps'),
+    Input('update-demo-layers-style', 'n_clicks'),
+    State('mapbox-demo-layer-landuse', 'layerProps'),
+    prevent_initial_call=True
+)
+def update_demo_layer_style(n_clicks, layerProps):
+
+    return {
+        **layerProps,
+        'paint': {
+            'fill-color': 'yellow',
+            'fill-opacity': 0.4,
+            'fill-outline-color': 'purple'
+        }
+    }
 
 if __name__ == '__main__':
     app.run_server(debug=True)
