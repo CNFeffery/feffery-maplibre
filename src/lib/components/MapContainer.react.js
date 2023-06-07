@@ -2,15 +2,15 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable prefer-const */
 // react核心
-import React, {useEffect, useState, useCallback, useRef} from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import {Map as MapGL, useControl} from 'react-map-gl';
+import { Map as MapGL, useControl } from 'react-map-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 // import DeckGL from '@deck.gl/react';
 import maplibregl from 'maplibre-gl';
 // 其他第三方辅助
-import {useRequest} from 'ahooks';
+import { useRequest } from 'ahooks';
 // 依赖库相关样式
 import 'maplibre-gl/dist/maplibre-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -29,16 +29,16 @@ const defaultExactProps = {
 };
 
 const DrawControl = (props) => {
-    const {onCreate, onUpdate, onDelete, position} = props;
+    const { onCreate, onUpdate, onDelete, position } = props;
 
     useControl(
         () => new MapboxDraw(props),
-        ({map}) => {
+        ({ map }) => {
             map.on('draw.create', onCreate);
             map.on('draw.update', onUpdate);
             map.on('draw.delete', onDelete);
         },
-        ({map}) => {
+        ({ map }) => {
             map.off('draw.create', onCreate);
             map.off('draw.update', onUpdate);
             map.off('draw.delete', onDelete);
@@ -92,7 +92,7 @@ const MapContainer = (props) => {
 
     const onUpdate = useCallback((e) => {
         setFeatures((currFeatures) => {
-            const newFeatures = {...currFeatures};
+            const newFeatures = { ...currFeatures };
             for (const f of e.features) {
                 newFeatures[f.id] = f;
             }
@@ -102,7 +102,7 @@ const MapContainer = (props) => {
 
     const onDelete = useCallback((e) => {
         setFeatures((currFeatures) => {
-            const newFeatures = {...currFeatures};
+            const newFeatures = { ...currFeatures };
             for (const f of e.features) {
                 delete newFeatures[f.id];
             }
@@ -147,7 +147,7 @@ const MapContainer = (props) => {
             bearing: Number(e.viewState.bearing.toFixed(3)),
         });
     };
-    const {run: listenViewStateDebounce} = useRequest(
+    const { run: listenViewStateDebounce } = useRequest(
         (e) => {
             setProps({
                 longitudeDebounce: Number(e.viewState.longitude.toFixed(6)),
@@ -155,6 +155,18 @@ const MapContainer = (props) => {
                 zoomDebounce: Number(e.viewState.zoom.toFixed(3)),
                 pitchDebounce: Number(e.viewState.pitch.toFixed(3)),
                 bearingDebounce: Number(e.viewState.bearing.toFixed(3)),
+            });
+        },
+        {
+            debounceWait: debounceWait,
+            manual: true,
+        }
+    );
+    const { run: listenSourceLayerLoad } = useRequest(
+        () => {
+            setProps({
+                loadedSources: mapRef.current.getStyle().sources,
+                loadedLayers: mapRef.current.getStyle().layers
             });
         },
         {
@@ -254,6 +266,7 @@ const MapContainer = (props) => {
                     },
                 });
             }}
+            onStyleData={listenSourceLayerLoad}
             mapLib={maplibregl}
         >
             {children}
@@ -518,6 +531,16 @@ MapContainer.propTypes = {
      * 用于监听最近一次地图点击事件对应clickListenLayerIds所查询到的相关图层要素信息
      */
     clickListenLayerFeatures: PropTypes.array,
+
+    /**
+     * 用于监听最近一次图层加载事件后全部图层源信息
+     */
+    loadedSources: PropTypes.object,
+
+    /**
+     * 用于监听最近一次图层加载事件后全部图层信息
+     */
+    loadedLayers: PropTypes.array,
 
     // 防抖监听参数
     /**

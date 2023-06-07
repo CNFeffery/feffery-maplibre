@@ -132,7 +132,9 @@ app.layout = html.Div(
         Input('map-demo', 'pitchDebounce'),
         Input('map-demo', 'bearingDebounce'),
         Input('map-demo', 'clickedLngLat'),
-        Input('map-demo', 'clickListenLayerFeatures')
+        Input('map-demo', 'clickListenLayerFeatures'),
+        Input('map-demo', 'loadedSources'),
+        Input('map-demo', 'loadedLayers'),
     ]
 )
 def show_test_props(longitudeDebounce,
@@ -141,7 +143,9 @@ def show_test_props(longitudeDebounce,
                     pitchDebounce,
                     bearingDebounce,
                     clickedLngLat,
-                    clickListenLayerFeatures):
+                    clickListenLayerFeatures,
+                    loadedSources,
+                    loadedLayers):
 
     return json.dumps(
         dict(
@@ -151,7 +155,9 @@ def show_test_props(longitudeDebounce,
             pitchDebounce=pitchDebounce,
             bearingDebounce=bearingDebounce,
             clickedLngLat=clickedLngLat,
-            clickListenLayerFeatures=clickListenLayerFeatures
+            clickListenLayerFeatures=clickListenLayerFeatures,
+            loadedSources=loadedSources,
+            loadedLayers=loadedLayers
         ),
         indent=4,
         ensure_ascii=False
