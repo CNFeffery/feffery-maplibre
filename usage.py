@@ -84,7 +84,7 @@ app.layout = html.Div(
                 'mapbox-demo-layer-landuse',
                 'mapbox-demo-country_label'
             ],
-            clickListenBoxSize=100,
+            clickListenBoxSize=5,
             debounceWait=200,
             locale={
                 'NavigationControl.ZoomIn': '放大地图',
@@ -102,6 +102,14 @@ app.layout = html.Div(
                 html.Button(
                     'longitude=>0',
                     id='set-longitude-0'
+                ),
+                html.Button(
+                    '清除测试图层',
+                    id='clear-demo-layers'
+                ),
+                html.Button(
+                    '添加测试图层',
+                    id='add-demo-layers'
                 )
             ]
         ),
@@ -154,6 +162,47 @@ def show_test_props(longitudeDebounce,
 def set_longitude_0(n_clicks):
 
     return 0, 0
+
+
+@app.callback(
+    Output('mapbox-demo-source', 'children'),
+    Input('clear-demo-layers', 'n_clicks'),
+    prevent_initial_call=True
+)
+def clear_demo_source(n_clicks):
+
+    return []
+
+
+@app.callback(
+    Output('mapbox-demo-source', 'children', allow_duplicate=True),
+    Input('add-demo-layers', 'n_clicks'),
+    prevent_initial_call=True
+)
+def add_demo_source(n_clicks):
+
+    return [
+        fm.Layer(
+            id='mapbox-demo-layer-landuse',
+            layerProps={
+                'source-layer': 'landuse',
+                'type': 'fill',
+                'paint':  {
+                    'fill-color': 'green',
+                    'fill-outline-color': 'green'
+                }
+            },
+            hoverCursor='pointer'
+        ),
+        fm.Layer(
+            id='mapbox-demo-country_label',
+            layerProps={
+                'source-layer': 'country_label',
+                'type': 'circle'
+            },
+            hoverCursor='pointer'
+        )
+    ]
 
 
 if __name__ == '__main__':

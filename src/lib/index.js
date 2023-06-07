@@ -7,12 +7,16 @@ import ScaleControl from './components/controls/ScaleControl.react';
 import Source from './components/sources/Source.react';
 // 图层
 import Layer from './components/layers/Layer.react';
-
+// 组容器
+import SourceGroup from './components/groups/SourceGroup.react';
+import LayerGroup from './components/groups/LayerGroup.react';
 
 export {
     MapContainer,
     NavigationControl,
     ScaleControl,
     Source,
-    Layer
+    Layer,
+    SourceGroup,
+    LayerGroup,
 };

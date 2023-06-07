@@ -10,7 +10,7 @@ class Source(Component):
 Keyword arguments:
 
 - children (a list of or a singular dash component, string or number; optional):
-    用于传入当前矢量切片图层源内部对应的若干矢量切片图层.
+    用于传入当前图层源内部对应的若干图层.
 
 - id (string; required):
     必填，用于唯一标识当前图层源.
@@ -20,7 +20,7 @@ Keyword arguments:
 
 - sourceProps (dict; optional):
     设置其他source相关配置参数
-    参考资料：https://maplibre.org/maplibre-style-spec/sources/#vector."""
+    参考资料：https://maplibre.org/maplibre-style-spec/sources."""
     _children_props = []
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'

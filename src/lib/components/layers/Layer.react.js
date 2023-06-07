@@ -39,13 +39,23 @@ const Layer = (props) => {
         }
     }, []);
 
+    // 在当前Layer组件卸载时从map实例中移除当前组件id指向的图层
+    useEffect(() => {
+        return () => {
+            if (map && map.getLayer && map.getLayer(id) && map.removeLayer) {
+                // 移除当前组件id指向的图层
+                map.removeLayer(id);
+            }
+        };
+    }, []);
+
     return <_Layer id={id} key={key} beforeId={beforeId} {...layerProps} />;
 };
 
 Layer.propTypes = {
     // 基础参数
     /**
-     * 必填，用于唯一标识当前矢量切片图层
+     * 必填，用于唯一标识当前图层
      */
     id: PropTypes.string.isRequired,
 
@@ -55,7 +65,7 @@ Layer.propTypes = {
     key: PropTypes.string,
 
     /**
-     * 当需要动态更新覆盖已有矢量切片图层时，用于指定对应已有矢量切片图层的id
+     * 当需要动态更新覆盖已有图层时，用于指定对应已有图层的id
      */
     beforeId: PropTypes.string,
 

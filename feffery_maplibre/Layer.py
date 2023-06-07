@@ -10,10 +10,10 @@ class Layer(Component):
 Keyword arguments:
 
 - id (string; required):
-    必填，用于唯一标识当前矢量切片图层.
+    必填，用于唯一标识当前图层.
 
 - beforeId (string; optional):
-    当需要动态更新覆盖已有矢量切片图层时，用于指定对应已有矢量切片图层的id.
+    当需要动态更新覆盖已有图层时，用于指定对应已有图层的id.
 
 - hoverCursor (string; optional):
     针对当前图层设置鼠标悬停状态下的指针样式，同css属性中的cursor  默认：None.

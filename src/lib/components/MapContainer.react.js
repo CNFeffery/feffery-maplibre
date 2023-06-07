@@ -222,7 +222,7 @@ const MapContainer = (props) => {
                     let matchFeatures = mapRef.current.queryRenderedFeatures(
                         bbox,
                         {
-                            layers: clickListenLayerIds,
+                            layers: clickListenLayerIds.filter(e => mapRef.current.getLayer(e)),
                         }
                     );
 
