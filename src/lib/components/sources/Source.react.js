@@ -1,31 +1,24 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable prefer-const */
 // react核心
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import { Source as _Source } from 'react-map-gl';
-
+import {Source as _Source} from 'react-map-gl';
+// 上下文管理器
+import SourceContext from '../../contexts/SourceContext';
 
 const Source = (props) => {
-    const {
-        id,
-        children,
-        key,
-        sourceProps,
-        setProps
-    } = props;
+    const {id, children, key, sourceProps, setProps} = props;
 
     return (
-        <_Source id={id}
-            key={key}
-            type={'vector'}
-            {...sourceProps}
-        >
-            {children}
-        </_Source>
+        <SourceContext.Provider value={{sourceId: id}}>
+            <_Source id={id} key={key} type={'vector'} {...sourceProps}>
+                {children}
+            </_Source>
+        </SourceContext.Provider>
     );
-}
+};
 
 Source.propTypes = {
     // 基础参数
@@ -53,11 +46,10 @@ Source.propTypes = {
     /**
      * Dash-assigned callback that should be called to report property changes
      * to Dash, to make them available for callbacks.
-    */
-    setProps: PropTypes.func
+     */
+    setProps: PropTypes.func,
 };
 
-Source.defaultProps = {
-};
+Source.defaultProps = {};
 
 export default React.memo(Source);

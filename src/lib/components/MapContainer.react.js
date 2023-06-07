@@ -2,18 +2,15 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable prefer-const */
 // react核心
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, {useEffect, useState, useCallback, useRef} from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import {
-    Map as MapGL,
-    useControl
-} from 'react-map-gl';
+import {Map as MapGL, useControl} from 'react-map-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 // import DeckGL from '@deck.gl/react';
 import maplibregl from 'maplibre-gl';
 // 其他第三方辅助
-import { useRequest } from 'ahooks';
+import {useRequest} from 'ahooks';
 // 依赖库相关样式
 import 'maplibre-gl/dist/maplibre-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -27,38 +24,32 @@ const defaultExactProps = {
         latitude: 0,
         zoom: 0,
         pitch: 0,
-        bearing: 0
-    }
-}
+        bearing: 0,
+    },
+};
 
 const DrawControl = (props) => {
-
-    const {
-        onCreate,
-        onUpdate,
-        onDelete,
-        position
-    } = props;
+    const {onCreate, onUpdate, onDelete, position} = props;
 
     useControl(
         () => new MapboxDraw(props),
-        ({ map }) => {
-            map.on("draw.create", onCreate)
-            map.on("draw.update", onUpdate)
-            map.on("draw.delete", onDelete)
+        ({map}) => {
+            map.on('draw.create', onCreate);
+            map.on('draw.update', onUpdate);
+            map.on('draw.delete', onDelete);
         },
-        ({ map }) => {
-            map.off("draw.create", onCreate)
-            map.off("draw.update", onUpdate)
-            map.off("draw.delete", onDelete)
+        ({map}) => {
+            map.off('draw.create', onCreate);
+            map.off('draw.update', onUpdate);
+            map.off('draw.delete', onDelete);
         },
         {
-            position: position
+            position: position,
         }
-    )
+    );
 
-    return null
-}
+    return null;
+};
 
 const MapContainer = (props) => {
     const {
@@ -94,50 +85,57 @@ const MapContainer = (props) => {
         interactive,
         workerCount,
         debounceWait,
-        setProps
+        setProps,
     } = props;
 
-    const [features, setFeatures] = useState({})
+    const [features, setFeatures] = useState({});
 
-    const onUpdate = useCallback(e => {
-        setFeatures(currFeatures => {
-            const newFeatures = { ...currFeatures }
+    const onUpdate = useCallback((e) => {
+        setFeatures((currFeatures) => {
+            const newFeatures = {...currFeatures};
             for (const f of e.features) {
-                newFeatures[f.id] = f
+                newFeatures[f.id] = f;
             }
-            return newFeatures
-        })
-    }, [])
+            return newFeatures;
+        });
+    }, []);
 
-    const onDelete = useCallback(e => {
-        setFeatures(currFeatures => {
-            const newFeatures = { ...currFeatures }
+    const onDelete = useCallback((e) => {
+        setFeatures((currFeatures) => {
+            const newFeatures = {...currFeatures};
             for (const f of e.features) {
-                delete newFeatures[f.id]
+                delete newFeatures[f.id];
             }
-            return newFeatures
-        })
-    }, [])
+            return newFeatures;
+        });
+    }, []);
 
     // 地图ref
     const mapRef = useRef(null);
 
     // 初始化prop同步
     useEffect(() => {
-        let toUpdateProps = {}
+        let toUpdateProps = {};
         // 若初始化时initialViewState有效，则为相关受控prop初始化有效值
         if (initialViewState) {
-            for (let propName of ['longitude', 'latitude', 'zoom', 'pitch', 'bearing']) {
+            for (let propName of [
+                'longitude',
+                'latitude',
+                'zoom',
+                'pitch',
+                'bearing',
+            ]) {
                 if (initialViewState[propName]) {
-                    toUpdateProps[propName] = initialViewState[propName]
-                    toUpdateProps[propName + 'Debounce'] = initialViewState[propName]
+                    toUpdateProps[propName] = initialViewState[propName];
+                    toUpdateProps[propName + 'Debounce'] =
+                        initialViewState[propName];
                 }
             }
         }
 
         // 统一初始化prop
-        setProps(toUpdateProps)
-    }, [])
+        setProps(toUpdateProps);
+    }, []);
 
     // 事件监听函数
     const listenViewState = (e) => {
@@ -146,27 +144,28 @@ const MapContainer = (props) => {
             latitude: Number(e.viewState.latitude.toFixed(6)),
             zoom: Number(e.viewState.zoom.toFixed(3)),
             pitch: Number(e.viewState.pitch.toFixed(3)),
-            bearing: Number(e.viewState.bearing.toFixed(3))
-        })
-    }
-    const { run: listenViewStateDebounce } = useRequest(
+            bearing: Number(e.viewState.bearing.toFixed(3)),
+        });
+    };
+    const {run: listenViewStateDebounce} = useRequest(
         (e) => {
             setProps({
                 longitudeDebounce: Number(e.viewState.longitude.toFixed(6)),
                 latitudeDebounce: Number(e.viewState.latitude.toFixed(6)),
                 zoomDebounce: Number(e.viewState.zoom.toFixed(3)),
                 pitchDebounce: Number(e.viewState.pitch.toFixed(3)),
-                bearingDebounce: Number(e.viewState.bearing.toFixed(3))
-            })
+                bearingDebounce: Number(e.viewState.bearing.toFixed(3)),
+            });
         },
         {
             debounceWait: debounceWait,
-            manual: true
+            manual: true,
         }
-    )
+    );
 
     return (
-        <MapGL ref={mapRef}
+        <MapGL
+            ref={mapRef}
             id={id}
             key={key}
             style={style}
@@ -175,7 +174,7 @@ const MapContainer = (props) => {
             renderWorldCopies={renderWorldCopies}
             initialViewState={{
                 ...defaultExactProps.initialViewState,
-                ...initialViewState
+                ...initialViewState,
             }}
             longitude={longitude}
             latitude={latitude}
@@ -193,7 +192,6 @@ const MapContainer = (props) => {
             keyboard={keyboard}
             scrollZoom={scrollZoom}
             touchPitch={touchPitch}
-            interactiveLayerIds={clickListenLayerIds}
             mapboxAccessToken={mapboxAccessToken}
             locale={locale}
             interactive={interactive}
@@ -201,53 +199,81 @@ const MapContainer = (props) => {
             // 事件监听
             onMove={(e) => {
                 // 同步地图视角
-                listenViewState(e)
+                listenViewState(e);
                 // 防抖监听地图视角
-                listenViewStateDebounce(e)
+                listenViewStateDebounce(e);
             }}
             onClick={(e) => {
+                if (cancelIdleCallback) {
+                    // 根据点击位置对指定图层进行空间查询
+                    // 构造查询范围
+                    let bbox = [
+                        [
+                            e.point.x - clickListenBoxSize,
+                            e.point.y - clickListenBoxSize,
+                        ],
+                        [
+                            e.point.x + clickListenBoxSize,
+                            e.point.y + clickListenBoxSize,
+                        ],
+                    ];
 
-                const bbox = [
-                    [e.point.x - clickListenBoxSize, e.point.y - clickListenBoxSize],
-                    [e.point.x + clickListenBoxSize, e.point.y + clickListenBoxSize]
-                ];
+                    // 基于查询范围判断发生相交的要素信息数组
+                    let matchFeatures = mapRef.current.queryRenderedFeatures(
+                        bbox,
+                        {
+                            layers: clickListenLayerIds,
+                        }
+                    );
 
-                const selectedFeatures = mapRef.current.queryRenderedFeatures(bbox, {
-                    layers: clickListenLayerIds
-                });
-                console.log(selectedFeatures)
+                    setProps({
+                        // 更新点击事件匹配到的要素信息数组
+                        clickListenLayerFeatures: matchFeatures.map((e) => {
+                            return {
+                                layer: {
+                                    id: e.layer.id,
+                                    source: e.layer.source,
+                                    sourceLayer: e.layer['source-layer'],
+                                    type: e.layer.type,
+                                },
+                                properties: e.properties,
+                                source: e.properties,
+                                sourceLayer: e.sourceLayer,
+                                type: e.type,
+                            };
+                        }),
+                    });
+                }
 
                 setProps({
                     // 监听地图点击事件
                     clickedLngLat: {
                         lng: Number(e.lngLat.lng.toFixed(6)),
                         lat: Number(e.lngLat.lat.toFixed(6)),
-                        timestamp: new Date().getTime()
-                    }
-                })
+                        timestamp: new Date().getTime(),
+                    },
+                });
             }}
             mapLib={maplibregl}
         >
             {children}
-            {
-                enableDraw ?
-                    <DrawControl
-                        position="top-right"
-                        displayControlsDefault={true}
-                        controls={{
-                            polygon: true,
-                            trash: true
-                        }}
-                        // defaultMode="draw_polygon"
-                        onCreate={onUpdate}
-                        onUpdate={onUpdate}
-                        onDelete={onDelete}
-                    /> :
-                    null
-            }
+            {enableDraw ? (
+                <DrawControl
+                    position="top-right"
+                    displayControlsDefault={true}
+                    controls={{
+                        polygon: true,
+                        trash: true,
+                    }}
+                    // defaultMode="draw_polygon"
+                    onCreate={onUpdate}
+                    onUpdate={onUpdate}
+                    onDelete={onDelete}
+                />
+            ) : null}
         </MapGL>
     );
-}
+};
 
 MapContainer.propTypes = {
     // 基础参数
@@ -281,10 +307,7 @@ MapContainer.propTypes = {
     /**
      * 用于设置底图样式配置文件
      */
-    mapStyle: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object
-    ]),
+    mapStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
     /**
      * 设置世界范围是否允许重复
@@ -334,7 +357,7 @@ MapContainer.propTypes = {
          * 格式为[经度下限, 纬度下限, 经度上限, 纬度上限]
          * 默认：null
          */
-        bounds: PropTypes.array
+        bounds: PropTypes.array,
     }),
 
     /**
@@ -488,8 +511,13 @@ MapContainer.propTypes = {
         /**
          * 点击事件对应的时间戳
          */
-        timestamp: PropTypes.number
+        timestamp: PropTypes.number,
     }),
+
+    /**
+     * 用于监听最近一次地图点击事件对应clickListenLayerIds所查询到的相关图层要素信息
+     */
+    clickListenLayerFeatures: PropTypes.array,
 
     // 防抖监听参数
     /**
@@ -526,8 +554,8 @@ MapContainer.propTypes = {
     /**
      * Dash-assigned callback that should be called to report property changes
      * to Dash, to make them available for callbacks.
-    */
-    setProps: PropTypes.func
+     */
+    setProps: PropTypes.func,
 };
 
 MapContainer.defaultProps = {
@@ -547,7 +575,7 @@ MapContainer.defaultProps = {
     clickListenBoxSize: 5,
     enableDraw: false,
     interactive: true,
-    workerCount: 2
+    workerCount: 2,
 };
 
 export default React.memo(MapContainer);

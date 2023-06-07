@@ -21,6 +21,16 @@ Keyword arguments:
 - bearingDebounce (number; optional):
     防抖监听参数，用于设置或监听当前地图旋转角度.
 
+- clickListenBoxSize (number; default 5):
+    设置通过地图点击事件针对interactiveLayerIds所指定的图层进行监听时，以鼠标点击点为中心外扩box范围的像素边长
+    默认：5.
+
+- clickListenLayerFeatures (list; optional):
+    用于监听最近一次地图点击事件对应clickListenLayerIds所查询到的相关图层要素信息.
+
+- clickListenLayerIds (list; optional):
+    设置通过地图交互事件允许监听的图层id数组  默认：[].
+
 - clickedLngLat (dict; optional):
     用于监听最近一次地图点击事件对应的坐标信息及时间戳信息.
 
@@ -157,10 +167,10 @@ Keyword arguments:
     _namespace = 'feffery_maplibre'
     _type = 'MapContainer'
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, cursor=Component.UNDEFINED, mapStyle=Component.UNDEFINED, renderWorldCopies=Component.UNDEFINED, initialViewState=Component.UNDEFINED, longitude=Component.UNDEFINED, latitude=Component.UNDEFINED, zoom=Component.UNDEFINED, pitch=Component.UNDEFINED, bearing=Component.UNDEFINED, minZoom=Component.UNDEFINED, maxZoom=Component.UNDEFINED, minPitch=Component.UNDEFINED, maxPitch=Component.UNDEFINED, maxBounds=Component.UNDEFINED, doubleClickZoom=Component.UNDEFINED, dragRotate=Component.UNDEFINED, dragPan=Component.UNDEFINED, keyboard=Component.UNDEFINED, scrollZoom=Component.UNDEFINED, touchPitch=Component.UNDEFINED, enableDraw=Component.UNDEFINED, mapboxAccessToken=Component.UNDEFINED, locale=Component.UNDEFINED, interactive=Component.UNDEFINED, workerCount=Component.UNDEFINED, clickedLngLat=Component.UNDEFINED, debounceWait=Component.UNDEFINED, longitudeDebounce=Component.UNDEFINED, latitudeDebounce=Component.UNDEFINED, zoomDebounce=Component.UNDEFINED, pitchDebounce=Component.UNDEFINED, bearingDebounce=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'bearing', 'bearingDebounce', 'clickedLngLat', 'cursor', 'debounceWait', 'doubleClickZoom', 'dragPan', 'dragRotate', 'enableDraw', 'initialViewState', 'interactive', 'key', 'keyboard', 'latitude', 'latitudeDebounce', 'locale', 'longitude', 'longitudeDebounce', 'mapStyle', 'mapboxAccessToken', 'maxBounds', 'maxPitch', 'maxZoom', 'minPitch', 'minZoom', 'pitch', 'pitchDebounce', 'renderWorldCopies', 'scrollZoom', 'style', 'touchPitch', 'workerCount', 'zoom', 'zoomDebounce']
+    def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, cursor=Component.UNDEFINED, mapStyle=Component.UNDEFINED, renderWorldCopies=Component.UNDEFINED, initialViewState=Component.UNDEFINED, longitude=Component.UNDEFINED, latitude=Component.UNDEFINED, zoom=Component.UNDEFINED, pitch=Component.UNDEFINED, bearing=Component.UNDEFINED, minZoom=Component.UNDEFINED, maxZoom=Component.UNDEFINED, minPitch=Component.UNDEFINED, maxPitch=Component.UNDEFINED, maxBounds=Component.UNDEFINED, doubleClickZoom=Component.UNDEFINED, dragRotate=Component.UNDEFINED, dragPan=Component.UNDEFINED, keyboard=Component.UNDEFINED, scrollZoom=Component.UNDEFINED, touchPitch=Component.UNDEFINED, clickListenLayerIds=Component.UNDEFINED, clickListenBoxSize=Component.UNDEFINED, enableDraw=Component.UNDEFINED, mapboxAccessToken=Component.UNDEFINED, locale=Component.UNDEFINED, interactive=Component.UNDEFINED, workerCount=Component.UNDEFINED, clickedLngLat=Component.UNDEFINED, clickListenLayerFeatures=Component.UNDEFINED, debounceWait=Component.UNDEFINED, longitudeDebounce=Component.UNDEFINED, latitudeDebounce=Component.UNDEFINED, zoomDebounce=Component.UNDEFINED, pitchDebounce=Component.UNDEFINED, bearingDebounce=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'bearing', 'bearingDebounce', 'clickListenBoxSize', 'clickListenLayerFeatures', 'clickListenLayerIds', 'clickedLngLat', 'cursor', 'debounceWait', 'doubleClickZoom', 'dragPan', 'dragRotate', 'enableDraw', 'initialViewState', 'interactive', 'key', 'keyboard', 'latitude', 'latitudeDebounce', 'locale', 'longitude', 'longitudeDebounce', 'mapStyle', 'mapboxAccessToken', 'maxBounds', 'maxPitch', 'maxZoom', 'minPitch', 'minZoom', 'pitch', 'pitchDebounce', 'renderWorldCopies', 'scrollZoom', 'style', 'touchPitch', 'workerCount', 'zoom', 'zoomDebounce']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['children', 'id', 'bearing', 'bearingDebounce', 'clickedLngLat', 'cursor', 'debounceWait', 'doubleClickZoom', 'dragPan', 'dragRotate', 'enableDraw', 'initialViewState', 'interactive', 'key', 'keyboard', 'latitude', 'latitudeDebounce', 'locale', 'longitude', 'longitudeDebounce', 'mapStyle', 'mapboxAccessToken', 'maxBounds', 'maxPitch', 'maxZoom', 'minPitch', 'minZoom', 'pitch', 'pitchDebounce', 'renderWorldCopies', 'scrollZoom', 'style', 'touchPitch', 'workerCount', 'zoom', 'zoomDebounce']
+        self.available_properties = ['children', 'id', 'bearing', 'bearingDebounce', 'clickListenBoxSize', 'clickListenLayerFeatures', 'clickListenLayerIds', 'clickedLngLat', 'cursor', 'debounceWait', 'doubleClickZoom', 'dragPan', 'dragRotate', 'enableDraw', 'initialViewState', 'interactive', 'key', 'keyboard', 'latitude', 'latitudeDebounce', 'locale', 'longitude', 'longitudeDebounce', 'mapStyle', 'mapboxAccessToken', 'maxBounds', 'maxPitch', 'maxZoom', 'minPitch', 'minZoom', 'pitch', 'pitchDebounce', 'renderWorldCopies', 'scrollZoom', 'style', 'touchPitch', 'workerCount', 'zoom', 'zoomDebounce']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

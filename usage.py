@@ -11,17 +11,80 @@ app.layout = html.Div(
                 fm.NavigationControl(
                     visualizePitch=True
                 ),
-                fm.ScaleControl()
+                fm.ScaleControl(),
+
+                fm.Source(
+                    [
+                        fm.Layer(
+                            id='mapbox-demo-layer-landuse',
+                            layerProps={
+                                'source-layer': 'landuse',
+                                'type': 'fill',
+                                'paint':  {
+                                    'fill-color': 'green',
+                                    'fill-outline-color': 'green'
+                                }
+                            },
+                            hoverCursor='pointer'
+                        ),
+                        fm.Layer(
+                            id='mapbox-demo-country_label',
+                            layerProps={
+                                'source-layer': 'country_label',
+                                'type': 'circle'
+                            },
+                            hoverCursor='pointer'
+                        )
+                    ],
+                    id='mapbox-demo-source',
+                    sourceProps={
+                        'tiles':  [
+                            'https://b.tiles.mapbox.com/v4/mapbox.mapbox-streets-v6/{z}/{x}/{y}.vector.pbf?sku=101SPH62Z4zzs&access_token=pk.eyJ1IjoiZmVmZmVyeXB6eSIsImEiOiJjanhyY2QyenUwN2VzM2x0NWh6MGVzOWFqIn0.Z2HEVP_nJ8Smx_IWxkdRqg'
+                        ],
+                        'type': 'vector'
+                    }
+                ),
+
+                # fm.Source(
+                #     [
+                #         fm.Layer(
+                #             id='demo-layer',
+                #             layerProps={
+                #                 'source-layer': 'dt860',
+                #                 'type': 'fill',
+                #                 'paint': {
+                #                     'fill-color': '#81ecec',
+                #                     'fill-opacity': 0.4,
+                #                     'fill-outline-color': 'black'
+                #                 }
+                #             },
+                #             hoverCursor='pointer'
+                #         )
+                #     ],
+                #     id='demo-source',
+                #     sourceProps={
+                #         'tiles': [
+                #             'http://10.10.0.26:9101/mapserver/tms/1.0.0/cu:dt860@EPSG:900913@pbf/{z}/{x}/{y}.pbf'
+                #         ],
+                #         'type': 'vector',
+                #         'scheme': 'tms'
+                #     }
+                # )
             ],
             id='map-demo',
             mapStyle='https://api.maptiler.com/maps/basic-v2/style.json?key=pctRciYXNuENsTzDTtAS',
             initialViewState={
                 'longitude': 106,
                 'latitude': 29,
-                'zoom': 3,
+                'zoom': 7,
                 'pitch': 45,
                 'bearing': 45,
             },
+            clickListenLayerIds=[
+                'mapbox-demo-layer-landuse',
+                'mapbox-demo-country_label'
+            ],
+            clickListenBoxSize=100,
             debounceWait=200,
             locale={
                 'NavigationControl.ZoomIn': '放大地图',
@@ -31,12 +94,16 @@ app.layout = html.Div(
             style={
                 'width': '100vw',
                 'height': 'calc(100vh - 300px)'
-            },
+            }
             # enableDeckGL=True
         ),
-        html.Button(
-            'longitude=>0',
-            id='set-longitude-0'
+        html.Div(
+            [
+                html.Button(
+                    'longitude=>0',
+                    id='set-longitude-0'
+                )
+            ]
         ),
         html.Pre(id='test-props')
     ]
@@ -52,6 +119,7 @@ app.layout = html.Div(
         Input('map-demo', 'pitchDebounce'),
         Input('map-demo', 'bearingDebounce'),
         Input('map-demo', 'clickedLngLat'),
+        Input('map-demo', 'clickListenLayerFeatures')
     ]
 )
 def show_test_props(longitudeDebounce,
@@ -59,7 +127,8 @@ def show_test_props(longitudeDebounce,
                     zoomDebounce,
                     pitchDebounce,
                     bearingDebounce,
-                    clickedLngLat):
+                    clickedLngLat,
+                    clickListenLayerFeatures):
 
     return json.dumps(
         dict(
@@ -68,7 +137,8 @@ def show_test_props(longitudeDebounce,
             zoomDebounce=zoomDebounce,
             pitchDebounce=pitchDebounce,
             bearingDebounce=bearingDebounce,
-            clickedLngLat=clickedLngLat
+            clickedLngLat=clickedLngLat,
+            clickListenLayerFeatures=clickListenLayerFeatures
         ),
         indent=4,
         ensure_ascii=False
