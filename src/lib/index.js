@@ -10,6 +10,8 @@ import Layer from './components/layers/Layer.react';
 // 组容器
 import SourceGroup from './components/groups/SourceGroup.react';
 import LayerGroup from './components/groups/LayerGroup.react';
+// 工具组件
+import HandleRawMap from './components/utils/HandleRawMap.react';
 
 export {
     MapContainer,
@@ -19,4 +21,5 @@ export {
     Layer,
     SourceGroup,
     LayerGroup,
+    HandleRawMap,
 };
