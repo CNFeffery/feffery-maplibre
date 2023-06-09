@@ -41,29 +41,17 @@ const defaultExactProps = {
 
 const DrawControl = (props) => {
     let drawRef = useRef(null);
-    const { position, drawOnlyOne } = props;
+    const { position, drawOnlyOne, setProps, mapRef } = props;
     const [features, setFeatures] = useState({});
 
     const onUpdate = useCallback((e) => {
-        console.log('onUpdate');
-        console.log(e);
-        setFeatures((currFeatures) => {
-            const newFeatures = { ...currFeatures };
-            for (const f of e.features) {
-                newFeatures[f.id] = f;
-            }
-            return newFeatures;
-        });
+        // 更新最新的已绘制要素数组到drawnFeatures中
+        setProps({
+            drawnFeatures: [...drawRef.getAll().features]
+        })
     }, []);
 
     const onDelete = useCallback((e) => {
-        setFeatures((currFeatures) => {
-            const newFeatures = { ...currFeatures };
-            for (const f of e.features) {
-                delete newFeatures[f.id];
-            }
-            return newFeatures;
-        });
     }, []);
 
     const OnModeChange = useCallback(
@@ -73,17 +61,20 @@ const DrawControl = (props) => {
                     e.mode
                 )
             ) {
+                // 取得当前全部图层的id并仅保留gl-draw*相关图层
+                let allDrawLayerIds = mapRef.current.getStyle().layers.map(layer => layer.id).filter(layerId => layerId.startsWith('gl-draw'));
+                // 针对相关图层按照原始顺序调整图层至顶层
+                allDrawLayerIds.forEach(layerId => mapRef.current.moveLayer(layerId))
                 if (drawOnlyOne) {
                     // 开始新的要素绘制之前清除先前已绘制要素
-                    let drawnFeatures = drawRef.getAll().features;
+                    let _drawnFeatures = drawRef.getAll().features;
                     // 取得最新添加的要素的id
-                    let latestDrawnFeatureId = drawnFeatures[drawnFeatures.length - 1].id;
+                    let latestDrawnFeatureId = _drawnFeatures[_drawnFeatures.length - 1].id;
                     if (drawRef.getAll().features.length > 1) {
                         drawRef.delete(
                             drawRef
                                 .getAll()
-                                .features
-                                .map((feature) => feature.id)
+                                .features.map((feature) => feature.id)
                                 .filter(
                                     (featureId) =>
                                         featureId !== latestDrawnFeatureId
@@ -344,6 +335,8 @@ const MapContainer = (props) => {
                         ...drawControls,
                     }}
                     drawOnlyOne={drawOnlyOne}
+                    setProps={setProps}
+                    mapRef={mapRef}
                 />
             ) : null}
         </MapGL>
@@ -611,6 +604,11 @@ MapContainer.propTypes = {
      * 默认：false
      */
     drawOnlyOne: PropTypes.bool,
+
+    /**
+     * 用于监听通过绘图控件已绘制的要素数组
+     */
+    drawnFeatures: PropTypes.array,
 
     // 其他参数
     /**

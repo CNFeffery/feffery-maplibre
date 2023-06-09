@@ -139,7 +139,7 @@ app.layout = html.Div(
                         'height': 'calc(100% - 40px)'
                     },
                     enableDraw=True,
-                    drawOnlyOne=True
+                    # drawOnlyOne=True
                     # enableDeckGL=True
                 ),
                 html.Div(
@@ -204,6 +204,7 @@ app.layout = html.Div(
         Input('map-demo', 'clickListenLayerFeatures'),
         Input('map-demo', 'loadedSources'),
         Input('map-demo', 'loadedLayers'),
+        Input('map-demo', 'drawnFeatures'),
     ]
 )
 def show_test_props(longitudeDebounce,
@@ -214,7 +215,8 @@ def show_test_props(longitudeDebounce,
                     clickedLngLat,
                     clickListenLayerFeatures,
                     loadedSources,
-                    loadedLayers):
+                    loadedLayers,
+                    drawnFeatures):
 
     return json.dumps(
         dict(
@@ -226,7 +228,8 @@ def show_test_props(longitudeDebounce,
             clickedLngLat=clickedLngLat,
             clickListenLayerFeatures=clickListenLayerFeatures,
             loadedSources=loadedSources,
-            loadedLayers=loadedLayers
+            loadedLayers=loadedLayers,
+            drawnFeatures=drawnFeatures
         ),
         indent=4,
         ensure_ascii=False
