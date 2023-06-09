@@ -135,10 +135,10 @@ app.layout = html.Div(
                         'NavigationControl.ResetBearing': '重置地图角度'
                     },
                     style={
-                        'width': '50vw',
-                        'height': 'calc(100vh - 100px)'
+                        'width': '100%',
+                        'height': 'calc(100% - 40px)'
                     },
-                    # enableDraw=True,
+                    enableDraw=True,
                     # enableDeckGL=True
                 ),
                 html.Div(
@@ -167,16 +167,16 @@ app.layout = html.Div(
                 )
             ],
             style={
-                'flex': 'none'
+                'flex': 2
             }
         ),
         html.Div(
             html.Pre(
                 id='test-props',
                 style={
-                    'maxHeight': '100vh',
-                    'overflowY': 'auto',
-                    'width': '50vw'
+                    'height': 'calc(100vh - 20px)',
+                    'overflow': 'auto',
+                    'maxWidth': '33.333vw'
                 }
             ),
             style={
@@ -186,7 +186,7 @@ app.layout = html.Div(
     ],
     style={
         'display': 'flex',
-        'overflowX': 'hidden'
+        'height': '100vh'
     }
 )
 

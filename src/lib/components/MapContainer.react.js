@@ -26,6 +26,14 @@ const defaultExactProps = {
         pitch: 0,
         bearing: 0,
     },
+    drawControls: {
+        point: true,
+        line_string: true,
+        polygon: true,
+        trash: true,
+        combine_features: false,
+        uncombine_features: false,
+    },
 };
 
 const DrawControl = (props) => {
@@ -34,6 +42,20 @@ const DrawControl = (props) => {
     useControl(
         () => new MapboxDraw(props),
         ({map}) => {
+            // 强制修改绘制相关控件按钮的title信息为中文文案
+            for (let titles of [
+                ['LineString tool (l)', '绘制线'],
+                ['Polygon tool (p)', '绘制面'],
+                ['Marker tool (m)', '绘制点'],
+                ['Delete', '删除'],
+                ['Combine', '组合'],
+                ['Uncombine', '绘制点'],
+            ]) {
+                document
+                    .querySelectorAll(`[title="${titles[0]}"]`)
+                    .forEach((e) => e.setAttribute('title', titles[1]));
+            }
+
             map.on('draw.create', onCreate);
             map.on('draw.update', onUpdate);
             map.on('draw.delete', onDelete);
@@ -81,6 +103,8 @@ const MapContainer = (props) => {
         clickListenLayerIds,
         clickListenBoxSize,
         enableDraw,
+        drawControls,
+        drawControlsPosition,
         mapboxAccessToken,
         locale,
         interactive,
@@ -277,14 +301,12 @@ const MapContainer = (props) => {
             {children}
             {enableDraw ? (
                 <DrawControl
-                    // boxSelect={false}
-                    position="top-right"
-                    displayControlsDefault={true}
+                    position={drawControlsPosition}
+                    displayControlsDefault={false}
                     controls={{
-                        polygon: true,
-                        trash: true,
+                        ...defaultExactProps.drawControls,
+                        ...drawControls,
                     }}
-                    // defaultMode="draw_polygon"
                     onCreate={onUpdate}
                     onUpdate={onUpdate}
                     onDelete={onDelete}
@@ -436,7 +458,6 @@ MapContainer.propTypes = {
     maxBounds: PropTypes.array,
 
     // 地图交互相关参数
-
     /**
      * 用于设置是否开启框选放大功能，开启后用户可按住shift用鼠标在地图上绘制方框进行快速放大
      * 默认：false
@@ -491,13 +512,67 @@ MapContainer.propTypes = {
      */
     clickListenBoxSize: PropTypes.number,
 
-    // 其他参数
+    // 绘制控件相关功能
     /**
      * 用于设置是否为当前地图启用绘制控件功能
      * 默认：false
      */
     enableDraw: PropTypes.bool,
 
+    /**
+     * 配置需要开启的功能控件种类
+     */
+    drawControls: PropTypes.exact({
+        /**
+         * 用于设置是否为当前地图绘制控件开启点绘制功能
+         * 默认：true
+         */
+        point: PropTypes.bool,
+
+        /**
+         * 用于设置是否为当前地图绘制控件开启线绘制功能
+         * 默认：true
+         */
+        line_string: PropTypes.bool,
+
+        /**
+         * 用于设置是否为当前地图绘制控件开启面绘制功能
+         * 默认：true
+         */
+        polygon: PropTypes.bool,
+
+        /**
+         * 用于设置是否为当前地图绘制控件开启已绘制要素删除功能
+         * 默认：true
+         */
+        trash: PropTypes.bool,
+
+        /**
+         * 用于设置是否为当前地图绘制控件开启已绘制要素组合功能
+         * 默认：false
+         */
+        combine_features: PropTypes.bool,
+
+        /**
+         * 用于设置是否为当前地图绘制控件开启已绘制要素组合拆分功能
+         * 默认：false
+         */
+        uncombine_features: PropTypes.bool,
+    }),
+
+    /**
+     * 设置地图绘制控件显示方位
+     * 可选的有'top-right'、'top-left'、'bottom-right'、'bottom-left'
+     * 默认：'top-left'
+     */
+    drawControlsPosition: PropTypes.oneOf([
+        'top-right',
+        'top-left',
+        'bottom-right',
+        'bottom-left',
+    ]),
+
+    // 其他参数
     /**
      * 用于设置mapbox服务对应token
      */
@@ -611,6 +686,8 @@ MapContainer.defaultProps = {
     clickListenLayerIds: [],
     clickListenBoxSize: 5,
     enableDraw: false,
+    drawControls: ['point', 'line_string', 'polygon', 'trash'],
+    drawControlsPosition: 'top-left',
     interactive: true,
     workerCount: 2,
 };
