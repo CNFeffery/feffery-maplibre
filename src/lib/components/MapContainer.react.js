@@ -71,6 +71,7 @@ const MapContainer = (props) => {
         minPitch,
         maxPitch,
         maxBounds,
+        boxZoom,
         doubleClickZoom,
         dragRotate,
         dragPan,
@@ -199,6 +200,7 @@ const MapContainer = (props) => {
             minPitch={minPitch}
             maxPitch={maxPitch}
             maxBounds={maxBounds}
+            boxZoom={boxZoom}
             doubleClickZoom={doubleClickZoom}
             dragRotate={dragRotate}
             dragPan={dragPan}
@@ -275,6 +277,7 @@ const MapContainer = (props) => {
             {children}
             {enableDraw ? (
                 <DrawControl
+                    // boxSelect={false}
                     position="top-right"
                     displayControlsDefault={true}
                     controls={{
@@ -433,6 +436,13 @@ MapContainer.propTypes = {
     maxBounds: PropTypes.array,
 
     // 地图交互相关参数
+
+    /**
+     * 用于设置是否开启框选放大功能，开启后用户可按住shift用鼠标在地图上绘制方框进行快速放大
+     * 默认：false
+     */
+    boxZoom: PropTypes.bool,
+
     /**
      * 用于设置是否允许双击放大地图
      * 默认：true
@@ -591,6 +601,7 @@ MapContainer.defaultProps = {
     maxZoom: 22,
     minPitch: 0,
     maxPitch: 60,
+    boxZoom: false,
     doubleClickZoom: true,
     dragRotate: true,
     dragPan: true,

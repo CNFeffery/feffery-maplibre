@@ -128,6 +128,7 @@ app.layout = html.Div(
                     ],
                     clickListenBoxSize=5,
                     debounceWait=200,
+                    boxZoom=True,
                     locale={
                         'NavigationControl.ZoomIn': '放大地图',
                         'NavigationControl.ZoomOut': '缩小地图',
@@ -137,7 +138,7 @@ app.layout = html.Div(
                         'width': '50vw',
                         'height': 'calc(100vh - 100px)'
                     },
-                    enableDraw=True,
+                    # enableDraw=True,
                     # enableDeckGL=True
                 ),
                 html.Div(
