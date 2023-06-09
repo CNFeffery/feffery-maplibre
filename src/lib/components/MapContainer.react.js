@@ -1,16 +1,19 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable prefer-const */
 // react核心
-import React, {useEffect, useState, useCallback, useRef} from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import {Map as MapGL, useControl} from 'react-map-gl';
+import { Map as MapGL, useControl } from 'react-map-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 // import DeckGL from '@deck.gl/react';
 import maplibregl from 'maplibre-gl';
 // 其他第三方辅助
-import {useRequest} from 'ahooks';
+import { useRequest } from 'ahooks';
+import { bbox } from '@turf/bbox';
+import { intersect } from '@turf/intersect';
 // 依赖库相关样式
 import 'maplibre-gl/dist/maplibre-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -37,11 +40,65 @@ const defaultExactProps = {
 };
 
 const DrawControl = (props) => {
-    const {onCreate, onUpdate, onDelete, position} = props;
+    let drawRef = useRef(null);
+    const { position, drawOnlyOne } = props;
+    const [features, setFeatures] = useState({});
 
-    useControl(
+    const onUpdate = useCallback((e) => {
+        console.log('onUpdate');
+        console.log(e);
+        setFeatures((currFeatures) => {
+            const newFeatures = { ...currFeatures };
+            for (const f of e.features) {
+                newFeatures[f.id] = f;
+            }
+            return newFeatures;
+        });
+    }, []);
+
+    const onDelete = useCallback((e) => {
+        setFeatures((currFeatures) => {
+            const newFeatures = { ...currFeatures };
+            for (const f of e.features) {
+                delete newFeatures[f.id];
+            }
+            return newFeatures;
+        });
+    }, []);
+
+    const OnModeChange = useCallback(
+        (e) => {
+            if (
+                ['draw_polygon', 'draw_line_string', 'draw_point'].includes(
+                    e.mode
+                )
+            ) {
+                if (drawOnlyOne) {
+                    // 开始新的要素绘制之前清除先前已绘制要素
+                    let drawnFeatures = drawRef.getAll().features;
+                    // 取得最新添加的要素的id
+                    let latestDrawnFeatureId = drawnFeatures[drawnFeatures.length - 1].id;
+                    if (drawRef.getAll().features.length > 1) {
+                        drawRef.delete(
+                            drawRef
+                                .getAll()
+                                .features
+                                .map((feature) => feature.id)
+                                .filter(
+                                    (featureId) =>
+                                        featureId !== latestDrawnFeatureId
+                                )
+                        );
+                    }
+                }
+            }
+        },
+        [drawOnlyOne]
+    );
+
+    drawRef = useControl(
         () => new MapboxDraw(props),
-        ({map}) => {
+        ({ map }) => {
             // 强制修改绘制相关控件按钮的title信息为中文文案
             for (let titles of [
                 ['LineString tool (l)', '绘制线'],
@@ -55,15 +112,16 @@ const DrawControl = (props) => {
                     .querySelectorAll(`[title="${titles[0]}"]`)
                     .forEach((e) => e.setAttribute('title', titles[1]));
             }
-
-            map.on('draw.create', onCreate);
+            map.on('draw.create', onUpdate);
             map.on('draw.update', onUpdate);
             map.on('draw.delete', onDelete);
+            map.on('draw.modechange', OnModeChange);
         },
-        ({map}) => {
-            map.off('draw.create', onCreate);
+        ({ map }) => {
+            map.off('draw.create', onUpdate);
             map.off('draw.update', onUpdate);
             map.off('draw.delete', onDelete);
+            map.off('draw.modechange', OnModeChange);
         },
         {
             position: position,
@@ -105,6 +163,7 @@ const MapContainer = (props) => {
         enableDraw,
         drawControls,
         drawControlsPosition,
+        drawOnlyOne,
         mapboxAccessToken,
         locale,
         interactive,
@@ -112,28 +171,6 @@ const MapContainer = (props) => {
         debounceWait,
         setProps,
     } = props;
-
-    const [features, setFeatures] = useState({});
-
-    const onUpdate = useCallback((e) => {
-        setFeatures((currFeatures) => {
-            const newFeatures = {...currFeatures};
-            for (const f of e.features) {
-                newFeatures[f.id] = f;
-            }
-            return newFeatures;
-        });
-    }, []);
-
-    const onDelete = useCallback((e) => {
-        setFeatures((currFeatures) => {
-            const newFeatures = {...currFeatures};
-            for (const f of e.features) {
-                delete newFeatures[f.id];
-            }
-            return newFeatures;
-        });
-    }, []);
 
     // 地图ref
     const mapRef = useRef(null);
@@ -172,7 +209,7 @@ const MapContainer = (props) => {
             bearing: Number(e.viewState.bearing.toFixed(3)),
         });
     };
-    const {run: listenViewStateDebounce} = useRequest(
+    const { run: listenViewStateDebounce } = useRequest(
         (e) => {
             setProps({
                 longitudeDebounce: Number(e.viewState.longitude.toFixed(6)),
@@ -187,9 +224,8 @@ const MapContainer = (props) => {
             manual: true,
         }
     );
-    const {run: listenSourceLayerLoad} = useRequest(
+    const { run: listenSourceLayerLoad } = useRequest(
         () => {
-            console.log(mapRef.current.getStyle());
             setProps({
                 loadedSources: mapRef.current.getStyle().sources,
                 loadedLayers: mapRef.current.getStyle().layers,
@@ -307,9 +343,7 @@ const MapContainer = (props) => {
                         ...defaultExactProps.drawControls,
                         ...drawControls,
                     }}
-                    onCreate={onUpdate}
-                    onUpdate={onUpdate}
-                    onDelete={onDelete}
+                    drawOnlyOne={drawOnlyOne}
                 />
             ) : null}
         </MapGL>
@@ -572,6 +606,12 @@ MapContainer.propTypes = {
         'bottom-left',
     ]),
 
+    /**
+     * 设置是否在每次点击相应绘制功能按钮后清空先前的已绘制要素，从而确保同时最多存在一个已绘制要素
+     * 默认：false
+     */
+    drawOnlyOne: PropTypes.bool,
+
     // 其他参数
     /**
      * 用于设置mapbox服务对应token
@@ -686,8 +726,8 @@ MapContainer.defaultProps = {
     clickListenLayerIds: [],
     clickListenBoxSize: 5,
     enableDraw: false,
-    drawControls: ['point', 'line_string', 'polygon', 'trash'],
     drawControlsPosition: 'top-left',
+    drawOnlyOne: false,
     interactive: true,
     workerCount: 2,
 };

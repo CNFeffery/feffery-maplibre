@@ -139,6 +139,7 @@ app.layout = html.Div(
                         'height': 'calc(100% - 40px)'
                     },
                     enableDraw=True,
+                    drawOnlyOne=True
                     # enableDeckGL=True
                 ),
                 html.Div(
