@@ -139,7 +139,15 @@ app.layout = html.Div(
                         'height': 'calc(100% - 40px)'
                     },
                     enableDraw=True,
-                    # drawOnlyOne=True
+                    drawOnlyOne=True,
+                    enableDrawSpatialJudge=True,
+                    drawSpatialJudgeListenLayerIds=[
+                        'mapbox-demo-layer-landuse',
+                        'mapbox-demo-country_label',
+                        'mapbox-demo-admin',
+                        'mapbox-demo-water',
+                        'mapbox-demo-road',
+                    ],
                     # enableDeckGL=True
                 ),
                 html.Div(

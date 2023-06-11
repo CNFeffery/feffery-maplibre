@@ -12,8 +12,10 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import maplibregl from 'maplibre-gl';
 // 其他第三方辅助
 import { useRequest } from 'ahooks';
-import { bbox } from '@turf/bbox';
-import { intersect } from '@turf/intersect';
+import bbox from '@turf/bbox';
+import disjoint from '@turf/boolean-disjoint';
+import contains from '@turf/boolean-contains';
+import isNull from 'lodash/isNull';
 // 依赖库相关样式
 import 'maplibre-gl/dist/maplibre-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -41,10 +43,65 @@ const defaultExactProps = {
 
 const DrawControl = (props) => {
     let drawRef = useRef(null);
-    const { position, drawOnlyOne, setProps, mapRef } = props;
-    const [features, setFeatures] = useState({});
+    const {
+        position,
+        drawOnlyOne,
+        enableDrawSpatialJudge,
+        drawSpatialJudgeListenLayerIds,
+        setProps,
+        mapRef
+    } = props;
 
     const onUpdate = useCallback((e) => {
+
+        // 提取最新绘制的面要素
+        let _drawnFeatures = drawRef.getAll().features;
+        let latestDrawnFeature = _drawnFeatures[_drawnFeatures.length - 1];
+
+        // 若最近绘制的要素类型为多边形
+        if (enableDrawSpatialJudge && drawSpatialJudgeListenLayerIds.length > 0 && latestDrawnFeature.geometry.type === 'Polygon') {
+            // 则计算求得与之相交的其他要素
+            // 取得绘制面要素的box范围
+            let polygonBoundingBox = bbox(latestDrawnFeature);
+            // 计算box对应关键坐标
+            let southWest = [polygonBoundingBox[0], polygonBoundingBox[1]];
+            let northEast = [polygonBoundingBox[2], polygonBoundingBox[3]];
+
+            // 计算对应的再投影空间范围
+            let northEastPointPixel = mapRef.current.project(northEast);
+            let southWestPointPixel = mapRef.current.project(southWest);
+
+            // 基于地图像素范围的粗略查询过滤
+            let roughMatchFeatures = mapRef.current.queryRenderedFeatures(
+                [southWestPointPixel, northEastPointPixel],
+                { layers: drawSpatialJudgeListenLayerIds }
+            );
+
+            // 基于相交关系运算保留实际发生相交的图层要素
+            roughMatchFeatures = roughMatchFeatures.filter(
+                (feature) => disjoint(feature, latestDrawnFeature)
+            )
+
+            setProps({
+                // 更新与已绘制矢量实际发生相交的图层要素信息
+                drawSpatialJudgeListenLayerFeatures: roughMatchFeatures.map((e) => {
+                    return {
+                        layer: {
+                            id: e.layer.id,
+                            source: e.layer.source,
+                            sourceLayer: e.layer['source-layer'],
+                            type: e.layer.type,
+                        },
+                        properties: e.properties,
+                        source: e.properties,
+                        sourceLayer: e.sourceLayer,
+                        type: e.type,
+                        _geometry: e._geometry
+                    };
+                }),
+            });
+        }
+
         // 更新最新的已绘制要素数组到drawnFeatures中
         setProps({
             drawnFeatures: [...drawRef.getAll().features]
@@ -155,6 +212,8 @@ const MapContainer = (props) => {
         drawControls,
         drawControlsPosition,
         drawOnlyOne,
+        enableDrawSpatialJudge,
+        drawSpatialJudgeListenLayerIds,
         mapboxAccessToken,
         locale,
         interactive,
@@ -307,7 +366,7 @@ const MapContainer = (props) => {
                                 properties: e.properties,
                                 source: e.properties,
                                 sourceLayer: e.sourceLayer,
-                                type: e.type,
+                                type: e.type
                             };
                         }),
                     });
@@ -335,6 +394,8 @@ const MapContainer = (props) => {
                         ...drawControls,
                     }}
                     drawOnlyOne={drawOnlyOne}
+                    enableDrawSpatialJudge={enableDrawSpatialJudge}
+                    drawSpatialJudgeListenLayerIds={drawSpatialJudgeListenLayerIds}
                     setProps={setProps}
                     mapRef={mapRef}
                 />
@@ -610,6 +671,23 @@ MapContainer.propTypes = {
      */
     drawnFeatures: PropTypes.array,
 
+    /**
+     * 当drawOnlyOne为true时生效，用于设置是否以绘制的面要素为范围，计算与之存在拓扑关联的其他图层要素
+     * 默认：false
+     */
+    enableDrawSpatialJudge: PropTypes.bool,
+
+    /**
+     * 设置通过要素绘制空间关系判断需要监听的目标图层id数组
+     * 默认：[]
+     */
+    drawSpatialJudgeListenLayerIds: PropTypes.array,
+
+    /**
+    * 用于监听最近一次已绘制面要素对应drawSpatialJudgeListenLayerIds所查询到的相关图层要素信息
+    */
+    drawSpatialJudgeListenLayerFeatures: PropTypes.array,
+
     // 其他参数
     /**
      * 用于设置mapbox服务对应token
@@ -726,6 +804,8 @@ MapContainer.defaultProps = {
     enableDraw: false,
     drawControlsPosition: 'top-left',
     drawOnlyOne: false,
+    enableDrawSpatialJudge: false,
+    drawSpatialJudgeListenLayerIds: [],
     interactive: true,
     workerCount: 2,
 };
