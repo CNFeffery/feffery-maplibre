@@ -15,6 +15,8 @@ import { useRequest } from 'ahooks';
 import bbox from '@turf/bbox';
 import intersects from '@turf/boolean-intersects';
 import contains from '@turf/boolean-contains';
+import pickBy from 'lodash/pickBy';
+import omitBy from 'lodash/omitBy';
 // 依赖库相关样式
 import 'maplibre-gl/dist/maplibre-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -40,10 +42,38 @@ const defaultExactProps = {
     },
 };
 
+// 定义文案信息默认值
+const defaultLocaleInfo = {
+    'zh-cn': {
+        'NavigationControl.ZoomIn': '放大地图',
+        'NavigationControl.ZoomOut': '缩小地图',
+        'NavigationControl.ResetBearing': '重置地图角度',
+        'DrawControl.LineStringTool': '绘制线',
+        'DrawControl.PolygonTool': '绘制面',
+        'DrawControl.MarkerTool': '绘制点',
+        'DrawControl.Delete': '删除',
+        'DrawControl.Combine': '组合',
+        'DrawControl.Uncombine': '取消组合',
+    },
+    'en-us': {
+        'NavigationControl.ZoomIn': 'Zoom in',
+        'NavigationControl.ZoomOut': 'Zoom out',
+        'NavigationControl.ResetBearing': 'Reset bearing',
+        'DrawControl.LineStringTool': 'Draw linestring',
+        'DrawControl.PolygonTool': 'Draw polygon',
+        'DrawControl.MarkerTool': 'Draw marker',
+        'DrawControl.Delete': 'Delete',
+        'DrawControl.Combine': 'Combine',
+        'DrawControl.Uncombine': 'Uncombine',
+    }
+}
+
 const DrawControl = (props) => {
     let drawRef = useRef(null);
     const {
         position,
+        locale,
+        localeInfo,
         drawOnlyOne,
         enableDrawSpatialJudge,
         drawSpatialJudgePredicate,
@@ -155,14 +185,51 @@ const DrawControl = (props) => {
     drawRef = useControl(
         () => new MapboxDraw(props),
         ({ map }) => {
-            // 强制修改绘制相关控件按钮的title信息为中文文案
+            // 强制修改绘制相关控件按钮的title信息为locale相关参数所设定的文案
+            // 若用户未设置localeInfo相关文案信息，则根据当前locale情况设置相应的缺省值
             for (let titles of [
-                ['LineString tool (l)', '绘制线'],
-                ['Polygon tool (p)', '绘制面'],
-                ['Marker tool (m)', '绘制点'],
-                ['Delete', '删除'],
-                ['Combine', '组合'],
-                ['Uncombine', '绘制点'],
+                [
+                    'LineString tool (l)',
+                    (
+                        localeInfo['DrawControl.LineStringTool'] ||
+                        defaultLocaleInfo[locale]['DrawControl.LineStringTool']
+                    )
+                ],
+                [
+                    'Polygon tool (p)',
+                    (
+                        localeInfo['DrawControl.PolygonTool'] ||
+                        defaultLocaleInfo[locale]['DrawControl.PolygonTool']
+                    )
+                ],
+                [
+                    'Marker tool (m)',
+                    (
+                        localeInfo['DrawControl.MarkerTool'] ||
+                        defaultLocaleInfo[locale]['DrawControl.MarkerTool']
+                    )
+                ],
+                [
+                    'Delete',
+                    (
+                        localeInfo['DrawControl.Delete'] ||
+                        defaultLocaleInfo[locale]['DrawControl.Delete']
+                    )
+                ],
+                [
+                    'Combine',
+                    (
+                        localeInfo['DrawControl.Combine'] ||
+                        defaultLocaleInfo[locale]['DrawControl.Combine']
+                    )
+                ],
+                [
+                    'Uncombine',
+                    (
+                        localeInfo['DrawControl.Uncombine'] ||
+                        defaultLocaleInfo[locale]['DrawControl.Uncombine']
+                    )
+                ],
             ]) {
                 document
                     .querySelectorAll(`[title="${titles[0]}"]`)
@@ -225,6 +292,7 @@ const MapContainer = (props) => {
         drawSpatialJudgeListenLayerIds,
         mapboxAccessToken,
         locale,
+        localeInfo,
         interactive,
         workerCount,
         debounceWait,
@@ -327,7 +395,13 @@ const MapContainer = (props) => {
             scrollZoom={scrollZoom}
             touchPitch={touchPitch}
             mapboxAccessToken={mapboxAccessToken}
-            locale={locale}
+            locale={
+                // 去除DrawControl相关键值对属性
+                {
+                    ...omitBy(defaultLocaleInfo[locale], (v, k) => k.startsWith('DrawControl')),
+                    ...omitBy(localeInfo, (v, k) => k.startsWith('DrawControl'))
+                }
+            }
             interactive={interactive}
             workerCount={workerCount}
             // 事件监听
@@ -402,6 +476,8 @@ const MapContainer = (props) => {
                         ...defaultExactProps.drawControls,
                         ...drawControls,
                     }}
+                    locale={locale}
+                    localeInfo={localeInfo}
                     drawOnlyOne={drawOnlyOne}
                     enableDrawSpatialJudge={enableDrawSpatialJudge}
                     drawSpatialJudgePredicate={drawSpatialJudgePredicate}
@@ -712,10 +788,26 @@ MapContainer.propTypes = {
     mapboxAccessToken: PropTypes.string,
 
     /**
-     * 自定义常用文案信息
-     * 参考资料：https://github.com/maplibre/maplibre-gl-js/blob/main/src/ui/default_locale.ts
+     * 设置语言类型，可选的有'zh-cn'（简体中文）、'en-us'（英文）
+     * 默认：'zh-cn'
      */
-    locale: PropTypes.object,
+    locale: PropTypes.oneOf(['zh-cn', 'en-us']),
+
+    /**
+     * 自定义常用文案信息
+     * 具体可设置文案键值对：
+     * - NavigationControl.ZoomIn
+     * - NavigationControl.ZoomOut
+     * - NavigationControl.ResetBearing
+     * - DrawControl.LineStringTool
+     * - DrawControl.PolygonTool
+     * - DrawControl.MarkerTool
+     * - DrawControl.Delete
+     * - DrawControl.Combine
+     * - DrawControl.Uncombine
+     * 其他参考资料：https://github.com/maplibre/maplibre-gl-js/blob/main/src/ui/default_locale.ts
+     */
+    localeInfo: PropTypes.object,
 
     /**
      * 设置是否开启地图交互事件监听功能
@@ -824,6 +916,8 @@ MapContainer.defaultProps = {
     enableDrawSpatialJudge: false,
     drawSpatialJudgePredicate: 'intersects',
     drawSpatialJudgeListenLayerIds: [],
+    locale: 'zh-cn',
+    localeInfo: {},
     interactive: true,
     workerCount: 2,
 };

@@ -130,16 +130,16 @@ app.layout = html.Div(
                     clickListenBoxSize=5,
                     debounceWait=200,
                     boxZoom=True,
-                    locale={
-                        'NavigationControl.ZoomIn': '放大地图',
-                        'NavigationControl.ZoomOut': '缩小地图',
-                        'NavigationControl.ResetBearing': '重置地图角度'
-                    },
                     style={
                         'width': '100%',
                         'height': 'calc(100% - 40px)'
                     },
+                    # locale='en-us', # 默认'zh-cn'
                     enableDraw=True,
+                    drawControls={
+                        'point': False,
+                        'line_string': False
+                    },
                     drawOnlyOne=True,
                     enableDrawSpatialJudge=True,
                     drawSpatialJudgeListenLayerIds=[
