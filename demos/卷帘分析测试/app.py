@@ -64,6 +64,9 @@ app.layout = html.Div(
                 [
                     fm.Source(
                         [
+                            fm.NavigationControl(
+                                visualizePitch=True
+                            ),
                             fm.Layer(
                                 id='mapbox-demo-water',
                                 layerProps={
@@ -71,6 +74,17 @@ app.layout = html.Div(
                                     'type': 'fill',
                                     'paint': {
                                         'fill-color': '#c5f6fa'
+                                    }
+                                },
+                                hoverCursor='pointer'
+                            ),
+                            fm.Layer(
+                                id='mapbox-demo-road',
+                                layerProps={
+                                    'source-layer': 'road',
+                                    'type': 'line',
+                                    'paint': {
+                                        'line-color': '#91a7ff'
                                     }
                                 },
                                 hoverCursor='pointer'
@@ -113,10 +127,8 @@ app.layout = html.Div(
             boundsPadding=100,
             buttonStyle={
                 'width': 32,
-                'height': 32
-            },
-            rootStyle={
-                'color': '#868e96'
+                'height': 32,
+                'background': '#4dabf7'
             }
         )
     ],

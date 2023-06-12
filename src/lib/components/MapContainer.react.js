@@ -154,6 +154,7 @@ const DrawControl = (props) => {
     }, []);
 
     const onDelete = useCallback((e) => {
+        console.log(mapRef.current)
     }, []);
 
     const OnModeChange = useCallback(
@@ -345,12 +346,20 @@ const MapContainer = (props) => {
     };
     const { run: listenViewStateDebounce } = useRequest(
         (e) => {
+            // 获取最新的底图bounds范围
+            let currentBounds = mapRef.current.getBounds()
             setProps({
                 longitudeDebounce: Number(e.viewState.longitude.toFixed(6)),
                 latitudeDebounce: Number(e.viewState.latitude.toFixed(6)),
                 zoomDebounce: Number(e.viewState.zoom.toFixed(3)),
                 pitchDebounce: Number(e.viewState.pitch.toFixed(3)),
                 bearingDebounce: Number(e.viewState.bearing.toFixed(3)),
+                boundsDebounce: [
+                    currentBounds._sw.lng,
+                    currentBounds._sw.lat,
+                    currentBounds._ne.lng,
+                    currentBounds._ne.lat
+                ]
             });
         },
         {
@@ -875,24 +884,30 @@ MapContainer.propTypes = {
     longitudeDebounce: PropTypes.number,
 
     /**
-     * 防抖监听参数，用于设置或监听当前地图中心点纬度
+     * 防抖监听参数，用于监听当前地图中心点纬度
      */
     latitudeDebounce: PropTypes.number,
 
     /**
-     * 防抖监听参数，用于设置或监听当前地图缩放级别
+     * 防抖监听参数，用于监听当前地图缩放级别
      */
     zoomDebounce: PropTypes.number,
 
     /**
-     * 防抖监听参数，用于设置或监听当前地图倾斜角度
+     * 防抖监听参数，用于监听当前地图倾斜角度
      */
     pitchDebounce: PropTypes.number,
 
     /**
-     * 防抖监听参数，用于设置或监听当前地图旋转角度
+     * 防抖监听参数，用于监听当前地图旋转角度
      */
     bearingDebounce: PropTypes.number,
+
+    /**
+     * 防抖监听参数，用于监听当前地图坐标范围
+     * 格式为[经度下限, 纬度下限, 经度上限, 纬度上限]
+     */
+    boundsDebounce: PropTypes.array,
 
     /**
      * Dash-assigned callback that should be called to report property changes

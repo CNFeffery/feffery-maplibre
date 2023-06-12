@@ -6,6 +6,7 @@ from .Layer import Layer
 from .MapContainer import MapContainer
 from .Source import Source
 from .HandleRawMap import HandleRawMap
+from .MapAction import MapAction
 
 __all__ = [
     "NavigationControl",
@@ -15,5 +16,6 @@ __all__ = [
     "Layer",
     "MapContainer",
     "Source",
-    "HandleRawMap"
+    "HandleRawMap",
+    "MapAction"
 ]

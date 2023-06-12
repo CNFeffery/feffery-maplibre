@@ -19,7 +19,10 @@ Keyword arguments:
     受控参数，用于设置或监听当前地图旋转角度.
 
 - bearingDebounce (number; optional):
-    防抖监听参数，用于设置或监听当前地图旋转角度.
+    防抖监听参数，用于监听当前地图旋转角度.
+
+- boundsDebounce (list; optional):
+    防抖监听参数，用于监听当前地图坐标范围  格式为[经度下限, 纬度下限, 经度上限, 纬度上限].
 
 - boxZoom (boolean; default False):
     用于设置是否开启框选放大功能，开启后用户可按住shift用鼠标在地图上绘制方框进行快速放大  默认：False.
@@ -152,7 +155,7 @@ Keyword arguments:
     受控参数，用于设置或监听当前地图中心点纬度.
 
 - latitudeDebounce (number; optional):
-    防抖监听参数，用于设置或监听当前地图中心点纬度.
+    防抖监听参数，用于监听当前地图中心点纬度.
 
 - loadedLayers (list; optional):
     用于监听最近一次图层加载事件后全部图层信息.
@@ -203,7 +206,7 @@ Keyword arguments:
     受控参数，用于设置或监听当前地图倾斜角度.
 
 - pitchDebounce (number; optional):
-    防抖监听参数，用于设置或监听当前地图倾斜角度.
+    防抖监听参数，用于监听当前地图倾斜角度.
 
 - renderWorldCopies (boolean; default True):
     设置世界范围是否允许重复  默认：True.
@@ -224,16 +227,16 @@ Keyword arguments:
     受控参数，用于设置或监听当前地图缩放级别.
 
 - zoomDebounce (number; optional):
-    防抖监听参数，用于设置或监听当前地图缩放级别."""
+    防抖监听参数，用于监听当前地图缩放级别."""
     _children_props = []
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'MapContainer'
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, cursor=Component.UNDEFINED, mapStyle=Component.UNDEFINED, renderWorldCopies=Component.UNDEFINED, initialViewState=Component.UNDEFINED, longitude=Component.UNDEFINED, latitude=Component.UNDEFINED, zoom=Component.UNDEFINED, pitch=Component.UNDEFINED, bearing=Component.UNDEFINED, minZoom=Component.UNDEFINED, maxZoom=Component.UNDEFINED, minPitch=Component.UNDEFINED, maxPitch=Component.UNDEFINED, maxBounds=Component.UNDEFINED, boxZoom=Component.UNDEFINED, doubleClickZoom=Component.UNDEFINED, dragRotate=Component.UNDEFINED, dragPan=Component.UNDEFINED, keyboard=Component.UNDEFINED, scrollZoom=Component.UNDEFINED, touchPitch=Component.UNDEFINED, clickListenLayerIds=Component.UNDEFINED, clickListenBoxSize=Component.UNDEFINED, enableDraw=Component.UNDEFINED, drawControls=Component.UNDEFINED, drawControlsPosition=Component.UNDEFINED, drawOnlyOne=Component.UNDEFINED, drawnFeatures=Component.UNDEFINED, enableDrawSpatialJudge=Component.UNDEFINED, drawSpatialJudgePredicate=Component.UNDEFINED, drawSpatialJudgeListenLayerIds=Component.UNDEFINED, drawSpatialJudgeListenLayerFeatures=Component.UNDEFINED, mapboxAccessToken=Component.UNDEFINED, locale=Component.UNDEFINED, localeInfo=Component.UNDEFINED, interactive=Component.UNDEFINED, workerCount=Component.UNDEFINED, clickedLngLat=Component.UNDEFINED, clickListenLayerFeatures=Component.UNDEFINED, loadedSources=Component.UNDEFINED, loadedLayers=Component.UNDEFINED, debounceWait=Component.UNDEFINED, longitudeDebounce=Component.UNDEFINED, latitudeDebounce=Component.UNDEFINED, zoomDebounce=Component.UNDEFINED, pitchDebounce=Component.UNDEFINED, bearingDebounce=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'bearing', 'bearingDebounce', 'boxZoom', 'clickListenBoxSize', 'clickListenLayerFeatures', 'clickListenLayerIds', 'clickedLngLat', 'cursor', 'debounceWait', 'doubleClickZoom', 'dragPan', 'dragRotate', 'drawControls', 'drawControlsPosition', 'drawOnlyOne', 'drawSpatialJudgeListenLayerFeatures', 'drawSpatialJudgeListenLayerIds', 'drawSpatialJudgePredicate', 'drawnFeatures', 'enableDraw', 'enableDrawSpatialJudge', 'initialViewState', 'interactive', 'key', 'keyboard', 'latitude', 'latitudeDebounce', 'loadedLayers', 'loadedSources', 'locale', 'localeInfo', 'longitude', 'longitudeDebounce', 'mapStyle', 'mapboxAccessToken', 'maxBounds', 'maxPitch', 'maxZoom', 'minPitch', 'minZoom', 'pitch', 'pitchDebounce', 'renderWorldCopies', 'scrollZoom', 'style', 'touchPitch', 'workerCount', 'zoom', 'zoomDebounce']
+    def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, cursor=Component.UNDEFINED, mapStyle=Component.UNDEFINED, renderWorldCopies=Component.UNDEFINED, initialViewState=Component.UNDEFINED, longitude=Component.UNDEFINED, latitude=Component.UNDEFINED, zoom=Component.UNDEFINED, pitch=Component.UNDEFINED, bearing=Component.UNDEFINED, minZoom=Component.UNDEFINED, maxZoom=Component.UNDEFINED, minPitch=Component.UNDEFINED, maxPitch=Component.UNDEFINED, maxBounds=Component.UNDEFINED, boxZoom=Component.UNDEFINED, doubleClickZoom=Component.UNDEFINED, dragRotate=Component.UNDEFINED, dragPan=Component.UNDEFINED, keyboard=Component.UNDEFINED, scrollZoom=Component.UNDEFINED, touchPitch=Component.UNDEFINED, clickListenLayerIds=Component.UNDEFINED, clickListenBoxSize=Component.UNDEFINED, enableDraw=Component.UNDEFINED, drawControls=Component.UNDEFINED, drawControlsPosition=Component.UNDEFINED, drawOnlyOne=Component.UNDEFINED, drawnFeatures=Component.UNDEFINED, enableDrawSpatialJudge=Component.UNDEFINED, drawSpatialJudgePredicate=Component.UNDEFINED, drawSpatialJudgeListenLayerIds=Component.UNDEFINED, drawSpatialJudgeListenLayerFeatures=Component.UNDEFINED, mapboxAccessToken=Component.UNDEFINED, locale=Component.UNDEFINED, localeInfo=Component.UNDEFINED, interactive=Component.UNDEFINED, workerCount=Component.UNDEFINED, clickedLngLat=Component.UNDEFINED, clickListenLayerFeatures=Component.UNDEFINED, loadedSources=Component.UNDEFINED, loadedLayers=Component.UNDEFINED, debounceWait=Component.UNDEFINED, longitudeDebounce=Component.UNDEFINED, latitudeDebounce=Component.UNDEFINED, zoomDebounce=Component.UNDEFINED, pitchDebounce=Component.UNDEFINED, bearingDebounce=Component.UNDEFINED, boundsDebounce=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'bearing', 'bearingDebounce', 'boundsDebounce', 'boxZoom', 'clickListenBoxSize', 'clickListenLayerFeatures', 'clickListenLayerIds', 'clickedLngLat', 'cursor', 'debounceWait', 'doubleClickZoom', 'dragPan', 'dragRotate', 'drawControls', 'drawControlsPosition', 'drawOnlyOne', 'drawSpatialJudgeListenLayerFeatures', 'drawSpatialJudgeListenLayerIds', 'drawSpatialJudgePredicate', 'drawnFeatures', 'enableDraw', 'enableDrawSpatialJudge', 'initialViewState', 'interactive', 'key', 'keyboard', 'latitude', 'latitudeDebounce', 'loadedLayers', 'loadedSources', 'locale', 'localeInfo', 'longitude', 'longitudeDebounce', 'mapStyle', 'mapboxAccessToken', 'maxBounds', 'maxPitch', 'maxZoom', 'minPitch', 'minZoom', 'pitch', 'pitchDebounce', 'renderWorldCopies', 'scrollZoom', 'style', 'touchPitch', 'workerCount', 'zoom', 'zoomDebounce']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['children', 'id', 'bearing', 'bearingDebounce', 'boxZoom', 'clickListenBoxSize', 'clickListenLayerFeatures', 'clickListenLayerIds', 'clickedLngLat', 'cursor', 'debounceWait', 'doubleClickZoom', 'dragPan', 'dragRotate', 'drawControls', 'drawControlsPosition', 'drawOnlyOne', 'drawSpatialJudgeListenLayerFeatures', 'drawSpatialJudgeListenLayerIds', 'drawSpatialJudgePredicate', 'drawnFeatures', 'enableDraw', 'enableDrawSpatialJudge', 'initialViewState', 'interactive', 'key', 'keyboard', 'latitude', 'latitudeDebounce', 'loadedLayers', 'loadedSources', 'locale', 'localeInfo', 'longitude', 'longitudeDebounce', 'mapStyle', 'mapboxAccessToken', 'maxBounds', 'maxPitch', 'maxZoom', 'minPitch', 'minZoom', 'pitch', 'pitchDebounce', 'renderWorldCopies', 'scrollZoom', 'style', 'touchPitch', 'workerCount', 'zoom', 'zoomDebounce']
+        self.available_properties = ['children', 'id', 'bearing', 'bearingDebounce', 'boundsDebounce', 'boxZoom', 'clickListenBoxSize', 'clickListenLayerFeatures', 'clickListenLayerIds', 'clickedLngLat', 'cursor', 'debounceWait', 'doubleClickZoom', 'dragPan', 'dragRotate', 'drawControls', 'drawControlsPosition', 'drawOnlyOne', 'drawSpatialJudgeListenLayerFeatures', 'drawSpatialJudgeListenLayerIds', 'drawSpatialJudgePredicate', 'drawnFeatures', 'enableDraw', 'enableDrawSpatialJudge', 'initialViewState', 'interactive', 'key', 'keyboard', 'latitude', 'latitudeDebounce', 'loadedLayers', 'loadedSources', 'locale', 'localeInfo', 'longitude', 'longitudeDebounce', 'mapStyle', 'mapboxAccessToken', 'maxBounds', 'maxPitch', 'maxZoom', 'minPitch', 'minZoom', 'pitch', 'pitchDebounce', 'renderWorldCopies', 'scrollZoom', 'style', 'touchPitch', 'workerCount', 'zoom', 'zoomDebounce']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

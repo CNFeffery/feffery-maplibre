@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable prefer-const */
 // react核心
@@ -42,10 +43,12 @@ const Layer = (props) => {
     // 在当前Layer组件卸载时从map实例中移除当前组件id指向的图层
     useEffect(() => {
         return () => {
-            if (map && map.getLayer && map.getLayer(id) && map.removeLayer) {
-                // 移除当前组件id指向的图层
-                map.removeLayer(id);
-            }
+            try {
+                if (map && map?.getLayer(id)) {
+                    // 移除当前组件id指向的图层
+                    map.removeLayer(id);
+                }
+            } catch (error) { }
         };
     }, []);
 

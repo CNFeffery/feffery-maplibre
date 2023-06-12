@@ -35,7 +35,7 @@ const HandleRawMap = (props) => {
 HandleRawMap.propTypes = {
     // 基础参数
     /**
-     * 必填，用于唯一标识当前图层
+     * 必填，用于唯一标识当前组件
      */
     id: PropTypes.string.isRequired,
 

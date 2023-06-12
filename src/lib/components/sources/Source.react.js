@@ -1,31 +1,34 @@
+/* eslint-disable no-empty */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable prefer-const */
 // react核心
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import {Source as _Source, useMap} from 'react-map-gl';
+import { Source as _Source, useMap } from 'react-map-gl';
 // 上下文管理器
 import SourceContext from '../../contexts/SourceContext';
 
 const Source = (props) => {
-    const {id, children, key, sourceProps, setProps} = props;
+    const { id, children, key, sourceProps, setProps } = props;
 
     // 取得传递的地图实例
-    const {current: map} = useMap();
+    const { current: map } = useMap();
 
     // 在当前Source组件卸载时从map实例中移除当前组件id指向的图层源
     useEffect(() => {
         return () => {
-            if (map && map.getSource && map.getSource(id) && map.removeSource) {
-                // 移除当前组件id指向的图层源
-                map.removeSource(id);
-            }
+            try {
+                if (map && map?.getSource(id)) {
+                    // 移除当前组件id指向的图层源
+                    map.removeSource(id);
+                }
+            } catch (error) { }
         };
     }, []);
 
     return (
-        <SourceContext.Provider value={{sourceId: id}}>
+        <SourceContext.Provider value={{ sourceId: id }}>
             <_Source id={id} key={key} {...sourceProps}>
                 {children}
             </_Source>
