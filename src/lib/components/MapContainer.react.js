@@ -3,7 +3,7 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable prefer-const */
 // react核心
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
 import { Map as MapGL, useControl } from 'react-map-gl';
@@ -15,7 +15,6 @@ import { useRequest } from 'ahooks';
 import bbox from '@turf/bbox';
 import intersects from '@turf/boolean-intersects';
 import contains from '@turf/boolean-contains';
-import pickBy from 'lodash/pickBy';
 import omitBy from 'lodash/omitBy';
 // 依赖库相关样式
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -110,9 +109,17 @@ const DrawControl = (props) => {
             // 基于相交关系运算保留实际发生相交的图层要素
             roughMatchFeatures = roughMatchFeatures.filter(
                 // 根据drawSpatialJudgePredicate对应的拓扑关系类型进行判断
-                (feature) => drawSpatialJudgePredicate === 'intersects' ?
-                    intersects(latestDrawnFeature, feature) :
-                    contains(latestDrawnFeature, feature)
+                (feature) => {
+                    try {
+                        return drawSpatialJudgePredicate === 'intersects' ?
+                            intersects(latestDrawnFeature, feature) :
+                            contains(latestDrawnFeature, feature);
+                    } catch (e) {
+                        // TEMP
+                        // 针对多部件线要素等特殊的turf.contains()拓扑判断不支持问题进行暂时忽略
+                        return false;
+                    }
+                }
             )
 
             setProps({
