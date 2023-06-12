@@ -13,9 +13,8 @@ import maplibregl from 'maplibre-gl';
 // 其他第三方辅助
 import { useRequest } from 'ahooks';
 import bbox from '@turf/bbox';
-import disjoint from '@turf/boolean-disjoint';
+import intersects from '@turf/boolean-intersects';
 import contains from '@turf/boolean-contains';
-import isNull from 'lodash/isNull';
 // 依赖库相关样式
 import 'maplibre-gl/dist/maplibre-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -47,6 +46,7 @@ const DrawControl = (props) => {
         position,
         drawOnlyOne,
         enableDrawSpatialJudge,
+        drawSpatialJudgePredicate,
         drawSpatialJudgeListenLayerIds,
         setProps,
         mapRef
@@ -79,7 +79,10 @@ const DrawControl = (props) => {
 
             // 基于相交关系运算保留实际发生相交的图层要素
             roughMatchFeatures = roughMatchFeatures.filter(
-                (feature) => disjoint(feature, latestDrawnFeature)
+                // 根据drawSpatialJudgePredicate对应的拓扑关系类型进行判断
+                (feature) => drawSpatialJudgePredicate === 'intersects' ?
+                    intersects(latestDrawnFeature, feature) :
+                    contains(latestDrawnFeature, feature)
             )
 
             setProps({
@@ -99,6 +102,11 @@ const DrawControl = (props) => {
                         _geometry: e._geometry
                     };
                 }),
+            });
+        } else {
+            setProps({
+                // 其他情况下，重置为[]
+                drawSpatialJudgeListenLayerFeatures: [],
             });
         }
 
@@ -213,6 +221,7 @@ const MapContainer = (props) => {
         drawControlsPosition,
         drawOnlyOne,
         enableDrawSpatialJudge,
+        drawSpatialJudgePredicate,
         drawSpatialJudgeListenLayerIds,
         mapboxAccessToken,
         locale,
@@ -395,6 +404,7 @@ const MapContainer = (props) => {
                     }}
                     drawOnlyOne={drawOnlyOne}
                     enableDrawSpatialJudge={enableDrawSpatialJudge}
+                    drawSpatialJudgePredicate={drawSpatialJudgePredicate}
                     drawSpatialJudgeListenLayerIds={drawSpatialJudgeListenLayerIds}
                     setProps={setProps}
                     mapRef={mapRef}
@@ -678,6 +688,13 @@ MapContainer.propTypes = {
     enableDrawSpatialJudge: PropTypes.bool,
 
     /**
+     * 用于设置已绘制面要素与其他图层拓扑关联所依据的类型
+     * 可选的有'intersects'（相交）、'contains'（包含）
+     * 默认：'intersects'
+     */
+    drawSpatialJudgePredicate: PropTypes.oneOf(['intersects', 'contains']),
+
+    /**
      * 设置通过要素绘制空间关系判断需要监听的目标图层id数组
      * 默认：[]
      */
@@ -805,6 +822,7 @@ MapContainer.defaultProps = {
     drawControlsPosition: 'top-left',
     drawOnlyOne: false,
     enableDrawSpatialJudge: false,
+    drawSpatialJudgePredicate: 'intersects',
     drawSpatialJudgeListenLayerIds: [],
     interactive: true,
     workerCount: 2,

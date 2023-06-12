@@ -1,5 +1,6 @@
 import uuid
 import json
+import dash
 import random
 import feffery_maplibre as fm
 from dash import Dash, html, Input, Output, State
@@ -148,6 +149,7 @@ app.layout = html.Div(
                         'mapbox-demo-water',
                         'mapbox-demo-road',
                     ],
+                    drawSpatialJudgePredicate='contains'
                     # enableDeckGL=True
                 ),
                 html.Div(
@@ -213,6 +215,7 @@ app.layout = html.Div(
         Input('map-demo', 'loadedSources'),
         Input('map-demo', 'loadedLayers'),
         Input('map-demo', 'drawnFeatures'),
+        Input('map-demo', 'drawSpatialJudgeListenLayerFeatures'),
     ]
 )
 def show_test_props(longitudeDebounce,
@@ -224,7 +227,8 @@ def show_test_props(longitudeDebounce,
                     clickListenLayerFeatures,
                     loadedSources,
                     loadedLayers,
-                    drawnFeatures):
+                    drawnFeatures,
+                    drawSpatialJudgeListenLayerFeatures):
 
     return json.dumps(
         dict(
@@ -237,7 +241,8 @@ def show_test_props(longitudeDebounce,
             clickListenLayerFeatures=clickListenLayerFeatures,
             loadedSources=loadedSources,
             loadedLayers=loadedLayers,
-            drawnFeatures=drawnFeatures
+            drawnFeatures=drawnFeatures,
+            drawSpatialJudgeListenLayerFeatures=drawSpatialJudgeListenLayerFeatures
         ),
         indent=4,
         ensure_ascii=False
