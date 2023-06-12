@@ -1,24 +1,24 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable prefer-const */
 // react核心
-import React, {useEffect, useContext} from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import {Layer as _Layer, useMap} from 'react-map-gl';
+import { Layer as _Layer, useMap } from 'react-map-gl';
 // 上下文管理器
 import SourceContext from '../../contexts/SourceContext';
 
 const Layer = (props) => {
-    let {id, key, beforeId, layerProps, hoverCursor, setProps} = props;
+    let { id, key, beforeId, layerProps, hoverCursor, setProps } = props;
 
     // 取得传递的地图实例
-    const {current: map} = useMap();
+    const { current: map } = useMap();
 
     // 尝试取得来自Source组件的上下文信息
     const context = useContext(SourceContext);
     // 若来自Source的上下文信息中sourceId有效
     // 则强制覆盖当前图层参数中的source字段
-    if (context.sourceId) {
+    if (context?.sourceId) {
         layerProps = {
             ...layerProps,
             source: context.sourceId,
