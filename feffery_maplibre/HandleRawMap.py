@@ -9,7 +9,7 @@ class HandleRawMap(Component):
 
 Keyword arguments:
 
-- id (string; required):
+- id (string; optional):
     必填，用于唯一标识当前组件.
 
 - jsString (string; optional):
@@ -23,7 +23,7 @@ Keyword arguments:
     _namespace = 'feffery_maplibre'
     _type = 'HandleRawMap'
     @_explicitize_args
-    def __init__(self, id=Component.REQUIRED, key=Component.UNDEFINED, jsString=Component.UNDEFINED, **kwargs):
+    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, jsString=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'jsString', 'key']
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'jsString', 'key']
@@ -32,10 +32,5 @@ Keyword arguments:
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs and excess named props
         args = {k: _locals[k] for k in _explicit_args}
-
-        for k in ['id']:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
 
         super(HandleRawMap, self).__init__(**args)

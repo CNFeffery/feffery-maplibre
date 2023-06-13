@@ -24,13 +24,6 @@ import '../css/base.css';
 
 // 定义部分exact型prop的默认值
 const defaultExactProps = {
-    initialViewState: {
-        longitude: 0,
-        latitude: 0,
-        zoom: 0,
-        pitch: 0,
-        bearing: 0,
-    },
     drawControls: {
         point: true,
         line_string: true,
@@ -154,7 +147,6 @@ const DrawControl = (props) => {
     }, []);
 
     const onDelete = useCallback((e) => {
-        console.log(mapRef.current)
     }, []);
 
     const OnModeChange = useCallback(
@@ -322,10 +314,9 @@ const MapContainer = (props) => {
                 'pitch',
                 'bearing',
             ]) {
-                if (initialViewState[propName]) {
+                if (initialViewState[propName] || initialViewState[propName] === 0) {
                     toUpdateProps[propName] = initialViewState[propName];
-                    toUpdateProps[propName + 'Debounce'] =
-                        initialViewState[propName];
+                    toUpdateProps[propName + 'Debounce'] = initialViewState[propName];
                 }
             }
         }
@@ -389,10 +380,7 @@ const MapContainer = (props) => {
             cursor={cursor}
             mapStyle={mapStyle}
             renderWorldCopies={renderWorldCopies}
-            initialViewState={{
-                ...defaultExactProps.initialViewState,
-                ...initialViewState,
-            }}
+            initialViewState={initialViewState}
             longitude={longitude}
             latitude={latitude}
             zoom={zoom}
@@ -917,6 +905,13 @@ MapContainer.propTypes = {
 };
 
 MapContainer.defaultProps = {
+    initialViewState: {
+        longitude: 0,
+        latitude: 0,
+        zoom: 0,
+        pitch: 0,
+        bearing: 0,
+    },
     renderWorldCopies: true,
     debounceWait: 200,
     minZoom: 0,

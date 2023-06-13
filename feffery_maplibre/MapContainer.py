@@ -117,7 +117,7 @@ Keyword arguments:
 - enableDrawSpatialJudge (boolean; default False):
     当drawOnlyOne为True时生效，用于设置是否以绘制的面要素为范围，计算与之存在拓扑关联的其他图层要素  默认：False.
 
-- initialViewState (dict; optional):
+- initialViewState (dict; default {    longitude: 0,    latitude: 0,    zoom: 0,    pitch: 0,    bearing: 0,}):
     非受控参数，设置当前地图容器的初始视角相关参数
     参考资料：https://visgl.github.io/react-map-gl/docs/api-reference/map#initialviewstate.
 

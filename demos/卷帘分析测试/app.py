@@ -38,15 +38,15 @@ app.layout = html.Div(
                         }
                     ),
 
-                    fm.Layer(
-                        id='background',
-                        layerProps={
-                            'type': 'background',
-                            'paint': {
-                                'background-color': '#343a40'
-                            }
-                        }
-                    )
+                    # fm.Layer(
+                    #     id='background',
+                    #     layerProps={
+                    #         'type': 'background',
+                    #         'paint': {
+                    #             'background-color': '#343a40'
+                    #         }
+                    #     }
+                    # )
                 ],
                 id='first-map',
                 initialViewState={
@@ -56,6 +56,7 @@ app.layout = html.Div(
                     'pitch': 45,
                     'bearing': 45,
                 },
+                mapStyle='https://api.maptiler.com/maps/hybrid/style.json?key=pctRciYXNuENsTzDTtAS',
                 style={
                     'height': '100%'
                 }
@@ -128,7 +129,7 @@ app.layout = html.Div(
             buttonStyle={
                 'width': 32,
                 'height': 32,
-                'background': '#4dabf7'
+                # 'background': '#4dabf7'
             }
         )
     ],
