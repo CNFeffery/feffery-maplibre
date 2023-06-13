@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import { useMap } from 'react-map-gl';
 
-const MapAction = (props) => {
+const PanBy = (props) => {
     let { setProps } = props;
 
     // 取得传递的地图实例
@@ -17,24 +17,23 @@ const MapAction = (props) => {
     return <></>;
 };
 
-MapAction.propTypes = {
+PanBy.propTypes = {
     // 基础参数
     /**
      * 必填，用于唯一标识当前组件
      */
-    id: PropTypes.string.isRequired,
-
-    /**
-     * 用于设置要执行的地图动作参数，每次有效设置后会立即执行，且当前参数会在每次有效执行完成后被重置为空
-     */
-    mapActionConfig: PropTypes.exact({
-        
-    }),
+    id: PropTypes.string,
 
     /**
      * 强制重绘当前组件时使用
      */
     key: PropTypes.string,
+
+    /**
+     * 用于设置要执行的地图动作参数，每次有效设置后会立即执行，且当前参数会在每次有效执行完成后被重置为空
+     */
+    mapActionConfig: PropTypes.exact({
+    }),
 
     /**
      * Dash-assigned callback that should be called to report property changes
@@ -43,6 +42,7 @@ MapAction.propTypes = {
     setProps: PropTypes.func,
 };
 
-MapAction.defaultProps = {};
+PanBy.defaultProps = {
+};
 
-export default React.memo(MapAction);
+export default React.memo(PanBy);

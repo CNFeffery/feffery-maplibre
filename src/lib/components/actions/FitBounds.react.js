@@ -8,31 +8,16 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import { useMap } from 'react-map-gl';
 
-const HandleRawMap = (props) => {
-    let { jsString, setProps } = props;
+const FitBounds = (props) => {
+    let { setProps } = props;
 
     // 取得传递的地图实例
     const { current: map } = useMap();
 
-    useEffect(() => {
-        if (jsString) {
-            // 尝试直接执行最近更新的jsString
-            try {
-                eval(jsString);
-            } catch (e) {
-                console.log(e.message);
-            }
-            // 每次执行完成后重置jsString
-            setProps({
-                jsString: null,
-            });
-        }
-    }, [jsString]);
-
     return <></>;
 };
 
-HandleRawMap.propTypes = {
+FitBounds.propTypes = {
     // 基础参数
     /**
      * 必填，用于唯一标识当前组件
@@ -45,11 +30,10 @@ HandleRawMap.propTypes = {
     key: PropTypes.string,
 
     /**
-     * 设置要针对当前地图实例中的map对象执行的javascript代码字符串
-     * 每次新的执行完成后会自动重置为null
-     * 默认：None
+     * 用于设置要执行的地图动作参数，每次有效设置后会立即执行，且当前参数会在每次有效执行完成后被重置为空
      */
-    jsString: PropTypes.string,
+    mapActionConfig: PropTypes.exact({
+    }),
 
     /**
      * Dash-assigned callback that should be called to report property changes
@@ -58,6 +42,7 @@ HandleRawMap.propTypes = {
     setProps: PropTypes.func,
 };
 
-HandleRawMap.defaultProps = {};
+FitBounds.defaultProps = {
+};
 
-export default React.memo(HandleRawMap);
+export default React.memo(FitBounds);

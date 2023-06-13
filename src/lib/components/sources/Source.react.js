@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-empty */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable prefer-const */
