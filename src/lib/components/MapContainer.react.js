@@ -163,6 +163,12 @@ const DrawControl = (props) => {
                 if (drawOnlyOne) {
                     // 开始新的要素绘制之前清除先前已绘制要素
                     let _drawnFeatures = drawRef.getAll().features;
+                    if (enableDrawSpatialJudge) {
+                        setProps({
+                            // 在新矢量开始绘制时，重置为[]
+                            drawSpatialJudgeListenLayerFeatures: [],
+                        });
+                    }
                     // 取得最新添加的要素的id
                     let latestDrawnFeatureId = _drawnFeatures[_drawnFeatures.length - 1].id;
                     if (drawRef.getAll().features.length > 1) {
@@ -453,7 +459,8 @@ const MapContainer = (props) => {
                                 properties: e.properties,
                                 source: e.properties,
                                 sourceLayer: e.sourceLayer,
-                                type: e.type
+                                type: e.type,
+                                geometry: e.geometry
                             };
                         }),
                     });
