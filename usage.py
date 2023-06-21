@@ -138,7 +138,7 @@ app.layout = html.Div(
                     enableDraw=True,
                     drawControls={
                         'point': False,
-                        'line_string': False
+                        'line_string': True
                     },
                     drawOnlyOne=True,
                     enableDrawSpatialJudge=True,

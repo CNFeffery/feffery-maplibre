@@ -15,6 +15,8 @@ import { useRequest } from 'ahooks';
 import bbox from '@turf/bbox';
 import intersects from '@turf/boolean-intersects';
 import contains from '@turf/boolean-contains';
+import length from '@turf/length';
+import area from '@turf/area';
 import omitBy from 'lodash/omitBy';
 // 依赖库相关样式
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -142,7 +144,19 @@ const DrawControl = (props) => {
 
         // 更新最新的已绘制要素数组到drawnFeatures中
         setProps({
-            drawnFeatures: [...drawRef.getAll().features]
+            drawnFeatures: drawRef.getAll().features.map(
+                g => {
+                    // 若当前元素为线要素
+                    if (g.geometry.type.toLowerCase().includes('line')) {
+                        // 单位：千米
+                        g.length = length(g, { units: 'kilometers' })
+                    } else if (g.geometry.type.toLowerCase().includes('polygon')) {
+                        // 单位：平方米
+                        g.area = area(g)
+                    }
+                    return g;
+                }
+            )
         })
     }, []);
 
