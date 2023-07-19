@@ -462,19 +462,22 @@ const MapContainer = (props) => {
 
                     setProps({
                         // 更新点击事件匹配到的要素信息数组
-                        clickListenLayerFeatures: matchFeatures.map((e) => {
+                        clickListenLayerFeatures: matchFeatures.map((f) => {
                             return {
                                 layer: {
-                                    id: e.layer.id,
-                                    source: e.layer.source,
-                                    sourceLayer: e.layer['source-layer'],
-                                    type: e.layer.type,
+                                    id: f.layer.id,
+                                    source: f.layer.source,
+                                    sourceLayer: f.layer['source-layer'],
+                                    type: f.layer.type,
                                 },
-                                properties: e.properties,
-                                source: e.properties,
-                                sourceLayer: e.sourceLayer,
-                                type: e.type,
-                                geometry: e.geometry
+                                properties: f.properties,
+                                source: f.properties,
+                                sourceLayer: f.sourceLayer,
+                                type: f.type,
+                                geometry: f.geometry,
+                                // 记录点击位置对应的地图像素坐标
+                                x: e.point.x,
+                                y: e.point.y
                             };
                         }),
                     });

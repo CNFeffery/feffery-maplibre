@@ -1,6 +1,6 @@
 {
   "name": "feffery_maplibre",
-  "version": "0.0.1-a2",
+  "version": "0.0.1-a3",
   "description": "High performance map framework for Plotly Dash, based on maplibre and deck.gl.",
   "repository": {
     "type": "git",
@@ -42,7 +42,7 @@
     "@babel/preset-react": "^7.22.3",
     "@plotly/dash-component-plugins": "^1.2.3",
     "@plotly/webpack-dash-dynamic-import": "^1.2.0",
-    "ahooks": "^3.7.7",
+    "ahooks": "^3.7.8",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^9.1.2",
     "copyfiles": "^2.1.1",
