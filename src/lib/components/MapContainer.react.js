@@ -24,6 +24,11 @@ import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 // 自定义样式
 import '../css/base.css';
 
+// 修复mapbox-gl-draw工具按钮显示异常问题
+MapboxDraw.constants.classes.CONTROL_BASE = "maplibregl-ctrl";
+MapboxDraw.constants.classes.CONTROL_PREFIX = "maplibregl-ctrl-";
+MapboxDraw.constants.classes.CONTROL_GROUP = "maplibregl-ctrl-group";
+
 // 定义部分exact型prop的默认值
 const defaultExactProps = {
     drawControls: {
