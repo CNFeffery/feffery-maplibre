@@ -315,7 +315,6 @@ const MapContainer = (props) => {
         enableDrawSpatialJudge,
         drawSpatialJudgePredicate,
         drawSpatialJudgeListenLayerIds,
-        mapboxAccessToken,
         locale,
         localeInfo,
         interactive,
@@ -423,7 +422,6 @@ const MapContainer = (props) => {
             keyboard={keyboard}
             scrollZoom={scrollZoom}
             touchPitch={touchPitch}
-            mapboxAccessToken={mapboxAccessToken}
             locale={
                 // 去除DrawControl相关键值对属性
                 {
@@ -815,11 +813,6 @@ MapContainer.propTypes = {
     drawSpatialJudgeListenLayerFeatures: PropTypes.array,
 
     // 其他参数
-    /**
-     * 用于设置mapbox服务对应token
-     */
-    mapboxAccessToken: PropTypes.string,
-
     /**
      * 设置语言类型，可选的有'zh-cn'（简体中文）、'en-us'（英文）
      * 默认：'zh-cn'

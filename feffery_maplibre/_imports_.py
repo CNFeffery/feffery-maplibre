@@ -14,6 +14,7 @@ from .LayerGroup import LayerGroup
 from .SourceGroup import SourceGroup
 from .Layer import Layer
 from .MapContainer import MapContainer
+from .Marker import Marker
 from .Source import Source
 from .HandleRawMap import HandleRawMap
 
@@ -34,6 +35,7 @@ __all__ = [
     "SourceGroup",
     "Layer",
     "MapContainer",
+    "Marker",
     "Source",
     "HandleRawMap"
 ]

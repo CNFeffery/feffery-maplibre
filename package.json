@@ -31,9 +31,9 @@
     "@turf/boolean-intersects": "^6.5.0",
     "@turf/turf": "^6.5.0",
     "deck.gl": "^8.9.18",
-    "maplibre-gl": "^3.0.0",
+    "maplibre-gl": "^2.0.0",
     "ramda": "^0.26.1",
-    "react-map-gl": "^7.0.25"
+    "react-map-gl": "7.0.25"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",

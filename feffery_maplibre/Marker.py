@@ -1,0 +1,70 @@
+# AUTO GENERATED FILE - DO NOT EDIT
+
+from dash.development.base_component import Component, _explicitize_args
+
+
+class Marker(Component):
+    """A Marker component.
+
+
+Keyword arguments:
+
+- children (a list of or a singular dash component, string or number; optional):
+    设置内部元素，用于代替缺省的标记图标.
+
+- id (string; optional):
+    必填，用于唯一标识当前组件.
+
+- color (string; default '#3FB1CE'):
+    当前标记颜色  默认：'#3FB1CE'.
+
+- draggable (boolean; default False):
+    当前标记是否可自由拖动  默认：False.
+
+- key (string; optional):
+    强制重绘当前组件时使用.
+
+- latitude (number; required):
+    必填，设置当前标记对应位置纬度.
+
+- longitude (number; required):
+    必填，设置当前标记对应位置经度.
+
+- offset (list of numbers; optional):
+    设置当前标记位置在水平、竖直方向上的像素偏移.
+
+- pitchAlignment (a value equal to: 'map', 'viewport', 'auto'; default 'auto'):
+    设置当前标记倾斜角度的对齐方式，可选的有'map'、'viewport'、'auto'  默认：'auto'.
+
+- rotation (number; default 0):
+    设置当前标记的旋转角度  默认：0.
+
+- rotationAlignment (a value equal to: 'map', 'viewport', 'auto'; default 'auto'):
+    设置当前标记旋转角度的对齐方式，可选的有'map'、'viewport'、'auto'  默认：'auto'.
+
+- scale (number; default 1):
+    设置当前标记的缩放倍数  默认：1.
+
+- style (dict; optional):
+    用于设置当前标记容器的css样式."""
+    _children_props = []
+    _base_nodes = ['children']
+    _namespace = 'feffery_maplibre'
+    _type = 'Marker'
+    @_explicitize_args
+    def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, color=Component.UNDEFINED, draggable=Component.UNDEFINED, latitude=Component.REQUIRED, longitude=Component.REQUIRED, offset=Component.UNDEFINED, pitchAlignment=Component.UNDEFINED, rotation=Component.UNDEFINED, rotationAlignment=Component.UNDEFINED, scale=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'color', 'draggable', 'key', 'latitude', 'longitude', 'offset', 'pitchAlignment', 'rotation', 'rotationAlignment', 'scale', 'style']
+        self._valid_wildcard_attributes =            []
+        self.available_properties = ['children', 'id', 'color', 'draggable', 'key', 'latitude', 'longitude', 'offset', 'pitchAlignment', 'rotation', 'rotationAlignment', 'scale', 'style']
+        self.available_wildcard_properties =            []
+        _explicit_args = kwargs.pop('_explicit_args')
+        _locals = locals()
+        _locals.update(kwargs)  # For wildcard attrs and excess named props
+        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+
+        for k in ['latitude', 'longitude']:
+            if k not in args:
+                raise TypeError(
+                    'Required argument `' + k + '` was not specified.')
+
+        super(Marker, self).__init__(children=children, **args)

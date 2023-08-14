@@ -23,6 +23,8 @@ import RotateTo from './components/actions/RotateTo.react';
 import ZoomIn from './components/actions/ZoomIn.react';
 import ZoomOut from './components/actions/ZoomOut.react';
 import ZoomTo from './components/actions/ZoomTo.react';
+// 其他
+import Marker from './components/others/Marker.react';
 
 export {
     MapContainer,
@@ -42,5 +44,6 @@ export {
     RotateTo,
     ZoomIn,
     ZoomOut,
-    ZoomTo
+    ZoomTo,
+    Marker
 };
