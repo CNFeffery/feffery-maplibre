@@ -6,7 +6,7 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import { Map as MapGL, useControl } from 'react-map-gl';
+import MapGL, { useControl } from 'react-map-gl/maplibre';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 // import DeckGL from '@deck.gl/react';
 import maplibregl from 'maplibre-gl';

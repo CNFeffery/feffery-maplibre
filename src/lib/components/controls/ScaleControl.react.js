@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import { ScaleControl as _ScaleControl } from 'react-map-gl';
+import { ScaleControl as _ScaleControl } from 'react-map-gl/maplibre';
 
 
 const ScaleControl = (props) => {

@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import { Marker as _Marker } from 'react-map-gl';
+import { Marker as _Marker } from 'react-map-gl/maplibre';
 
 const Marker = (props) => {
     let {

@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import { NavigationControl as _NavigationControl } from 'react-map-gl';
+import { NavigationControl as _NavigationControl } from 'react-map-gl/maplibre';
 
 
 const NavigationControl = (props) => {

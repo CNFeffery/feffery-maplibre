@@ -6,7 +6,7 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import { Layer as _Layer, useMap } from 'react-map-gl';
+import { Layer as _Layer, useMap } from 'react-map-gl/maplibre';
 // 上下文管理器
 import SourceContext from '../../contexts/SourceContext';
 

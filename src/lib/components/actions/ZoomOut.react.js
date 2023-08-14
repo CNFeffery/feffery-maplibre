@@ -6,7 +6,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import { useMap } from 'react-map-gl';
+import { useMap } from 'react-map-gl/maplibre';
 
 const ZoomOut = (props) => {
     let { mapActionConfig, abortPreviousAction, setProps } = props;
