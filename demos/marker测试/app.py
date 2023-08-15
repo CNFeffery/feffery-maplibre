@@ -24,10 +24,10 @@ app.layout = html.Div(
                     # ),
                     latitude=0,
                     longitude=0,
-                    color='#ff6b6b'
+                    color='#ff6b6b',
+                    draggable=True
                 )
             ],
-            id='first-map',
             initialViewState={
                 'longitude': 0,
                 'latitude': 0,

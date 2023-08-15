@@ -15,8 +15,16 @@ Keyword arguments:
 - id (string; optional):
     必填，用于唯一标识当前组件.
 
+- anchor (a value equal to: 'center', 'top', 'bottom', 'left', 'right', 'top-left', 'top-right', 'bottom-left', 'bottom-right'; default 'center'):
+    当前标记坐标点相对标记内容的方位
+    可选的有'center'、'top'、'bottom'、'left'、'right'、'top-left'、'top-right'、'bottom-left'、'bottom-right'
+    默认：'center'.
+
 - color (string; default '#3FB1CE'):
     当前标记颜色  默认：'#3FB1CE'.
+
+- debounceWait (number; default 200):
+    设置针对当前地图容器的防抖延时，单位：毫秒  默认：200.
 
 - draggable (boolean; default False):
     当前标记是否可自由拖动  默认：False.
@@ -27,8 +35,17 @@ Keyword arguments:
 - latitude (number; required):
     必填，设置当前标记对应位置纬度.
 
+- latitudeDebounce (number; optional):
+    防抖监听参数，用于监听当前地图中心点纬度.
+
 - longitude (number; required):
     必填，设置当前标记对应位置经度.
+
+- longitudeDebounce (number; optional):
+    防抖监听参数，用于监听当前地图中心点经度.
+
+- nClicks (number; default 0):
+    监听当前标记累计被点击次数.
 
 - offset (list of numbers; optional):
     设置当前标记位置在水平、竖直方向上的像素偏移.
@@ -52,10 +69,10 @@ Keyword arguments:
     _namespace = 'feffery_maplibre'
     _type = 'Marker'
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, color=Component.UNDEFINED, draggable=Component.UNDEFINED, latitude=Component.REQUIRED, longitude=Component.REQUIRED, offset=Component.UNDEFINED, pitchAlignment=Component.UNDEFINED, rotation=Component.UNDEFINED, rotationAlignment=Component.UNDEFINED, scale=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'color', 'draggable', 'key', 'latitude', 'longitude', 'offset', 'pitchAlignment', 'rotation', 'rotationAlignment', 'scale', 'style']
+    def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, anchor=Component.UNDEFINED, color=Component.UNDEFINED, draggable=Component.UNDEFINED, latitude=Component.REQUIRED, longitude=Component.REQUIRED, offset=Component.UNDEFINED, pitchAlignment=Component.UNDEFINED, rotation=Component.UNDEFINED, rotationAlignment=Component.UNDEFINED, scale=Component.UNDEFINED, nClicks=Component.UNDEFINED, debounceWait=Component.UNDEFINED, longitudeDebounce=Component.UNDEFINED, latitudeDebounce=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'anchor', 'color', 'debounceWait', 'draggable', 'key', 'latitude', 'latitudeDebounce', 'longitude', 'longitudeDebounce', 'nClicks', 'offset', 'pitchAlignment', 'rotation', 'rotationAlignment', 'scale', 'style']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['children', 'id', 'color', 'draggable', 'key', 'latitude', 'longitude', 'offset', 'pitchAlignment', 'rotation', 'rotationAlignment', 'scale', 'style']
+        self.available_properties = ['children', 'id', 'anchor', 'color', 'debounceWait', 'draggable', 'key', 'latitude', 'latitudeDebounce', 'longitude', 'longitudeDebounce', 'nClicks', 'offset', 'pitchAlignment', 'rotation', 'rotationAlignment', 'scale', 'style']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
