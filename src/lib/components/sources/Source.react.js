@@ -11,7 +11,7 @@ import { Source as _Source, useMap } from 'react-map-gl/maplibre';
 import SourceContext from '../../contexts/SourceContext';
 
 const Source = (props) => {
-    const { id, children, key, sourceProps, setProps } = props;
+    const { id, children, key, sourceId, sourceProps, setProps } = props;
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -20,17 +20,17 @@ const Source = (props) => {
     useEffect(() => {
         return () => {
             try {
-                if (map && map?.getSource(id)) {
+                if (map && map?.getSource(sourceId || id)) {
                     // 移除当前组件id指向的图层源
-                    map.removeSource(id);
+                    map.removeSource(sourceId || id);
                 }
             } catch (error) { }
         };
     }, []);
 
     return (
-        <SourceContext.Provider value={{ sourceId: id }}>
-            <_Source id={id} key={key} {...sourceProps}>
+        <SourceContext.Provider value={{ sourceId: sourceId || id }}>
+            <_Source id={sourceId || id} key={key} {...sourceProps}>
                 {children}
             </_Source>
         </SourceContext.Provider>
@@ -53,6 +53,11 @@ Source.propTypes = {
      * 强制重绘当前组件时使用
      */
     key: PropTypes.string,
+
+    /**
+     * 设置当前图层源id，优先级高于id
+     */
+    sourceId: PropTypes.string,
 
     /**
      * 设置其他source相关配置参数

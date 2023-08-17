@@ -11,7 +11,7 @@ import { Layer as _Layer, useMap } from 'react-map-gl/maplibre';
 import SourceContext from '../../contexts/SourceContext';
 
 const Layer = (props) => {
-    let { id, key, beforeId, layerProps, hoverCursor, setProps } = props;
+    let { id, key, layerId, beforeId, layerProps, hoverCursor, setProps } = props;
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -31,11 +31,11 @@ const Layer = (props) => {
     useEffect(() => {
         if (map && hoverCursor) {
             // 移入时修改cursor
-            map.on('mouseenter', id, () => {
+            map.on('mouseenter', layerId || id, () => {
                 map.getCanvas().style.cursor = hoverCursor;
             });
             // 移出时还原cursor
-            map.on('mouseleave', id, () => {
+            map.on('mouseleave', layerId || id, () => {
                 map.getCanvas().style.cursor = '';
             });
         }
@@ -45,15 +45,15 @@ const Layer = (props) => {
     useEffect(() => {
         return () => {
             try {
-                if (map && map?.getLayer(id)) {
+                if (map && map?.getLayer(layerId || id)) {
                     // 移除当前组件id指向的图层
-                    map.removeLayer(id);
+                    map.removeLayer(layerId || id);
                 }
             } catch (error) { }
         };
     }, []);
 
-    return <_Layer id={id} key={key} beforeId={beforeId} {...layerProps} />;
+    return <_Layer id={layerId || id} key={key} beforeId={beforeId} {...layerProps} />;
 };
 
 Layer.propTypes = {
@@ -67,6 +67,11 @@ Layer.propTypes = {
      * 强制重绘当前组件时使用
      */
     key: PropTypes.string,
+
+    /**
+     * 设置当前图层id，优先级高于id
+     */
+    layerId: PropTypes.string,
 
     /**
      * 当需要动态更新覆盖已有图层时，用于指定对应已有图层的id
