@@ -320,6 +320,7 @@ const MapContainer = (props) => {
         interactive,
         workerCount,
         debounceWait,
+        debug,
         setProps,
     } = props;
 
@@ -384,6 +385,10 @@ const MapContainer = (props) => {
     );
     const { run: listenSourceLayerLoad } = useRequest(
         () => {
+            if (debug) {
+                console.log('loadedSources: ', mapRef.current.getStyle().sources)
+                console.log('loadedLayers: ', mapRef.current.getStyle().layers)
+            }
             setProps({
                 loadedSources: mapRef.current.getStyle().sources,
                 loadedLayers: mapRef.current.getStyle().layers,
@@ -919,6 +924,13 @@ MapContainer.propTypes = {
      */
     boundsDebounce: PropTypes.array,
 
+    // 其他参数
+    /**
+     * 开发调试专用，用于开启debug模式，开启后会在浏览器控制台打印主要事件信息
+     * 默认：false
+     */
+    debug: PropTypes.bool,
+
     /**
      * Dash-assigned callback that should be called to report property changes
      * to Dash, to make them available for callbacks.
@@ -959,6 +971,7 @@ MapContainer.defaultProps = {
     localeInfo: {},
     interactive: true,
     workerCount: 2,
+    debug: false
 };
 
 export default React.memo(MapContainer);

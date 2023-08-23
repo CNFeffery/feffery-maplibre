@@ -17,6 +17,7 @@ from .MapContainer import MapContainer
 from .Marker import Marker
 from .Source import Source
 from .HandleRawMap import HandleRawMap
+from .SortLayers import SortLayers
 
 __all__ = [
     "EaseTo",
@@ -37,5 +38,6 @@ __all__ = [
     "MapContainer",
     "Marker",
     "Source",
-    "HandleRawMap"
+    "HandleRawMap",
+    "SortLayers"
 ]

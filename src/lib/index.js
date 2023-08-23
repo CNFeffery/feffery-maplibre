@@ -12,6 +12,7 @@ import SourceGroup from './components/groups/SourceGroup.react';
 import LayerGroup from './components/groups/LayerGroup.react';
 // 工具组件
 import HandleRawMap from './components/utils/HandleRawMap.react';
+import SortLayers from './components/utils/SortLayers.react';
 // 地图动作
 import EaseTo from './components/actions/EaseTo.react';
 import FitBounds from './components/actions/FitBounds.react';
@@ -35,6 +36,7 @@ export {
     SourceGroup,
     LayerGroup,
     HandleRawMap,
+    SortLayers,
     EaseTo,
     FitBounds,
     FlyTo,

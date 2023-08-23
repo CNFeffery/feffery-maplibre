@@ -45,10 +45,8 @@ const Layer = (props) => {
     useEffect(() => {
         return () => {
             try {
-                if (map && map?.getLayer(layerId || id)) {
-                    // 移除当前组件id指向的图层
-                    map.removeLayer(layerId || id);
-                }
+                // 移除当前组件id指向的图层
+                map.removeLayer(layerId || id);
             } catch (error) { }
         };
     }, []);

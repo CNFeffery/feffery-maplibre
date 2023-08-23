@@ -20,10 +20,8 @@ const Source = (props) => {
     useEffect(() => {
         return () => {
             try {
-                if (map && map?.getSource(sourceId || id)) {
-                    // 移除当前组件id指向的图层源
-                    map.removeSource(sourceId || id);
-                }
+                // 移除当前组件id指向的图层源
+                map.removeSource(sourceId || id);
             } catch (error) { }
         };
     }, []);
