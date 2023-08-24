@@ -17,16 +17,19 @@ Keyword arguments:
 
 - orders (list of strings; optional):
     设置要针对当前地图实例中的相关图层进行重排序的顺序图层id数组，越靠后的元素在此次排序之后图层顺序越高
-    每次新的执行完成后会自动重置为[]  默认：None."""
+    每次新的执行完成后会自动重置为[]  默认：None.
+
+- supremeLayers (list of strings; optional):
+    设置图层顺序调整目标应当限制在哪些图层之下  默认：[]."""
     _children_props = []
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'SortLayers'
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, orders=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'key', 'orders']
+    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, orders=Component.UNDEFINED, supremeLayers=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'key', 'orders', 'supremeLayers']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'key', 'orders']
+        self.available_properties = ['id', 'key', 'orders', 'supremeLayers']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

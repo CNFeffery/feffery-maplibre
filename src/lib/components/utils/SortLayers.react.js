@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-eval */
 /* eslint-disable no-magic-numbers */
@@ -8,27 +9,52 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import { useMap } from 'react-map-gl/maplibre';
 
+const findMovedLayer = (before, after) => {
+    let idx = 0;
+    let len = before.length;
+    while ((before[idx] === after[idx] || before[idx] === after[idx + 1]) && idx < len) {
+        idx++;
+    }
+    // 返回进行挪动的单个元素
+    return before[idx];
+}
+
 const SortLayers = (props) => {
-    let { orders, setProps } = props;
+    let { orders, supremeLayers, setProps } = props;
 
     // 取得传递的地图实例
     const { current: map } = useMap();
 
     useEffect(() => {
-        if (orders) {
-            for (let i = 0; i < orders.length - 1; i++) {
-                // 尝试进行顺序调整
-                try {
-                    map.moveLayer(orders[i], orders[i + 1]);
-                } catch (e) {
-                    console.log(e.message);
+        if (map && orders && orders.length !== 0) {
+            try {
+                // 提取当前已加载图层中与orders相关的图层
+                let _currentLayers = map.getStyle().layers
+                let relatedLayers = _currentLayers.filter(item => orders.includes(item.id)).map(item => item.id);
+                // 提取supremeLayers中图层顺序最低的图层
+                let lowestSupremeLayer = _currentLayers.filter(item => supremeLayers.includes(item.id)).map(item => item.id);
+                if (lowestSupremeLayer.length !== 0) {
+                    lowestSupremeLayer = lowestSupremeLayer[0];
+                } else {
+                    lowestSupremeLayer = null;
                 }
-            }
-            // 每次执行完成后重置orders
-            setProps({
-                orders: [],
-            });
+                // 搜索发生位置移动的关键图层
+                let movedLayer = findMovedLayer(relatedLayers, orders);
+                if (movedLayer) {
+                    // 若关键图层位于orders的末尾
+                    if (orders.indexOf(movedLayer) + 1 === orders.length) {
+                        map.moveLayer(movedLayer, lowestSupremeLayer)
+                    } else {
+                        // 移动至当前图层对应的更高一层图层之下
+                        map.moveLayer(movedLayer, orders[orders.indexOf(movedLayer) + 1])
+                    }
+                }
+            } catch (e) { }
         }
+        // 每次执行完成后重置orders
+        setProps({
+            orders: [],
+        });
     }, [orders]);
 
     return <></>;
@@ -54,6 +80,12 @@ SortLayers.propTypes = {
     orders: PropTypes.arrayOf(PropTypes.string),
 
     /**
+     * 设置图层顺序调整目标应当限制在哪些图层之下
+     * 默认：[]
+     */
+    supremeLayers: PropTypes.arrayOf(PropTypes.string),
+
+    /**
      * Dash-assigned callback that should be called to report property changes
      * to Dash, to make them available for callbacks.
      */
@@ -61,7 +93,8 @@ SortLayers.propTypes = {
 };
 
 SortLayers.defaultProps = {
-    orders: []
+    orders: [],
+    supremeLayers: []
 };
 
 export default React.memo(SortLayers);
