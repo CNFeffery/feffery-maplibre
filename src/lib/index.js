@@ -25,6 +25,7 @@ import RotateTo from './components/actions/RotateTo.react';
 import ZoomIn from './components/actions/ZoomIn.react';
 import ZoomOut from './components/actions/ZoomOut.react';
 import ZoomTo from './components/actions/ZoomTo.react';
+import Resize from './components/actions/Resize.react';
 // 其他
 import Marker from './components/others/Marker.react';
 
@@ -49,5 +50,6 @@ export {
     ZoomIn,
     ZoomOut,
     ZoomTo,
+    Resize,
     Marker
 };

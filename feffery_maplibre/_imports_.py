@@ -4,6 +4,7 @@ from .FlyTo import FlyTo
 from .JumpTo import JumpTo
 from .PanBy import PanBy
 from .PanTo import PanTo
+from .Resize import Resize
 from .RotateTo import RotateTo
 from .ZoomIn import ZoomIn
 from .ZoomOut import ZoomOut
@@ -27,6 +28,7 @@ __all__ = [
     "JumpTo",
     "PanBy",
     "PanTo",
+    "Resize",
     "RotateTo",
     "ZoomIn",
     "ZoomOut",

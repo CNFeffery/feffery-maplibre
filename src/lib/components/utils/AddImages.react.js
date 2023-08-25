@@ -28,7 +28,7 @@ const AddImages = (props) => {
                     )
                 } catch (e) {
                     console.log(item)
-                    console.log(e)
+                    console.log(e.message)
                 }
             }
             //  每次执行完成后重置images
