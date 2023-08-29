@@ -321,6 +321,7 @@ const MapContainer = (props) => {
         workerCount,
         debounceWait,
         debug,
+        clickListenLayerCount,
         setProps,
     } = props;
 
@@ -488,6 +489,7 @@ const MapContainer = (props) => {
                                 y: e.point.y
                             };
                         }),
+                        clickListenLayerCount: clickListenLayerCount + 1
                     });
                 }
 
@@ -877,6 +879,12 @@ MapContainer.propTypes = {
     clickListenLayerFeatures: PropTypes.array,
 
     /**
+     * 用于监听有效图层要素点击事件累积次数
+     * 默认：0
+     */
+    clickListenLayerCount: PropTypes.number,
+
+    /**
      * 用于监听最近一次图层加载事件后全部图层源信息
      */
     loadedSources: PropTypes.object,
@@ -971,7 +979,8 @@ MapContainer.defaultProps = {
     localeInfo: {},
     interactive: true,
     workerCount: 2,
-    debug: false
+    debug: false,
+    clickListenLayerCount: 0
 };
 
 export default React.memo(MapContainer);

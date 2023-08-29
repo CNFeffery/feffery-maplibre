@@ -16,6 +16,7 @@ from .SourceGroup import SourceGroup
 from .Layer import Layer
 from .MapContainer import MapContainer
 from .Marker import Marker
+from .Popup import Popup
 from .Source import Source
 from .AddImages import AddImages
 from .HandleRawMap import HandleRawMap
@@ -40,6 +41,7 @@ __all__ = [
     "Layer",
     "MapContainer",
     "Marker",
+    "Popup",
     "Source",
     "AddImages",
     "HandleRawMap",

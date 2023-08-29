@@ -72,4 +72,4 @@ Source.propTypes = {
 
 Source.defaultProps = {};
 
-export default React.memo(Source);
+export default Source;

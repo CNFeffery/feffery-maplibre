@@ -97,4 +97,4 @@ Layer.propTypes = {
 
 Layer.defaultProps = {};
 
-export default React.memo(Layer);
+export default Layer;

@@ -14,18 +14,23 @@ app.layout = html.Div(
     [
         fm.MapContainer(
             [
-                fm.Marker(
-                    # html.Span(
-                    #     '测试',
-                    #     style={
-                    #         'fontSize': 50,
-                    #         'color': 'white'
-                    #     }
-                    # ),
+                # fm.Marker(
+                #     # html.Span(
+                #     #     '测试',
+                #     #     style={
+                #     #         'fontSize': 50,
+                #     #         'color': 'white'
+                #     #     }
+                #     # ),
+                #     latitude=0,
+                #     longitude=0,
+                #     color='#ff6b6b',
+                #     draggable=True
+                # ),
+                fm.Popup(
+                    '测试内容',
                     latitude=0,
-                    longitude=0,
-                    color='#ff6b6b',
-                    draggable=True
+                    longitude=0
                 )
             ],
             initialViewState={

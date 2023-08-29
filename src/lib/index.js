@@ -28,6 +28,7 @@ import ZoomTo from './components/actions/ZoomTo.react';
 import Resize from './components/actions/Resize.react';
 // 其他
 import Marker from './components/others/Marker.react';
+import Popup from './components/others/Popup.react';
 
 export {
     MapContainer,
@@ -51,5 +52,6 @@ export {
     ZoomOut,
     ZoomTo,
     Resize,
-    Marker
+    Marker,
+    Popup
 };
