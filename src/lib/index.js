@@ -29,6 +29,8 @@ import Resize from './components/actions/Resize.react';
 // 其他
 import Marker from './components/others/Marker.react';
 import Popup from './components/others/Popup.react';
+// deck.gl图层
+import ArcLayer from './components/deckLayers/ArcLayer.react';
 
 export {
     MapContainer,
@@ -53,5 +55,6 @@ export {
     ZoomTo,
     Resize,
     Marker,
-    Popup
+    Popup,
+    ArcLayer
 };

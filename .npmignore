@@ -31,3 +31,5 @@ review_checklist.md
 /dist
 
 /feffery_maplibre.egg-info
+
+*.map

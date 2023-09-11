@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import MapGL, { useControl } from 'react-map-gl/maplibre';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-// import DeckGL from '@deck.gl/react';
 import maplibregl from 'maplibre-gl';
 // 其他第三方辅助
 import { useRequest } from 'ahooks';

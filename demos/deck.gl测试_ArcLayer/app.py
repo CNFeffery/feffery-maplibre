@@ -5,10 +5,9 @@ if True:
     import dash
     from dash import html
     import feffery_maplibre as fm
-    import feffery_utils_components as fuc
     from dash.dependencies import Input, Output
 
-app = dash.Dash(__name__)
+app = dash.Dash(__name__, compress=True)
 
 app.layout = html.Div(
     [
@@ -57,33 +56,37 @@ app.layout = html.Div(
                         )
                     ]
                 ),
-                # fm.Marker(
-                #     # html.Span(
-                #     #     '测试',
-                #     #     style={
-                #     #         'fontSize': 50,
-                #     #         'color': 'white'
-                #     #     }
-                #     # ),
-                #     latitude=0,
-                #     longitude=0,
-                #     color='#ff6b6b',
-                #     draggable=True
-                # ),
-                # fm.Popup(
-                #     '测试内容',
-                #     latitude=0,
-                #     longitude=0
-                # )
+
+                fm.ArcLayer(
+                    id='demo-arc-layer',
+                    data='https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/bart-segments.json',
+                    getWidth=12,
+                    getHeight=3,
+                    getSourcePosition='from.coordinates',
+                    getTargetPosition='to.coordinates',
+                    getSourceColor={
+                        'func': 'd => [Math.sqrt(d.inbound), 140, 0]'
+                    },
+                    getTargetColor={
+                        'func': 'd => [Math.sqrt(d.outbound), 140, 0]'
+                    },
+                    pickable=True,
+                    highlightColor=[245, 34, 45],
+                    autoHighlight=True,
+                    tooltipRenderer='''({ object }) => {
+                        if ( object ) {
+                            return object && `${object.from.coordinates} -> ${object.to.coordinates}`;
+                        }
+                    }'''
+                )
             ],
             initialViewState={
-                'longitude': 0,
-                'latitude': 0,
-                'zoom': 3,
-                'pitch': 0,
-                'bearing': 0,
+                'longitude': -122.4,
+                'latitude': 37.74,
+                'zoom': 11,
+                'pitch': 30,
+                'bearing': 0
             },
-            # mapStyle='https://api.maptiler.com/maps/hybrid/style.json?key=pctRciYXNuENsTzDTtAS',
             style={
                 'height': '100%'
             }
@@ -96,4 +99,4 @@ app.layout = html.Div(
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8002)
+    app.run(debug=True, port=8050)
