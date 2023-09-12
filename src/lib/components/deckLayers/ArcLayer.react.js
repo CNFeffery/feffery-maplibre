@@ -6,10 +6,8 @@
 // react核心
 import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
-// deck.gl相关
-import { ArcLayer as _ArcLayer } from '@deck.gl/layers';
 
-const LazyArcLayer = React.lazy(() => import(/* webpackChunkName: "arc_layer" */ '../../fragments/deckLayers/ArcLayer.react'));
+const LazyArcLayer = React.lazy(() => import(/* webpackChunkName: "deck_gl_layers" */ '../../fragments/deckLayers/ArcLayer.react'));
 
 const ArcLayer = (props) => {
     return (

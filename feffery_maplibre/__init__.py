@@ -29,7 +29,7 @@ _current_path = _os.path.dirname(_os.path.abspath(__file__))
 _this_module = _sys.modules[__name__]
 
 async_resources = [
-    'arc_layer'
+    'deck_gl_layers'
 ]
 
 _js_dist = []
@@ -69,13 +69,13 @@ _js_dist.extend(
     [
         {
             'relative_package_path': 'feffery_maplibre.min.js',
-    'external_url': 'https://unpkg.com/{0}@{2}/{1}/{1}.min.js'.format(
+            'external_url': 'https://unpkg.com/{0}@{2}/{1}/{1}.min.js'.format(
                 package_name, __name__, __version__),
             'namespace': package_name
         },
         {
             'relative_package_path': 'feffery_maplibre.min.js.map',
-    'external_url': 'https://unpkg.com/{0}@{2}/{1}/{1}.min.js.map'.format(
+            'external_url': 'https://unpkg.com/{0}@{2}/{1}/{1}.min.js.map'.format(
                 package_name, __name__, __version__),
             'namespace': package_name,
             'dynamic': True

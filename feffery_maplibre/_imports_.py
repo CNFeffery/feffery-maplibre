@@ -12,6 +12,7 @@ from .ZoomTo import ZoomTo
 from .NavigationControl import NavigationControl
 from .ScaleControl import ScaleControl
 from .ArcLayer import ArcLayer
+from .GeoJsonLayer import GeoJsonLayer
 from .LayerGroup import LayerGroup
 from .SourceGroup import SourceGroup
 from .Layer import Layer
@@ -38,6 +39,7 @@ __all__ = [
     "NavigationControl",
     "ScaleControl",
     "ArcLayer",
+    "GeoJsonLayer",
     "LayerGroup",
     "SourceGroup",
     "Layer",

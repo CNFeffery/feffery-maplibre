@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const WebpackDashDynamicImport = require('@plotly/webpack-dash-dynamic-import');
 const packagejson = require('./package.json');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const dashLibraryName = packagejson.name.replace(/-/g, '_');
 
@@ -97,6 +98,7 @@ module.exports = (env, argv) => {
             }
         },
         plugins: [
+            // new BundleAnalyzerPlugin(),
             new WebpackDashDynamicImport(),
             new webpack.SourceMapDevToolPlugin({
                 filename: '[file].map',
