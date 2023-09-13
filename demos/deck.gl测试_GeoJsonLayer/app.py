@@ -116,13 +116,16 @@ app.layout = html.Div(
                     },
                     getLineColor=[255, 255, 255],
                     getFillColor={
-                        'func': '''(item) => {
-                            if ( item.properties.valuePerSqm >= 8000 ) {
-                                return [255, 77, 79];
-                            }
-                            return [105, 192, 255];
-                        }'''
+                        'func': '''(item) => hex2RGB("#fa8c16")'''
                     },
+                    # getFillColor={
+                    #     'func': '''(item) => {
+                    #         if ( item.properties.valuePerSqm >= 8000 ) {
+                    #             return [255, 77, 79];
+                    #         }
+                    #         return [105, 192, 255];
+                    #     }'''
+                    # },
                     getLineWidth=2,
                     pickable=True,
                     tooltipRenderer='''({object}) => {

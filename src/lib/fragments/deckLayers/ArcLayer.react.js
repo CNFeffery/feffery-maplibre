@@ -7,7 +7,7 @@ import React from 'react';
 // deck.gl相关
 import { ArcLayer as _ArcLayer } from '@deck.gl/layers';
 // 自定义地图工具
-import { DeckGLOverlay, parseDeckGet, omitNullAndUndefined } from '../../map_utils';
+import { DeckGLOverlay, parseDeckGet, omitNullAndUndefined, hex2RGB } from '../../map_utils';
 // 组件prop信息
 import { propTypes, defaultProps } from '../../components/deckLayers/ArcLayer.react';
 // 其他第三方辅助

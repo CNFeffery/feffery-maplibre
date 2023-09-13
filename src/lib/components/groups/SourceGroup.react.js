@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable prefer-const */
 // react核心
@@ -5,7 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SourceGroup = (props) => {
-    const {id, children, key, setProps} = props;
+    const { id, children, key, setProps } = props;
 
     return <>{children}</>;
 };

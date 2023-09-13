@@ -18,7 +18,7 @@ Keyword arguments:
 - clickEvent (dict; optional):
     监听鼠标点击事件相关参数.
 
-- data (list | string; optional):
+- data (list | string | dict; optional):
     为当前图层设置数据源，当传入字符串时，代表数据源对应的url地址  默认：[].
 
 - debounceWait (number; default 200):

@@ -35,7 +35,8 @@ GeoJsonLayer.propTypes = {
      */
     data: PropTypes.oneOfType([
         PropTypes.array,
-        PropTypes.string
+        PropTypes.string,
+        PropTypes.object
     ]),
 
     /**
@@ -277,6 +278,7 @@ GeoJsonLayer.propTypes = {
 };
 
 GeoJsonLayer.defaultProps = {
+    data: [],
     visible: true,
     opacity: 1,
     pickable: false,

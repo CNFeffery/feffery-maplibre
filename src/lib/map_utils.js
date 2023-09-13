@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable no-eval */
 // 地图框架相关
 import { useControl } from 'react-map-gl/maplibre';
@@ -50,8 +51,26 @@ const omitNullAndUndefined = (raw) => {
     return omitBy(raw, (item) => isNull(item) || isUndefined(item));
 }
 
+
+const hex2RGB = (hex) => {
+    let r = 0, g = 0, b = 0;
+
+    if (hex.length === 4) {
+        r = "0x" + hex[1] + hex[1];
+        g = "0x" + hex[2] + hex[2];
+        b = "0x" + hex[3] + hex[3];
+    } else if (hex.length === 7) {
+        r = "0x" + hex[1] + hex[2];
+        g = "0x" + hex[3] + hex[4];
+        b = "0x" + hex[5] + hex[6];
+    }
+
+    return [Number(r), Number(g), Number(b)];
+}
+
 export {
     DeckGLOverlay,
     parseDeckGet,
-    omitNullAndUndefined
+    omitNullAndUndefined,
+    hex2RGB
 };

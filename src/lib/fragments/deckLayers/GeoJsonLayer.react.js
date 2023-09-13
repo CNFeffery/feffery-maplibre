@@ -7,7 +7,7 @@ import React from 'react';
 // deck.gl相关
 import { GeoJsonLayer as _GeoJsonLayer } from '@deck.gl/layers';
 // 自定义地图工具
-import { DeckGLOverlay, parseDeckGet, omitNullAndUndefined } from '../../map_utils';
+import { DeckGLOverlay, parseDeckGet, omitNullAndUndefined, hex2RGB } from '../../map_utils';
 // 组件prop信息
 import { propTypes, defaultProps } from '../../components/deckLayers/GeoJsonLayer.react';
 // 其他第三方辅助
@@ -107,6 +107,7 @@ const GeoJsonLayer = (props) => {
             lineWidthMaxPixels,
             lineBillboard,
             extruded,
+            wireframe,
             elevationScale,
             pointRadiusUnits,
             pointRadiusScale,
@@ -119,8 +120,7 @@ const GeoJsonLayer = (props) => {
             getElevation: parseDeckGet(getElevation),
             getPointRadius: parseDeckGet(getPointRadius),
             onHover: onDebounceHover,
-            onClick: onDebounceClick,
-            wireframe: wireframe
+            onClick: onDebounceClick
         }
     )
 
