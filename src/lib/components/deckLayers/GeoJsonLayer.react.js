@@ -46,6 +46,11 @@ GeoJsonLayer.propTypes = {
     visible: PropTypes.bool,
 
     /**
+     * 可选，设置当前图层插入已有图层位置之前所对应的图层id
+     */
+    beforeId: PropTypes.string,
+
+    /**
      * 设置当前图层透明度
      * 默认：1
      */

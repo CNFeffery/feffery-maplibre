@@ -15,6 +15,9 @@ Keyword arguments:
 - autoHighlight (boolean; default False):
     当pickable为True时有效，用于设置是否自动高亮鼠标悬停的要素  默认：False.
 
+- beforeId (string; optional):
+    可选，设置当前图层插入已有图层位置之前所对应的图层id.
+
 - clickEvent (dict; optional):
     监听鼠标点击事件相关参数.
 
@@ -117,10 +120,10 @@ Keyword arguments:
     _namespace = 'feffery_maplibre'
     _type = 'ArcLayer'
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, data=Component.UNDEFINED, visible=Component.UNDEFINED, opacity=Component.UNDEFINED, pickable=Component.UNDEFINED, highlightColor=Component.UNDEFINED, autoHighlight=Component.UNDEFINED, tooltipRenderer=Component.UNDEFINED, greatCircle=Component.UNDEFINED, numSegments=Component.UNDEFINED, widthUnits=Component.UNDEFINED, widthScale=Component.UNDEFINED, widthMinPixels=Component.UNDEFINED, widthMaxPixels=Component.UNDEFINED, getSourcePosition=Component.UNDEFINED, getTargetPosition=Component.UNDEFINED, getSourceColor=Component.UNDEFINED, getTargetColor=Component.UNDEFINED, getWidth=Component.UNDEFINED, getHeight=Component.UNDEFINED, getTilt=Component.UNDEFINED, debounceWait=Component.UNDEFINED, hoverEvent=Component.UNDEFINED, clickEvent=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'autoHighlight', 'clickEvent', 'data', 'debounceWait', 'getHeight', 'getSourceColor', 'getSourcePosition', 'getTargetColor', 'getTargetPosition', 'getTilt', 'getWidth', 'greatCircle', 'highlightColor', 'hoverEvent', 'key', 'numSegments', 'opacity', 'pickable', 'tooltipRenderer', 'visible', 'widthMaxPixels', 'widthMinPixels', 'widthScale', 'widthUnits']
+    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, data=Component.UNDEFINED, visible=Component.UNDEFINED, beforeId=Component.UNDEFINED, opacity=Component.UNDEFINED, pickable=Component.UNDEFINED, highlightColor=Component.UNDEFINED, autoHighlight=Component.UNDEFINED, tooltipRenderer=Component.UNDEFINED, greatCircle=Component.UNDEFINED, numSegments=Component.UNDEFINED, widthUnits=Component.UNDEFINED, widthScale=Component.UNDEFINED, widthMinPixels=Component.UNDEFINED, widthMaxPixels=Component.UNDEFINED, getSourcePosition=Component.UNDEFINED, getTargetPosition=Component.UNDEFINED, getSourceColor=Component.UNDEFINED, getTargetColor=Component.UNDEFINED, getWidth=Component.UNDEFINED, getHeight=Component.UNDEFINED, getTilt=Component.UNDEFINED, debounceWait=Component.UNDEFINED, hoverEvent=Component.UNDEFINED, clickEvent=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'autoHighlight', 'beforeId', 'clickEvent', 'data', 'debounceWait', 'getHeight', 'getSourceColor', 'getSourcePosition', 'getTargetColor', 'getTargetPosition', 'getTilt', 'getWidth', 'greatCircle', 'highlightColor', 'hoverEvent', 'key', 'numSegments', 'opacity', 'pickable', 'tooltipRenderer', 'visible', 'widthMaxPixels', 'widthMinPixels', 'widthScale', 'widthUnits']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'autoHighlight', 'clickEvent', 'data', 'debounceWait', 'getHeight', 'getSourceColor', 'getSourcePosition', 'getTargetColor', 'getTargetPosition', 'getTilt', 'getWidth', 'greatCircle', 'highlightColor', 'hoverEvent', 'key', 'numSegments', 'opacity', 'pickable', 'tooltipRenderer', 'visible', 'widthMaxPixels', 'widthMinPixels', 'widthScale', 'widthUnits']
+        self.available_properties = ['id', 'autoHighlight', 'beforeId', 'clickEvent', 'data', 'debounceWait', 'getHeight', 'getSourceColor', 'getSourcePosition', 'getTargetColor', 'getTargetPosition', 'getTilt', 'getWidth', 'greatCircle', 'highlightColor', 'hoverEvent', 'key', 'numSegments', 'opacity', 'pickable', 'tooltipRenderer', 'visible', 'widthMaxPixels', 'widthMinPixels', 'widthScale', 'widthUnits']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
