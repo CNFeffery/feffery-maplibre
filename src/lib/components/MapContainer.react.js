@@ -320,6 +320,7 @@ const MapContainer = (props) => {
         workerCount,
         debounceWait,
         debug,
+        mapboxAccessToken,
         clickListenLayerCount,
         setProps,
     } = props;
@@ -352,6 +353,18 @@ const MapContainer = (props) => {
 
     // 事件监听函数
     const listenViewState = (e) => {
+        // 调试模式
+        if (debug) {
+            console.log(
+                {
+                    longitude: Number(e.viewState.longitude.toFixed(6)),
+                    latitude: Number(e.viewState.latitude.toFixed(6)),
+                    zoom: Number(e.viewState.zoom.toFixed(3)),
+                    pitch: Number(e.viewState.pitch.toFixed(3)),
+                    bearing: Number(e.viewState.bearing.toFixed(3)),
+                }
+            )
+        }
         setProps({
             longitude: Number(e.viewState.longitude.toFixed(6)),
             latitude: Number(e.viewState.latitude.toFixed(6)),
@@ -503,6 +516,7 @@ const MapContainer = (props) => {
             }}
             onStyleData={listenSourceLayerLoad}
             mapLib={maplibregl}
+            mapboxAccessToken={mapboxAccessToken}
         >
             {children}
             {enableDraw ? (
@@ -937,6 +951,11 @@ MapContainer.propTypes = {
      * 默认：false
      */
     debug: PropTypes.bool,
+
+    /**
+     * 可选，用于配置mapbox服务token
+     */
+    mapboxAccessToken: PropTypes.string,
 
     /**
      * Dash-assigned callback that should be called to report property changes
