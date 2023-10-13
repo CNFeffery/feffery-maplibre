@@ -1,3 +1,4 @@
+/* eslint-disable no-inline-comments */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-magic-numbers */
@@ -76,6 +77,7 @@ const DrawControl = (props) => {
         enableDrawSpatialJudge,
         drawSpatialJudgePredicate,
         drawSpatialJudgeListenLayerIds,
+        drawDeleteAll,
         setProps,
         mapRef
     } = props;
@@ -165,6 +167,22 @@ const DrawControl = (props) => {
     }, []);
 
     const onDelete = useCallback((e) => {
+        // 更新最新剩余的已绘制要素数组到drawnFeatures中
+        setProps({
+            drawnFeatures: drawRef.getAll().features.map(
+                g => {
+                    // 若当前元素为线要素
+                    if (g.geometry.type.toLowerCase().includes('line')) {
+                        // 单位：千米
+                        g.length = length(g, { units: 'kilometers' })
+                    } else if (g.geometry.type.toLowerCase().includes('polygon')) {
+                        // 单位：平方米
+                        g.area = area(g)
+                    }
+                    return g;
+                }
+            )
+        })
     }, []);
 
     const OnModeChange = useCallback(
@@ -275,6 +293,19 @@ const DrawControl = (props) => {
         }
     );
 
+    useEffect(() => {
+        if (drawDeleteAll) {
+            if (drawRef) {
+                drawRef.deleteAll()
+            }
+            // 重置drawDeleteAll
+            setProps({
+                drawDeleteAll: false,
+                drawnFeatures: [] // 清空已绘制要素信息
+            })
+        }
+    }, [drawDeleteAll])
+
     return null;
 };
 
@@ -314,6 +345,7 @@ const MapContainer = (props) => {
         enableDrawSpatialJudge,
         drawSpatialJudgePredicate,
         drawSpatialJudgeListenLayerIds,
+        drawDeleteAll,
         locale,
         localeInfo,
         interactive,
@@ -533,6 +565,7 @@ const MapContainer = (props) => {
                     enableDrawSpatialJudge={enableDrawSpatialJudge}
                     drawSpatialJudgePredicate={drawSpatialJudgePredicate}
                     drawSpatialJudgeListenLayerIds={drawSpatialJudgeListenLayerIds}
+                    drawDeleteAll={drawDeleteAll}
                     setProps={setProps}
                     mapRef={mapRef}
                 />
@@ -832,6 +865,12 @@ MapContainer.propTypes = {
     */
     drawSpatialJudgeListenLayerFeatures: PropTypes.array,
 
+    /**
+     * 用于手动执行已绘制要素的清空操作，每次执行清空操作后会被重置为false
+     * 默认：false
+     */
+    drawDeleteAll: PropTypes.bool,
+
     // 其他参数
     /**
      * 设置语言类型，可选的有'zh-cn'（简体中文）、'en-us'（英文）
@@ -993,6 +1032,7 @@ MapContainer.defaultProps = {
     enableDrawSpatialJudge: false,
     drawSpatialJudgePredicate: 'intersects',
     drawSpatialJudgeListenLayerIds: [],
+    drawDeleteAll: false,
     locale: 'zh-cn',
     localeInfo: {},
     interactive: true,
