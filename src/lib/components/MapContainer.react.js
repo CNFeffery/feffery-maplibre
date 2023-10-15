@@ -339,6 +339,7 @@ const MapContainer = (props) => {
         clickListenLayerIds,
         clickListenBoxSize,
         enableDraw,
+        drawnFeatures,
         drawControls,
         drawControlsPosition,
         drawOnlyOne,
@@ -382,6 +383,15 @@ const MapContainer = (props) => {
         // 统一初始化prop
         setProps(toUpdateProps);
     }, []);
+
+    useEffect(() => {
+        if (!drawnFeatures || drawnFeatures.length === 0) {
+            setProps({
+                drawSpatialJudgeListenLayerFeatures: []
+            })
+        }
+    }, [drawnFeatures])
+
 
     // 事件监听函数
     const listenViewState = (e) => {
