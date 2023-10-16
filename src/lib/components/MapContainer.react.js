@@ -78,6 +78,7 @@ const DrawControl = (props) => {
         drawSpatialJudgePredicate,
         drawSpatialJudgeListenLayerIds,
         drawDeleteAll,
+        drawDeleteSelected,
         setDrawMode,
         setProps,
         mapRef
@@ -230,21 +231,6 @@ const DrawControl = (props) => {
         [drawOnlyOne]
     );
 
-    useEffect(() => {
-        if (drawRef && setDrawMode) {
-            if (setDrawMode === 'simple_select') {
-                // 快捷选中所有已绘制要素
-                drawRef.changeMode(setDrawMode, { featureIds: drawRef.getAll().features?.map(g => g.id) })
-            } else {
-                drawRef.changeMode(setDrawMode);
-            }
-            // 重置
-            setProps({
-                setDrawMode: null
-            })
-        }
-    }, [setDrawMode])
-
     drawRef = useControl(
         () => new MapboxDraw(props),
         ({ map }) => {
@@ -327,6 +313,34 @@ const DrawControl = (props) => {
         }
     }, [drawDeleteAll])
 
+    useEffect(() => {
+        if (drawDeleteSelected) {
+            if (drawRef) {
+                drawRef.trash()
+            }
+            // 重置drawDeleteSelected
+            setProps({
+                drawDeleteSelected: false,
+                // drawnFeatures: [] // 清空已绘制要素信息
+            })
+        }
+    }, [drawDeleteSelected])
+
+    useEffect(() => {
+        if (drawRef && setDrawMode) {
+            if (setDrawMode === 'simple_select') {
+                // 快捷选中所有已绘制要素
+                drawRef.changeMode(setDrawMode, { featureIds: drawRef.getAll().features?.map(g => g.id) })
+            } else {
+                drawRef.changeMode(setDrawMode);
+            }
+            // 重置
+            setProps({
+                setDrawMode: null
+            })
+        }
+    }, [setDrawMode])
+
     return null;
 };
 
@@ -369,6 +383,7 @@ const MapContainer = (props) => {
         drawSpatialJudgePredicate,
         drawSpatialJudgeListenLayerIds,
         drawDeleteAll,
+        drawDeleteSelected,
         locale,
         localeInfo,
         interactive,
@@ -597,6 +612,7 @@ const MapContainer = (props) => {
                     drawSpatialJudgePredicate={drawSpatialJudgePredicate}
                     drawSpatialJudgeListenLayerIds={drawSpatialJudgeListenLayerIds}
                     drawDeleteAll={drawDeleteAll}
+                    drawDeleteSelected={drawDeleteSelected}
                     setDrawMode={setDrawMode}
                     setProps={setProps}
                     mapRef={mapRef}
@@ -913,6 +929,12 @@ MapContainer.propTypes = {
      */
     drawDeleteAll: PropTypes.bool,
 
+    /**
+     * 用于手动执行对已绘制要素中，处于选择状态下的要素进行删除，每次执行删除操作后会被重置为false
+     * 默认：false
+     */
+    drawDeleteSelected: PropTypes.bool,
+
     // 其他参数
     /**
      * 设置语言类型，可选的有'zh-cn'（简体中文）、'en-us'（英文）
@@ -1075,6 +1097,7 @@ MapContainer.defaultProps = {
     drawSpatialJudgePredicate: 'intersects',
     drawSpatialJudgeListenLayerIds: [],
     drawDeleteAll: false,
+    drawDeleteSelected: false,
     locale: 'zh-cn',
     localeInfo: {},
     interactive: true,

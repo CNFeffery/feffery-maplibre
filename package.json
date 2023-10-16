@@ -1,6 +1,6 @@
 {
   "name": "feffery_maplibre",
-  "version": "0.0.1-b1",
+  "version": "0.0.1-b2",
   "description": "High performance map framework for Plotly Dash, based on maplibre and deck.gl.",
   "repository": {
     "type": "git",

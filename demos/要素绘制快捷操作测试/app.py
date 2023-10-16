@@ -19,6 +19,10 @@ app.layout = html.Div(
                     id='delete-all-test'
                 ),
                 html.Button(
+                    '删除已选要素',
+                    id='delete-selected-test'
+                ),
+                html.Button(
                     'simple_select',
                     id={
                         'type': 'mode-change',
@@ -95,6 +99,16 @@ def show_current_drawnFeatures(drawnFeatures, currentDrawMode):
     prevent_initial_call=True
 )
 def delete_all_test(n_clicks):
+
+    return True
+
+
+@app.callback(
+    Output('map-demo', 'drawDeleteSelected'),
+    Input('delete-selected-test', 'n_clicks'),
+    prevent_initial_call=True
+)
+def delete_selected_test(n_clicks):
 
     return True
 
