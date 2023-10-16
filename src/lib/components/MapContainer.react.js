@@ -78,6 +78,7 @@ const DrawControl = (props) => {
         drawSpatialJudgePredicate,
         drawSpatialJudgeListenLayerIds,
         drawDeleteAll,
+        setDrawMode,
         setProps,
         mapRef
     } = props;
@@ -185,7 +186,7 @@ const DrawControl = (props) => {
         })
     }, []);
 
-    const OnModeChange = useCallback(
+    const onModeChange = useCallback(
         (e) => {
             if (
                 ['draw_polygon', 'draw_line_string', 'draw_point'].includes(
@@ -220,9 +221,29 @@ const DrawControl = (props) => {
                     }
                 }
             }
+
+            // 更新当前绘制模式到currentDrawMode中
+            setProps({
+                currentDrawMode: e.mode
+            })
         },
         [drawOnlyOne]
     );
+
+    useEffect(() => {
+        if (drawRef && setDrawMode) {
+            if (setDrawMode === 'simple_select') {
+                // 快捷选中所有已绘制要素
+                drawRef.changeMode(setDrawMode, { featureIds: drawRef.getAll().features?.map(g => g.id) })
+            } else {
+                drawRef.changeMode(setDrawMode);
+            }
+            // 重置
+            setProps({
+                setDrawMode: null
+            })
+        }
+    }, [setDrawMode])
 
     drawRef = useControl(
         () => new MapboxDraw(props),
@@ -280,13 +301,13 @@ const DrawControl = (props) => {
             map.on('draw.create', onUpdate);
             map.on('draw.update', onUpdate);
             map.on('draw.delete', onDelete);
-            map.on('draw.modechange', OnModeChange);
+            map.on('draw.modechange', onModeChange);
         },
         ({ map }) => {
             map.off('draw.create', onUpdate);
             map.off('draw.update', onUpdate);
             map.off('draw.delete', onDelete);
-            map.off('draw.modechange', OnModeChange);
+            map.off('draw.modechange', onModeChange);
         },
         {
             position: position,
@@ -341,6 +362,7 @@ const MapContainer = (props) => {
         enableDraw,
         drawnFeatures,
         drawControls,
+        setDrawMode,
         drawControlsPosition,
         drawOnlyOne,
         enableDrawSpatialJudge,
@@ -391,7 +413,6 @@ const MapContainer = (props) => {
             })
         }
     }, [drawnFeatures])
-
 
     // 事件监听函数
     const listenViewState = (e) => {
@@ -576,6 +597,7 @@ const MapContainer = (props) => {
                     drawSpatialJudgePredicate={drawSpatialJudgePredicate}
                     drawSpatialJudgeListenLayerIds={drawSpatialJudgeListenLayerIds}
                     drawDeleteAll={drawDeleteAll}
+                    setDrawMode={setDrawMode}
                     setProps={setProps}
                     mapRef={mapRef}
                 />
@@ -827,6 +849,16 @@ MapContainer.propTypes = {
          */
         uncombine_features: PropTypes.bool,
     }),
+
+    /**
+     * 用于手动切换到指定地图绘制功能模式，每次成功切换模式后会重置为空
+     */
+    setDrawMode: PropTypes.oneOf(['simple_select', 'draw_line_string', 'draw_polygon', 'draw_point']),
+
+    /**
+     * 用于监听当前地图绘制功能所对应的功能模式
+     */
+    currentDrawMode: PropTypes.string,
 
     /**
      * 设置地图绘制控件显示方位
