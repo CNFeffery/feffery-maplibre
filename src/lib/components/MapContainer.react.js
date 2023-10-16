@@ -328,10 +328,15 @@ const DrawControl = (props) => {
 
     useEffect(() => {
         if (drawRef && setDrawMode) {
+
             if (setDrawMode === 'simple_select') {
                 // 快捷选中所有已绘制要素
                 drawRef.changeMode(setDrawMode, { featureIds: drawRef.getAll().features?.map(g => g.id) })
             } else {
+                // 取得当前全部图层的id并仅保留gl-draw*相关图层
+                let allDrawLayerIds = mapRef.current.getStyle().layers.map(layer => layer.id).filter(layerId => layerId.startsWith('gl-draw'));
+                // 针对相关图层按照原始顺序调整图层至顶层
+                allDrawLayerIds.forEach(layerId => mapRef.current.moveLayer(layerId))
                 drawRef.changeMode(setDrawMode);
             }
             // 重置

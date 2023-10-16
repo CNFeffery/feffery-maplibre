@@ -56,10 +56,29 @@ app.layout = html.Div(
             [
                 fm.NavigationControl(
                     visualizePitch=True
+                ),
+                # 调用esri开放影像底图
+                fm.Source(
+                    [
+                        fm.Layer(
+                            id='img-layer',
+                            layerProps={
+                                'type': 'raster',
+                                'source': 'img-source'
+                            }
+                        )
+                    ],
+                    id='img-source',
+                    sourceProps={
+                        'type': 'raster',
+                        'tiles': [
+                            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+                        ],
+                        'tileSize': 256
+                    }
                 )
             ],
             id='map-demo',
-            mapStyle='https://api.maptiler.com/maps/hybrid/style.json?key=pctRciYXNuENsTzDTtAS',
             enableDraw=True,
             # drawOnlyOne=True,
             style={
