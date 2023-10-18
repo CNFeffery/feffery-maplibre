@@ -9,10 +9,12 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import MapGL, { useControl } from 'react-map-gl/maplibre';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
+import * as MapboxDrawGeodesic from 'mapbox-gl-draw-geodesic';
 import maplibregl from 'maplibre-gl';
 // 其他第三方辅助
 import { useRequest } from 'ahooks';
 import bbox from '@turf/bbox';
+import circle from '@turf/circle';
 import intersects from '@turf/boolean-intersects';
 import contains from '@turf/boolean-contains';
 import length from '@turf/length';
@@ -29,12 +31,19 @@ MapboxDraw.constants.classes.CONTROL_BASE = "maplibregl-ctrl";
 MapboxDraw.constants.classes.CONTROL_PREFIX = "maplibregl-ctrl-";
 MapboxDraw.constants.classes.CONTROL_GROUP = "maplibregl-ctrl-group";
 
+// 额外绘图模式注册
+let _modes = MapboxDraw.modes;
+_modes = MapboxDrawGeodesic.enable(_modes);
+_modes.static = void 0;
+delete _modes.static;
+
 // 定义部分exact型prop的默认值
 const defaultExactProps = {
     drawControls: {
         point: true,
         line_string: true,
         polygon: true,
+        draw_circle: true,
         trash: true,
         combine_features: false,
         uncombine_features: false,
@@ -74,6 +83,7 @@ const DrawControl = (props) => {
         locale,
         localeInfo,
         drawOnlyOne,
+        drawCircleSteps,
         enableDrawSpatialJudge,
         drawSpatialJudgePredicate,
         drawSpatialJudgeListenLayerIds,
@@ -158,6 +168,10 @@ const DrawControl = (props) => {
                     if (g.geometry.type.toLowerCase().includes('line')) {
                         // 单位：千米
                         g.length = length(g, { units: 'kilometers' })
+                    } else if (g.properties.circleRadius) {
+                        // 单位：平方米
+                        g.circle = circle(g.geometry.coordinates[0][0], g.properties.circleRadius, { steps: drawCircleSteps })
+                        g.area = area(g.circle)
                     } else if (g.geometry.type.toLowerCase().includes('polygon')) {
                         // 单位：平方米
                         g.area = area(g)
@@ -166,7 +180,7 @@ const DrawControl = (props) => {
                 }
             )
         })
-    }, []);
+    }, [drawCircleSteps]);
 
     const onDelete = useCallback((e) => {
         // 更新最新剩余的已绘制要素数组到drawnFeatures中
@@ -177,6 +191,10 @@ const DrawControl = (props) => {
                     if (g.geometry.type.toLowerCase().includes('line')) {
                         // 单位：千米
                         g.length = length(g, { units: 'kilometers' })
+                    } else if (g.properties.circleRadius) {
+                        // 单位：平方米
+                        g.circle = circle(g.geometry.coordinates[0][0], g.properties.circleRadius, { steps: drawCircleSteps })
+                        g.area = area(g.circle)
                     } else if (g.geometry.type.toLowerCase().includes('polygon')) {
                         // 单位：平方米
                         g.area = area(g)
@@ -185,7 +203,7 @@ const DrawControl = (props) => {
                 }
             )
         })
-    }, []);
+    }, [drawCircleSteps]);
 
     const onModeChange = useCallback(
         (e) => {
@@ -232,7 +250,7 @@ const DrawControl = (props) => {
     );
 
     drawRef = useControl(
-        () => new MapboxDraw(props),
+        () => new MapboxDraw({ ...props, modes: _modes }),
         ({ map }) => {
             // 强制修改绘制相关控件按钮的title信息为locale相关参数所设定的文案
             // 若用户未设置localeInfo相关文案信息，则根据当前locale情况设置相应的缺省值
@@ -320,8 +338,7 @@ const DrawControl = (props) => {
             }
             // 重置drawDeleteSelected
             setProps({
-                drawDeleteSelected: false,
-                // drawnFeatures: [] // 清空已绘制要素信息
+                drawDeleteSelected: false
             })
         }
     }, [drawDeleteSelected])
@@ -384,6 +401,7 @@ const MapContainer = (props) => {
         setDrawMode,
         drawControlsPosition,
         drawOnlyOne,
+        drawCircleSteps,
         enableDrawSpatialJudge,
         drawSpatialJudgePredicate,
         drawSpatialJudgeListenLayerIds,
@@ -608,7 +626,7 @@ const MapContainer = (props) => {
                     displayControlsDefault={false}
                     controls={{
                         ...defaultExactProps.drawControls,
-                        ...drawControls,
+                        ...drawControls
                     }}
                     locale={locale}
                     localeInfo={localeInfo}
@@ -619,6 +637,7 @@ const MapContainer = (props) => {
                     drawDeleteAll={drawDeleteAll}
                     drawDeleteSelected={drawDeleteSelected}
                     setDrawMode={setDrawMode}
+                    drawCircleSteps={drawCircleSteps}
                     setProps={setProps}
                     mapRef={mapRef}
                 />
@@ -853,6 +872,12 @@ MapContainer.propTypes = {
         polygon: PropTypes.bool,
 
         /**
+         * 特殊绘图模式，无自带的触发控件按钮，用于设置是否为当前地图绘制控件开启圆形绘制功能
+         * 默认：true
+         */
+        draw_circle: PropTypes.bool,
+
+        /**
          * 用于设置是否为当前地图绘制控件开启已绘制要素删除功能
          * 默认：true
          */
@@ -874,7 +899,9 @@ MapContainer.propTypes = {
     /**
      * 用于手动切换到指定地图绘制功能模式，每次成功切换模式后会重置为空
      */
-    setDrawMode: PropTypes.oneOf(['simple_select', 'draw_line_string', 'draw_polygon', 'draw_point']),
+    setDrawMode: PropTypes.oneOf([
+        'simple_select', 'draw_line_string', 'draw_polygon', 'draw_point', 'draw_circle'
+    ]),
 
     /**
      * 用于监听当前地图绘制功能所对应的功能模式
@@ -898,6 +925,12 @@ MapContainer.propTypes = {
      * 默认：false
      */
     drawOnlyOne: PropTypes.bool,
+
+    /**
+     * 设置绘制圆形时，生成矢量中circle字段返回对应圆形矢量数据的精度，越大越精准
+     * 默认：64
+     */
+    drawCircleSteps: PropTypes.number,
 
     /**
      * 用于监听通过绘图控件已绘制的要素数组
@@ -1098,6 +1131,7 @@ MapContainer.defaultProps = {
     enableDraw: false,
     drawControlsPosition: 'top-left',
     drawOnlyOne: false,
+    drawCircleSteps: 64,
     enableDrawSpatialJudge: false,
     drawSpatialJudgePredicate: 'intersects',
     drawSpatialJudgeListenLayerIds: [],

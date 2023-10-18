@@ -49,6 +49,13 @@ app.layout = html.Div(
                         'type': 'mode-change',
                         'mode': 'draw_point'
                     }
+                ),
+                html.Button(
+                    'draw_circle',
+                    id={
+                        'type': 'mode-change',
+                        'mode': 'draw_circle'
+                    }
                 )
             ]
         ),
@@ -81,6 +88,7 @@ app.layout = html.Div(
             id='map-demo',
             enableDraw=True,
             # drawOnlyOne=True,
+            drawCircleSteps=128,
             style={
                 'width': '100%',
                 'height': '50%'

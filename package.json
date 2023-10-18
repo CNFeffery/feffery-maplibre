@@ -1,6 +1,6 @@
 {
   "name": "feffery_maplibre",
-  "version": "0.0.1-b3",
+  "version": "0.0.1-b4",
   "description": "High performance map framework for Plotly Dash, based on maplibre and deck.gl.",
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "@turf/boolean-intersects": "^6.5.0",
     "@turf/turf": "^6.5.0",
     "deck.gl": "^8.9.18",
+    "mapbox-gl-draw-geodesic": "^2.2.5",
     "maplibre-gl": "^2.0.0",
     "ramda": "^0.26.1",
     "react-map-gl": "^7.1.3"
