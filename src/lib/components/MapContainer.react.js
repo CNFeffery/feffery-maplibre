@@ -414,6 +414,7 @@ const MapContainer = (props) => {
         debounceWait,
         debug,
         mapboxAccessToken,
+        terrain,
         clickListenLayerCount,
         setProps,
     } = props;
@@ -618,6 +619,7 @@ const MapContainer = (props) => {
             onStyleData={listenSourceLayerLoad}
             mapLib={maplibregl}
             mapboxAccessToken={mapboxAccessToken}
+            terrain={terrain}
         >
             {children}
             {enableDraw ? (
@@ -645,6 +647,7 @@ const MapContainer = (props) => {
         </MapGL>
     );
 };
+
 
 MapContainer.propTypes = {
     // 基础参数
@@ -1097,6 +1100,11 @@ MapContainer.propTypes = {
      * 可选，用于配置mapbox服务token
      */
     mapboxAccessToken: PropTypes.string,
+
+    /**
+     * 用于配置terrain相关参数
+     */
+    terrain: PropTypes.object,
 
     /**
      * Dash-assigned callback that should be called to report property changes
