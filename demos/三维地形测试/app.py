@@ -3,7 +3,6 @@ if True:
     sys.path.append('../..')
 
     import dash
-    import json
     from dash import html
     import feffery_maplibre as fm
 

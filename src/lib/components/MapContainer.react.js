@@ -99,7 +99,13 @@ const DrawControl = (props) => {
         // 提取最新绘制的面要素
         let _drawnFeatures = drawRef.getAll().features;
         let latestDrawnFeature = _drawnFeatures[_drawnFeatures.length - 1];
-
+        // 处理圆形要素
+        if (latestDrawnFeature.properties.circleRadius) {
+            latestDrawnFeature = circle(
+                latestDrawnFeature.geometry.coordinates[0][0],
+                latestDrawnFeature.properties.circleRadius,
+                { steps: drawCircleSteps })
+        }
         // 若最近绘制的要素类型为多边形
         if (enableDrawSpatialJudge && drawSpatialJudgeListenLayerIds.length > 0 && latestDrawnFeature.geometry.type === 'Polygon') {
             // 则计算求得与之相交的其他要素
