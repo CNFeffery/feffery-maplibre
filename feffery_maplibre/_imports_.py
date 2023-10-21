@@ -13,6 +13,7 @@ from .NavigationControl import NavigationControl
 from .ScaleControl import ScaleControl
 from .ArcLayer import ArcLayer
 from .GeoJsonLayer import GeoJsonLayer
+from .TerrainLayer import TerrainLayer
 from .LayerGroup import LayerGroup
 from .SourceGroup import SourceGroup
 from .Layer import Layer
@@ -40,6 +41,7 @@ __all__ = [
     "ScaleControl",
     "ArcLayer",
     "GeoJsonLayer",
+    "TerrainLayer",
     "LayerGroup",
     "SourceGroup",
     "Layer",

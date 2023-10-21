@@ -32,6 +32,7 @@ import Popup from './components/others/Popup.react';
 // deck.gl图层
 import ArcLayer from './components/deckLayers/ArcLayer.react';
 import GeoJsonLayer from './components/deckLayers/GeoJsonLayer.react';
+import TerrainLayer from './components/deckLayers/TerrainLayer.react';
 
 export {
     MapContainer,
@@ -58,5 +59,6 @@ export {
     Marker,
     Popup,
     ArcLayer,
-    GeoJsonLayer
+    GeoJsonLayer,
+    TerrainLayer
 };
