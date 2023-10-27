@@ -221,7 +221,7 @@ const DrawControl = (props) => {
     const onModeChange = useCallback(
         (e) => {
             if (
-                ['draw_polygon', 'draw_line_string', 'draw_point'].includes(
+                ['simple_select', 'draw_polygon', 'draw_line_string', 'draw_point'].includes(
                     e.mode
                 )
             ) {
@@ -235,7 +235,7 @@ const DrawControl = (props) => {
                     if (enableDrawSpatialJudge) {
                         setProps({
                             // 在新矢量开始绘制时，重置为[]
-                            drawSpatialJudgeListenLayerFeatures: [],
+                            drawSpatialJudgeListenLayerFeatures: []
                         });
                     }
                     // 取得最新添加的要素的id
@@ -866,7 +866,7 @@ MapContainer.propTypes = {
     enableDraw: PropTypes.bool,
 
     /**
-     * 配置需要开启的功能控件种类
+     * 配置需要显示内置操作按钮的功能控件种类
      */
     drawControls: PropTypes.exact({
         /**

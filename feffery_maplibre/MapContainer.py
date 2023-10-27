@@ -80,7 +80,7 @@ Keyword arguments:
     设置绘制圆形时，生成矢量中circle字段返回对应圆形矢量数据的精度，越大越精准  默认：64.
 
 - drawControls (dict; optional):
-    配置需要开启的功能控件种类.
+    配置需要显示内置操作按钮的功能控件种类.
 
     `drawControls` is a dict with keys:
 
