@@ -6,11 +6,11 @@
 import React from 'react';
 // deck.gl相关
 import { TerrainLayer as _TerrainLayer } from '@deck.gl/geo-layers';
+import { _GlobeView as GlobeView } from '@deck.gl/core';
 // 自定义地图工具
 import { DeckGLOverlay, omitNullAndUndefined } from '../../map_utils';
 // 组件prop信息
 import { propTypes, defaultProps } from '../../components/deckLayers/TerrainLayer.react';
-
 
 const TerrainLayer = (props) => {
     let {
@@ -37,7 +37,7 @@ const TerrainLayer = (props) => {
             material: material,
             loadOptions: {
                 terrain: {
-                    skirtHeight: 20
+                    skirtHeight: 25
                 }
             }
         }

@@ -56,6 +56,13 @@ app.layout = html.Div(
                         'type': 'mode-change',
                         'mode': 'draw_circle'
                     }
+                ),
+                html.Button(
+                    'freehand_polygon',
+                    id={
+                        'type': 'mode-change',
+                        'mode': 'freehand_polygon'
+                    }
                 )
             ]
         ),
@@ -91,11 +98,11 @@ app.layout = html.Div(
                             layerProps={
                                 'source-layer': 'landuse',
                                 'type': 'fill',
-                                        'paint':  {
-                                            'fill-color': 'green',
-                                            'fill-opacity': 0.4,
-                                            'fill-outline-color': 'green'
-                                        }
+                                'paint':  {
+                                    'fill-color': 'green',
+                                    'fill-opacity': 0.4,
+                                    'fill-outline-color': 'green'
+                                }
                             },
                             hoverCursor='pointer'
                         ),
@@ -112,10 +119,10 @@ app.layout = html.Div(
                             layerProps={
                                 'source-layer': 'admin',
                                 'type': 'fill',
-                                        'paint': {
-                                            'fill-outline-color': '#faa2c1',
-                                            'fill-opacity': 0
-                                        }
+                                'paint': {
+                                    'fill-outline-color': '#faa2c1',
+                                    'fill-opacity': 0
+                                }
                             },
                             hoverCursor='pointer'
                         ),
@@ -135,9 +142,9 @@ app.layout = html.Div(
                             layerProps={
                                 'source-layer': 'road',
                                 'type': 'line',
-                                        'paint': {
-                                            'line-color': '#fab005'
-                                        }
+                                'paint': {
+                                    'line-color': '#fab005'
+                                }
                             },
                             hoverCursor='pointer'
                         )
@@ -155,6 +162,12 @@ app.layout = html.Div(
             enableDraw=True,
             drawOnlyOne=True,
             drawCircleSteps=128,
+            drawControls={
+                'point': False,
+                'line_string': False,
+                'polygon': False,
+                'trash': False
+            },
             drawSpatialJudgeListenLayerIds=[
                 'mapbox-demo-layer-landuse',
                 'mapbox-demo-country_label',

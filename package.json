@@ -1,6 +1,6 @@
 {
   "name": "feffery_maplibre",
-  "version": "0.0.1-b5",
+  "version": "0.0.1-b6",
   "description": "High performance map framework for Plotly Dash, based on maplibre and deck.gl.",
   "repository": {
     "type": "git",
@@ -25,7 +25,6 @@
   "author": "CNFeffery <fefferypzy@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@mapbox/mapbox-gl-draw": "^1.4.2",
     "@turf/boolean-contains": "^6.5.0",
     "@turf/boolean-disjoint": "^6.5.0",
     "@turf/boolean-intersects": "^6.5.0",
@@ -41,6 +40,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@babel/preset-env": "^7.22.2",
     "@babel/preset-react": "^7.22.3",
+    "@mapbox/mapbox-gl-draw": "^1.4.3",
     "@plotly/dash-component-plugins": "^1.2.3",
     "@plotly/webpack-dash-dynamic-import": "^1.2.0",
     "ahooks": "^3.7.8",

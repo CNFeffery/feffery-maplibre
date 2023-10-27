@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import MapGL, { useControl } from 'react-map-gl/maplibre';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import * as MapboxDrawGeodesic from 'mapbox-gl-draw-geodesic';
+import FreehandMode from '../utils/FreehandDraw';
 import maplibregl from 'maplibre-gl';
 // 其他第三方辅助
 import { useRequest } from 'ahooks';
@@ -34,6 +35,12 @@ MapboxDraw.constants.classes.CONTROL_GROUP = "maplibregl-ctrl-group";
 // 额外绘图模式注册
 let _modes = MapboxDraw.modes;
 _modes = MapboxDrawGeodesic.enable(_modes);
+Object.assign(
+    _modes,
+    {
+        freehand_polygon: FreehandMode
+    }
+)
 _modes.static = void 0;
 delete _modes.static;
 
@@ -881,12 +888,6 @@ MapContainer.propTypes = {
         polygon: PropTypes.bool,
 
         /**
-         * 特殊绘图模式，无自带的触发控件按钮，用于设置是否为当前地图绘制控件开启圆形绘制功能
-         * 默认：true
-         */
-        draw_circle: PropTypes.bool,
-
-        /**
          * 用于设置是否为当前地图绘制控件开启已绘制要素删除功能
          * 默认：true
          */
@@ -909,7 +910,7 @@ MapContainer.propTypes = {
      * 用于手动切换到指定地图绘制功能模式，每次成功切换模式后会重置为空
      */
     setDrawMode: PropTypes.oneOf([
-        'simple_select', 'draw_line_string', 'draw_polygon', 'draw_point', 'draw_circle'
+        'simple_select', 'draw_line_string', 'draw_polygon', 'draw_point', 'draw_circle', 'freehand_polygon'
     ]),
 
     /**

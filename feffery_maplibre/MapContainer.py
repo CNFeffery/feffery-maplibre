@@ -87,9 +87,6 @@ Keyword arguments:
     - combine_features (boolean; optional):
         用于设置是否为当前地图绘制控件开启已绘制要素组合功能  默认：False.
 
-    - draw_circle (boolean; optional):
-        特殊绘图模式，无自带的触发控件按钮，用于设置是否为当前地图绘制控件开启圆形绘制功能  默认：True.
-
     - line_string (boolean; optional):
         用于设置是否为当前地图绘制控件开启线绘制功能  默认：True.
 
@@ -235,7 +232,7 @@ Keyword arguments:
 - scrollZoom (boolean; default True):
     设置是否允许鼠标滚轮缩放地图  默认：True.
 
-- setDrawMode (a value equal to: 'simple_select', 'draw_line_string', 'draw_polygon', 'draw_point', 'draw_circle'; optional):
+- setDrawMode (a value equal to: 'simple_select', 'draw_line_string', 'draw_polygon', 'draw_point', 'draw_circle', 'freehand_polygon'; optional):
     用于手动切换到指定地图绘制功能模式，每次成功切换模式后会重置为空.
 
 - style (dict; optional):
