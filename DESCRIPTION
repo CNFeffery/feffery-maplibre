@@ -1,6 +1,6 @@
 Package: fefferyMaplibre
 Title: High performance map framework for Plotly Dash, based on maplibre and deck.gl.
-Version: 0.0.1-b7
+Version: 0.0.1-b8
 Description: High performance map framework for Plotly Dash, based on maplibre and deck.gl.
 Depends: R (>= 3.0.2)
 Imports: 

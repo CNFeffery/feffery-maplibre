@@ -160,7 +160,7 @@ app.layout = html.Div(
             ],
             id='map-demo',
             enableDraw=True,
-            drawOnlyOne=True,
+            # drawOnlyOne=True,
             drawCircleSteps=128,
             drawControls={
                 'point': False,
@@ -200,7 +200,13 @@ def show_current_drawnFeatures(drawnFeatures, currentDrawMode):
     return json.dumps(
         dict(
             currentDrawMode=currentDrawMode,
-            drawnFeatures=drawnFeatures
+            drawnFeatures=[
+                {
+                    'id': feature['id'],
+                    'properties': feature['properties']
+                }
+                for feature in drawnFeatures
+            ]
         ),
         indent=4,
         ensure_ascii=False

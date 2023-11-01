@@ -6,7 +6,7 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import simplify from "@turf/simplify";
 
 const DrawPolygon = MapboxDraw.modes.draw_polygon;
-const { geojsonTypes, cursors, types, updateActions, modes, events } = MapboxDraw.constants;
+const { geojsonTypes, cursors, updateActions, modes, events } = MapboxDraw.constants;
 
 const FreehandMode = Object.assign({}, DrawPolygon)
 
@@ -30,7 +30,7 @@ FreehandMode.onSetup = function () {
     }, 0);
 
     this.updateUIClasses({ mouse: cursors.ADD });
-    this.activateUIButton(types.POLYGON);
+    // this.activateUIButton(types.POLYGON);
     this.setActionableState({
         trash: true
     });
@@ -78,4 +78,4 @@ FreehandMode.simplify = function (polygon) {
     });
 }
 
-export default FreehandMode
+export default FreehandMode;
