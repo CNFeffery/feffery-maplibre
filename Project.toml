@@ -2,7 +2,7 @@
 name = "FefferyMaplibre"
 uuid = "1b08a953-4be3-4667-9a23-e1b5f56df0af"
 authors = ["CNFeffery <fefferypzy@gmail.com>"]
-version = "0.0.1-b8"
+version = "0.0.1-b9"
 
 [deps]
 Dash = "1b08a953-4be3-4667-9a23-3db579824955"

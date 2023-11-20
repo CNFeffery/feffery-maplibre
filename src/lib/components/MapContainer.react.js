@@ -623,6 +623,7 @@ const MapContainer = (props) => {
             mapLib={maplibregl}
             mapboxAccessToken={mapboxAccessToken}
             terrain={terrain}
+            localIdeographFontFamily={false}
         >
             {children}
             {enableDraw ? (
