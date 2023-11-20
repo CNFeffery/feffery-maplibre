@@ -428,20 +428,26 @@ const MapContainer = (props) => {
     // 初始化prop同步
     useEffect(() => {
         let toUpdateProps = {};
+        let _initialViewState = {
+            ...{
+                longitude: 0,
+                latitude: 0,
+                zoom: 0,
+                pitch: 0,
+                bearing: 0,
+            },
+            ...initialViewState
+        }
         // 若初始化时initialViewState有效，则为相关受控prop初始化有效值
-        if (initialViewState) {
-            for (let propName of [
-                'longitude',
-                'latitude',
-                'zoom',
-                'pitch',
-                'bearing',
-            ]) {
-                if (initialViewState[propName] || initialViewState[propName] === 0) {
-                    toUpdateProps[propName] = initialViewState[propName];
-                    toUpdateProps[propName + 'Debounce'] = initialViewState[propName];
-                }
-            }
+        for (let propName of [
+            'longitude',
+            'latitude',
+            'zoom',
+            'pitch',
+            'bearing',
+        ]) {
+            toUpdateProps[propName] = _initialViewState[propName];
+            toUpdateProps[propName + 'Debounce'] = _initialViewState[propName];
         }
 
         // 统一初始化prop
@@ -527,7 +533,18 @@ const MapContainer = (props) => {
             cursor={cursor}
             mapStyle={mapStyle}
             renderWorldCopies={renderWorldCopies}
-            initialViewState={initialViewState}
+            initialViewState={
+                {
+                    ...{
+                        longitude: 0,
+                        latitude: 0,
+                        zoom: 0,
+                        pitch: 0,
+                        bearing: 0,
+                    },
+                    ...initialViewState
+                }
+            }
             longitude={longitude}
             latitude={latitude}
             zoom={zoom}
@@ -1112,13 +1129,6 @@ MapContainer.propTypes = {
 };
 
 MapContainer.defaultProps = {
-    initialViewState: {
-        longitude: 0,
-        latitude: 0,
-        zoom: 0,
-        pitch: 0,
-        bearing: 0,
-    },
     renderWorldCopies: true,
     debounceWait: 200,
     minZoom: 0,

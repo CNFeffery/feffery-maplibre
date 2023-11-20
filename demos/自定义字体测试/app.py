@@ -91,6 +91,9 @@ app.layout = html.Div(
                 'sources': {},
                 'layers': [],
                 'glyphs': 'http://127.0.0.1:3000/font/{fontstack}/{range}'
+            },
+            initialViewState={
+                'zoom': 2
             }
         )
     ],
