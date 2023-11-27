@@ -6,6 +6,7 @@ from .PanBy import PanBy
 from .PanTo import PanTo
 from .Resize import Resize
 from .RotateTo import RotateTo
+from .Stop import Stop
 from .ZoomIn import ZoomIn
 from .ZoomOut import ZoomOut
 from .ZoomTo import ZoomTo
@@ -34,6 +35,7 @@ __all__ = [
     "PanTo",
     "Resize",
     "RotateTo",
+    "Stop",
     "ZoomIn",
     "ZoomOut",
     "ZoomTo",

@@ -1,3 +1,4 @@
+/* eslint-disable no-inline-comments */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-eval */
 /* eslint-disable no-magic-numbers */
@@ -24,6 +25,7 @@ const PanTo = (props) => {
                 map.panTo(
                     lnglat,
                     {
+                        easing: (e) => e, // 线性动画
                         ...rest
                     }
                 )
@@ -32,6 +34,7 @@ const PanTo = (props) => {
                 map.panTo(
                     lnglat,
                     {
+                        easing: (e) => e, // 线性动画
                         ...rest
                     }
                 )

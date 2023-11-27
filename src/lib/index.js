@@ -26,6 +26,7 @@ import ZoomIn from './components/actions/ZoomIn.react';
 import ZoomOut from './components/actions/ZoomOut.react';
 import ZoomTo from './components/actions/ZoomTo.react';
 import Resize from './components/actions/Resize.react';
+import Stop from './components/actions/Stop.react';
 // 其他
 import Marker from './components/others/Marker.react';
 import Popup from './components/others/Popup.react';
@@ -56,6 +57,7 @@ export {
     ZoomOut,
     ZoomTo,
     Resize,
+    Stop,
     Marker,
     Popup,
     ArcLayer,
