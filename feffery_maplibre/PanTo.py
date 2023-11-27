@@ -15,6 +15,9 @@ Keyword arguments:
 - abortPreviousAction (boolean; default True):
     设置当上一段地图动作还未执行完成时，是否强制执行最新参数下的地图动作  默认：True.
 
+- delay (number; optional):
+    设置动作延时，单位：毫秒.
+
 - key (string; optional):
     强制重绘当前组件时使用.
 
@@ -36,10 +39,10 @@ Keyword arguments:
     _namespace = 'feffery_maplibre'
     _type = 'PanTo'
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, mapActionConfig=Component.UNDEFINED, abortPreviousAction=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'abortPreviousAction', 'key', 'mapActionConfig']
+    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, mapActionConfig=Component.UNDEFINED, delay=Component.UNDEFINED, abortPreviousAction=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'abortPreviousAction', 'delay', 'key', 'mapActionConfig']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'abortPreviousAction', 'key', 'mapActionConfig']
+        self.available_properties = ['id', 'abortPreviousAction', 'delay', 'key', 'mapActionConfig']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

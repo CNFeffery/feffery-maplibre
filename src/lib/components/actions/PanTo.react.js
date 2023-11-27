@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { useMap } from 'react-map-gl/maplibre';
 
 const PanTo = (props) => {
-    let { mapActionConfig, abortPreviousAction, setProps } = props;
+    let { mapActionConfig, abortPreviousAction, delay, setProps } = props;
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -21,23 +21,52 @@ const PanTo = (props) => {
             // 拆分出lnglat参数与其他参数
             let { lnglat, ...rest } = mapActionConfig;
             if (abortPreviousAction) {
-                // 直接执行新动作
-                map.panTo(
-                    lnglat,
-                    {
-                        easing: (e) => e, // 线性动画
-                        ...rest
-                    }
-                )
+                if (delay) {
+                    // 延时执行
+                    setTimeout(() => {
+                        // 直接执行新动作
+                        map.panTo(
+                            lnglat,
+                            {
+                                easing: (e) => e, // 线性动画
+                                ...rest
+                            }
+                        )
+                    }, delay)
+                } else {
+                    // 直接执行新动作
+                    map.panTo(
+                        lnglat,
+                        {
+                            easing: (e) => e, // 线性动画
+                            ...rest
+                        }
+                    )
+                }
             } else if (!map.isMoving()) {
                 // 否则则仅在地图静止时才执行新动作
-                map.panTo(
-                    lnglat,
-                    {
-                        easing: (e) => e, // 线性动画
-                        ...rest
-                    }
-                )
+                if (delay) {
+                    // 延时执行
+                    setTimeout(() => {
+                        // 直接执行新动作
+                        map.panTo(
+                            lnglat,
+                            {
+                                easing: (e) => e, // 线性动画
+                                ...rest
+                            }
+                        )
+                    }, delay)
+                } else {
+                    // 直接执行新动作
+                    map.panTo(
+                        lnglat,
+                        {
+                            easing: (e) => e, // 线性动画
+                            ...rest
+                        }
+                    )
+                }
             }
             // 重置参数
             setProps({ mapActionConfig: null })
@@ -79,6 +108,11 @@ PanTo.propTypes = {
          */
         animate: PropTypes.bool
     }),
+
+    /**
+     * 设置动作延时，单位：毫秒
+     */
+    delay: PropTypes.number,
 
     /**
      * 设置当上一段地图动作还未执行完成时，是否强制执行最新参数下的地图动作

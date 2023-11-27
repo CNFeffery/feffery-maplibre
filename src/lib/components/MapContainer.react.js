@@ -419,6 +419,7 @@ const MapContainer = (props) => {
         mapboxAccessToken,
         terrain,
         clickListenLayerCount,
+        wheelEventCount,
         setProps,
     } = props;
 
@@ -635,6 +636,11 @@ const MapContainer = (props) => {
                         timestamp: new Date().getTime(),
                     },
                 });
+            }}
+            onWheel={(e) => {
+                setProps({
+                    wheelEventCount: wheelEventCount + 1
+                })
             }}
             onStyleData={listenSourceLayerLoad}
             mapLib={maplibregl}
@@ -1028,6 +1034,12 @@ MapContainer.propTypes = {
 
     // 常规监听参数
     /**
+     * 监听wheel事件累积触发次数
+     * 默认：0
+     */
+    wheelEventCount: PropTypes.number,
+
+    /**
      * 用于监听最近一次地图点击事件对应的坐标信息及时间戳信息
      */
     clickedLngLat: PropTypes.exact({
@@ -1158,7 +1170,9 @@ MapContainer.defaultProps = {
     interactive: true,
     workerCount: 2,
     debug: false,
-    clickListenLayerCount: 0
+    clickListenLayerCount: 0,
+    // 常见普通事件监听
+    wheelEventCount: 0
 };
 
 export default React.memo(MapContainer);
