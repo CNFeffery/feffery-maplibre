@@ -420,6 +420,8 @@ const MapContainer = (props) => {
         terrain,
         clickListenLayerCount,
         wheelEventCount,
+        moveStartEventCount,
+        dragStartEventCount,
         setProps,
     } = props;
 
@@ -510,6 +512,7 @@ const MapContainer = (props) => {
     );
     const { run: listenSourceLayerLoad } = useRequest(
         () => {
+            // 调试模式
             if (debug) {
                 console.log('loadedSources: ', mapRef.current.getStyle().sources)
                 console.log('loadedLayers: ', mapRef.current.getStyle().layers)
@@ -627,19 +630,38 @@ const MapContainer = (props) => {
                         clickListenLayerCount: clickListenLayerCount + 1
                     });
                 }
-
+                // 调试模式
+                if (debug) {
+                    console.log(
+                        {
+                            lng: Number(e.lngLat.lng.toFixed(6)),
+                            lat: Number(e.lngLat.lat.toFixed(6)),
+                            timestamp: new Date().getTime(),
+                        }
+                    )
+                }
                 setProps({
                     // 监听地图点击事件
                     clickedLngLat: {
                         lng: Number(e.lngLat.lng.toFixed(6)),
                         lat: Number(e.lngLat.lat.toFixed(6)),
                         timestamp: new Date().getTime(),
-                    },
+                    }
                 });
             }}
             onWheel={(e) => {
                 setProps({
                     wheelEventCount: wheelEventCount + 1
+                })
+            }}
+            onMoveStart={(e) => {
+                setProps({
+                    moveStartEventCount: moveStartEventCount + 1
+                })
+            }}
+            onDragStart={(e) => {
+                setProps({
+                    dragStartEventCount: dragStartEventCount + 1
                 })
             }}
             onStyleData={listenSourceLayerLoad}
@@ -1040,6 +1062,18 @@ MapContainer.propTypes = {
     wheelEventCount: PropTypes.number,
 
     /**
+     * 监听movestart事件累积触发次数
+     * 默认：0
+     */
+    moveStartEventCount: PropTypes.number,
+
+    /**
+     * 监听dragStart事件累积触发次数
+     * 默认：0
+     */
+    dragStartEventCount: PropTypes.number,
+
+    /**
      * 用于监听最近一次地图点击事件对应的坐标信息及时间戳信息
      */
     clickedLngLat: PropTypes.exact({
@@ -1172,7 +1206,9 @@ MapContainer.defaultProps = {
     debug: false,
     clickListenLayerCount: 0,
     // 常见普通事件监听
-    wheelEventCount: 0
+    wheelEventCount: 0,
+    moveStartEventCount: 0,
+    dragStartEventCount: 0
 };
 
 export default React.memo(MapContainer);

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { useMap } from 'react-map-gl/maplibre';
 
 const FitBounds = (props) => {
-    let { mapActionConfig, abortPreviousAction, setProps } = props;
+    let { mapActionConfig, abortPreviousAction, delay, setProps } = props;
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -20,21 +20,46 @@ const FitBounds = (props) => {
             // 拆分出bounds参数与其他参数
             let { bounds, ...rest } = mapActionConfig;
             if (abortPreviousAction) {
-                // 直接执行新动作
-                map.fitBounds(
-                    bounds,
-                    {
-                        ...rest
-                    }
-                )
+                if (delay) {
+                    setTimeout(() => {
+                        // 直接执行新动作
+                        map.fitBounds(
+                            bounds,
+                            {
+                                ...rest
+                            }
+                        )
+                    }, delay)
+                } else {
+                    // 直接执行新动作
+                    map.fitBounds(
+                        bounds,
+                        {
+                            ...rest
+                        }
+                    )
+                }
             } else if (!map.isMoving()) {
                 // 否则则仅在地图静止时才执行新动作
-                map.fitBounds(
-                    bounds,
-                    {
-                        ...rest
-                    }
-                )
+                if (delay) {
+                    setTimeout(() => {
+                        // 直接执行新动作
+                        map.fitBounds(
+                            bounds,
+                            {
+                                ...rest
+                            }
+                        )
+                    }, delay)
+                } else {
+                    // 直接执行新动作
+                    map.fitBounds(
+                        bounds,
+                        {
+                            ...rest
+                        }
+                    )
+                }
             }
             // 重置参数
             setProps({ mapActionConfig: null })
@@ -131,6 +156,11 @@ FitBounds.propTypes = {
          */
         maxZoom: PropTypes.number
     }),
+
+    /**
+     * 设置动作延时，单位：毫秒
+     */
+    delay: PropTypes.number,
 
     /**
      * 设置当上一段地图动作还未执行完成时，是否强制执行最新参数下的地图动作
