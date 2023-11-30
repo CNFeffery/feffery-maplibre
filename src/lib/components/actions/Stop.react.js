@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { useMap } from 'react-map-gl/maplibre';
 
 const Stop = (props) => {
-    let { execute, setProps } = props;
+    let { execute, delay, setProps } = props;
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -18,7 +18,14 @@ const Stop = (props) => {
     // 每次mapActionConfig有效时执行panTo()动作
     useEffect(() => {
         if (execute) {
-            map.stop();
+            if (delay) {
+                // 延时执行
+                setTimeout(() => {
+                    map.stop();
+                }, delay)
+            } else {
+                map.stop();
+            }
             setProps({
                 execute: false
             })
@@ -44,6 +51,11 @@ Stop.propTypes = {
      * 是否执行停止动作，默认为false，每次设置为true并成功停止动画后，会被重置为false
      */
     execute: PropTypes.bool,
+
+    /**
+     * 设置动作延时，单位：毫秒
+     */
+    delay: PropTypes.number,
 
     /**
      * Dash-assigned callback that should be called to report property changes

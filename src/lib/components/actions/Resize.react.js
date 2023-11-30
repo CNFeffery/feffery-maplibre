@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { useMap } from 'react-map-gl/maplibre';
 
 const Resize = (props) => {
-    let { resize, setProps } = props;
+    let { resize, delay, setProps } = props;
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -18,8 +18,16 @@ const Resize = (props) => {
     useEffect(() => {
         if (resize) {
             try {
-                // 执行地图
-                map.resize();
+                if (delay) {
+                    // 延时执行
+                    setTimeout(() => {
+                        // 执行地图resize
+                        map.resize();
+                    }, delay)
+                } else {
+                    // 执行地图resize
+                    map.resize();
+                }
             } catch (e) {
                 console.log(e.message);
             }
@@ -50,6 +58,11 @@ Resize.propTypes = {
      * 默认：false
      */
     resize: PropTypes.bool,
+
+    /**
+     * 设置动作延时，单位：毫秒
+     */
+    delay: PropTypes.number,
 
     /**
      * Dash-assigned callback that should be called to report property changes

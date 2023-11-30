@@ -41,7 +41,6 @@ const EaseTo = (props) => {
                 if (delay) {
                     // 延时执行
                     setTimeout(() => {
-                        // 直接执行新动作
                         map.easeTo(
                             {
                                 ...mapActionConfig
@@ -49,7 +48,6 @@ const EaseTo = (props) => {
                         )
                     }, delay)
                 } else {
-                    // 直接执行新动作
                     map.easeTo(
                         {
                             ...mapActionConfig

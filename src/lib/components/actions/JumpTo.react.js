@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { useMap } from 'react-map-gl/maplibre';
 
 const JumpTo = (props) => {
-    let { mapActionConfig, setProps } = props;
+    let { mapActionConfig, delay, setProps } = props;
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -17,12 +17,24 @@ const JumpTo = (props) => {
     // 每次mapActionConfig有效时执行jumpTo()动作
     useEffect(() => {
         if (mapActionConfig) {
-            // 直接执行新动作
-            map.easeTo(
-                {
-                    ...mapActionConfig
-                }
-            )
+            if (delay) {
+                // 延时执行
+                setTimeout(() => {
+                    // 直接执行新动作
+                    map.easeTo(
+                        {
+                            ...mapActionConfig
+                        }
+                    )
+                }, delay)
+            } else {
+                // 直接执行新动作
+                map.easeTo(
+                    {
+                        ...mapActionConfig
+                    }
+                )
+            }
             // 重置参数
             setProps({ mapActionConfig: null })
         }
@@ -94,6 +106,11 @@ JumpTo.propTypes = {
             right: PropTypes.number
         })
     }),
+
+    /**
+ * 设置动作延时，单位：毫秒
+ */
+    delay: PropTypes.number,
 
     /**
      * Dash-assigned callback that should be called to report property changes
