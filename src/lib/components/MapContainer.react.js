@@ -419,6 +419,7 @@ const MapContainer = (props) => {
         mapboxAccessToken,
         terrain,
         clickListenLayerCount,
+        resizeEventCount,
         wheelEventCount,
         moveStartEventCount,
         dragStartEventCount,
@@ -668,6 +669,11 @@ const MapContainer = (props) => {
                         timestamp: new Date().getTime(),
                     }
                 });
+            }}
+            onResize={(e) => {
+                setProps({
+                    resizeEventCount: resizeEventCount + 1
+                })
             }}
             onWheel={(e) => {
                 setProps({
@@ -1076,6 +1082,12 @@ MapContainer.propTypes = {
 
     // 常规监听参数
     /**
+     * 监听resize事件累积触发次数
+     * 默认：0
+     */
+    resizeEventCount: PropTypes.number,
+
+    /**
      * 监听wheel事件累积触发次数
      * 默认：0
      */
@@ -1244,6 +1256,7 @@ MapContainer.defaultProps = {
     debug: false,
     clickListenLayerCount: 0,
     // 常见普通事件监听
+    resizeEventCount: 0,
     wheelEventCount: 0,
     moveStartEventCount: 0,
     dragStartEventCount: 0
