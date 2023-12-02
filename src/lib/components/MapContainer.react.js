@@ -649,6 +649,26 @@ const MapContainer = (props) => {
                     }
                 });
             }}
+            onMouseMove={(e) => {
+                // 调试模式
+                if (debug) {
+                    console.log(
+                        {
+                            lng: Number(e.lngLat.lng.toFixed(6)),
+                            lat: Number(e.lngLat.lat.toFixed(6)),
+                            timestamp: new Date().getTime(),
+                        }
+                    )
+                }
+                setProps({
+                    // 监听地图点击事件
+                    hoveredLngLat: {
+                        lng: Number(e.lngLat.lng.toFixed(6)),
+                        lat: Number(e.lngLat.lat.toFixed(6)),
+                        timestamp: new Date().getTime(),
+                    }
+                });
+            }}
             onWheel={(e) => {
                 setProps({
                     wheelEventCount: wheelEventCount + 1
@@ -1077,6 +1097,24 @@ MapContainer.propTypes = {
      * 用于监听最近一次地图点击事件对应的坐标信息及时间戳信息
      */
     clickedLngLat: PropTypes.exact({
+        /**
+         * 点击位置经度
+         */
+        lng: PropTypes.number,
+        /**
+         * 点击位置纬度
+         */
+        lat: PropTypes.number,
+        /**
+         * 点击事件对应的时间戳
+         */
+        timestamp: PropTypes.number,
+    }),
+
+    /**
+     * 用于监听最近一次地图鼠标悬停事件对应的坐标信息及时间戳信息
+     */
+    hoveredLngLat: PropTypes.exact({
         /**
          * 点击位置经度
          */
