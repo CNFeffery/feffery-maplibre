@@ -17,6 +17,9 @@ app.layout = html.Div(
                 fm.ScaleControl()
             ],
             debug=True,
+            debugProps=[
+                'clickedLngLat'
+            ],
             mapStyle='https://api.maptiler.com/maps/basic-v2/style.json?key=pctRciYXNuENsTzDTtAS',
             style={
                 'height': '100%'

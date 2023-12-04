@@ -370,7 +370,7 @@ const DrawControl = (props) => {
 };
 
 const MapContainer = (props) => {
-    const {
+    let {
         id,
         children,
         key,
@@ -416,6 +416,7 @@ const MapContainer = (props) => {
         workerCount,
         debounceWait,
         debug,
+        debugProps,
         mapboxAccessToken,
         terrain,
         clickListenLayerCount,
@@ -425,6 +426,8 @@ const MapContainer = (props) => {
         dragStartEventCount,
         setProps,
     } = props;
+
+    debugProps = debugProps || [];
 
     // 地图ref
     const mapRef = useRef(null);
@@ -470,15 +473,18 @@ const MapContainer = (props) => {
     const listenViewState = (e) => {
         // 调试模式
         if (debug) {
-            console.log(
-                {
-                    longitude: Number(e.viewState.longitude.toFixed(6)),
-                    latitude: Number(e.viewState.latitude.toFixed(6)),
-                    zoom: Number(e.viewState.zoom.toFixed(3)),
-                    pitch: Number(e.viewState.pitch.toFixed(3)),
-                    bearing: Number(e.viewState.bearing.toFixed(3)),
-                }
-            )
+            if (debugProps.includes('viewState')) {
+                console.log('viewState: ')
+                console.log(
+                    {
+                        longitude: Number(e.viewState.longitude.toFixed(6)),
+                        latitude: Number(e.viewState.latitude.toFixed(6)),
+                        zoom: Number(e.viewState.zoom.toFixed(3)),
+                        pitch: Number(e.viewState.pitch.toFixed(3)),
+                        bearing: Number(e.viewState.bearing.toFixed(3)),
+                    }
+                )
+            }
         }
         setProps({
             longitude: Number(e.viewState.longitude.toFixed(6)),
@@ -515,8 +521,12 @@ const MapContainer = (props) => {
         () => {
             // 调试模式
             if (debug) {
-                console.log('loadedSources: ', mapRef.current.getStyle().sources)
-                console.log('loadedLayers: ', mapRef.current.getStyle().layers)
+                if (debugProps.includes('loadedSources')) {
+                    console.log('loadedSources: ', mapRef.current.getStyle().sources)
+                }
+                if (debugProps.includes('loadedLayers')) {
+                    console.log('loadedLayers: ', mapRef.current.getStyle().layers)
+                }
             }
             setProps({
                 loadedSources: mapRef.current.getStyle().sources,
@@ -633,13 +643,16 @@ const MapContainer = (props) => {
                 }
                 // 调试模式
                 if (debug) {
-                    console.log(
-                        {
-                            lng: Number(e.lngLat.lng.toFixed(6)),
-                            lat: Number(e.lngLat.lat.toFixed(6)),
-                            timestamp: new Date().getTime(),
-                        }
-                    )
+                    if (debugProps.includes('clickedLngLat')) {
+                        console.log(
+                            'clickedLngLat: ',
+                            {
+                                lng: Number(e.lngLat.lng.toFixed(6)),
+                                lat: Number(e.lngLat.lat.toFixed(6)),
+                                timestamp: new Date().getTime(),
+                            }
+                        )
+                    }
                 }
                 setProps({
                     // 监听地图点击事件
@@ -653,13 +666,16 @@ const MapContainer = (props) => {
             onMouseMove={(e) => {
                 // 调试模式
                 if (debug) {
-                    console.log(
-                        {
-                            lng: Number(e.lngLat.lng.toFixed(6)),
-                            lat: Number(e.lngLat.lat.toFixed(6)),
-                            timestamp: new Date().getTime(),
-                        }
-                    )
+                    if (debugProps.includes('hoveredLngLat')) {
+                        console.log(
+                            'hoveredLngLat: ',
+                            {
+                                lng: Number(e.lngLat.lng.toFixed(6)),
+                                lat: Number(e.lngLat.lat.toFixed(6)),
+                                timestamp: new Date().getTime(),
+                            }
+                        )
+                    }
                 }
                 setProps({
                     // 监听地图点击事件
@@ -1208,6 +1224,14 @@ MapContainer.propTypes = {
     debug: PropTypes.bool,
 
     /**
+     * 开发调试专用，用于在debug=True时，设置具体需要展示的属性名
+     * 默认：['viewState', 'loadedSources', 'loadedLayers', 'clickedLngLat', 'hoveredLngLat']
+     */
+    debugProps: PropTypes.arrayOf(
+        PropTypes.oneOf(['viewState', 'loadedSources', 'loadedLayers', 'clickedLngLat', 'hoveredLngLat'])
+    ),
+
+    /**
      * 可选，用于配置mapbox服务token
      */
     mapboxAccessToken: PropTypes.string,
@@ -1254,6 +1278,7 @@ MapContainer.defaultProps = {
     interactive: true,
     workerCount: 2,
     debug: false,
+    debugProps: ['viewState', 'loadedSources', 'loadedLayers', 'clickedLngLat', 'hoveredLngLat'],
     clickListenLayerCount: 0,
     // 常见普通事件监听
     resizeEventCount: 0,
