@@ -21,6 +21,7 @@ const Popup = (props) => {
         maxWidth,
         closeButton,
         closeOnMove,
+        closeOnClick,
         offset,
         setProps
     } = props;
@@ -36,6 +37,7 @@ const Popup = (props) => {
             maxWidth={maxWidth}
             closeButton={closeButton}
             closeOnMove={closeOnMove}
+            closeOnClick={closeOnClick}
             offset={offset}
             focusAfterOpen={false}
         >
@@ -107,6 +109,12 @@ Popup.propTypes = {
     closeOnMove: PropTypes.bool,
 
     /**
+     * 点击地图其他位置是否触发关闭
+     * 默认：true
+     */
+    closeOnClick: PropTypes.bool,
+
+    /**
      * 设置当前弹出卡片在水平和竖直方向上需要进行的像素偏移
      * 格式如：[水平像素偏移, 竖直像素偏移]
      */
@@ -122,7 +130,8 @@ Popup.propTypes = {
 Popup.defaultProps = {
     maxWidth: '240px',
     closeButton: true,
-    closeOnMove: false
+    closeOnMove: false,
+    closeOnClick: true
 };
 
 export default React.memo(Popup);

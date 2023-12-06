@@ -26,6 +26,9 @@ Keyword arguments:
 - closeButton (boolean; default True):
     是否显示关闭按钮  默认：True.
 
+- closeOnClick (boolean; default True):
+    点击地图其他位置是否触发关闭  默认：True.
+
 - closeOnMove (boolean; default False):
     地图移动时是否触发关闭  默认：False.
 
@@ -51,10 +54,10 @@ Keyword arguments:
     _namespace = 'feffery_maplibre'
     _type = 'Popup'
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, latitude=Component.REQUIRED, longitude=Component.REQUIRED, anchor=Component.UNDEFINED, maxWidth=Component.UNDEFINED, closeButton=Component.UNDEFINED, closeOnMove=Component.UNDEFINED, offset=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'anchor', 'className', 'closeButton', 'closeOnMove', 'key', 'latitude', 'longitude', 'maxWidth', 'offset', 'style']
+    def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, latitude=Component.REQUIRED, longitude=Component.REQUIRED, anchor=Component.UNDEFINED, maxWidth=Component.UNDEFINED, closeButton=Component.UNDEFINED, closeOnMove=Component.UNDEFINED, closeOnClick=Component.UNDEFINED, offset=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'anchor', 'className', 'closeButton', 'closeOnClick', 'closeOnMove', 'key', 'latitude', 'longitude', 'maxWidth', 'offset', 'style']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['children', 'id', 'anchor', 'className', 'closeButton', 'closeOnMove', 'key', 'latitude', 'longitude', 'maxWidth', 'offset', 'style']
+        self.available_properties = ['children', 'id', 'anchor', 'className', 'closeButton', 'closeOnClick', 'closeOnMove', 'key', 'latitude', 'longitude', 'maxWidth', 'offset', 'style']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
