@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { useMap } from 'react-map-gl/maplibre';
 
 const FitBounds = (props) => {
-    let { mapActionConfig, abortPreviousAction, delay, setProps } = props;
+    let { mapActionConfig, abortPreviousAction, delay, delayAfterAction, setProps } = props;
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -29,6 +29,9 @@ const FitBounds = (props) => {
                                 ...rest
                             }
                         )
+                        setTimeout(() => {
+                            setProps({ zoomAfterAction: map.getZoom() })
+                        }, delayAfterAction)
                     }, delay)
                 } else {
                     // 直接执行新动作
@@ -38,6 +41,9 @@ const FitBounds = (props) => {
                             ...rest
                         }
                     )
+                    setTimeout(() => {
+                        setProps({ zoomAfterAction: map.getZoom() })
+                    }, delayAfterAction)
                 }
             } else if (!map.isMoving()) {
                 // 否则则仅在地图静止时才执行新动作
@@ -50,6 +56,9 @@ const FitBounds = (props) => {
                                 ...rest
                             }
                         )
+                        setTimeout(() => {
+                            setProps({ zoomAfterAction: map.getZoom() })
+                        }, delayAfterAction)
                     }, delay)
                 } else {
                     // 直接执行新动作
@@ -59,6 +68,9 @@ const FitBounds = (props) => {
                             ...rest
                         }
                     )
+                    setTimeout(() => {
+                        setProps({ zoomAfterAction: map.getZoom() })
+                    }, delayAfterAction)
                 }
             }
             // 重置参数
@@ -168,6 +180,18 @@ FitBounds.propTypes = {
      */
     abortPreviousAction: PropTypes.bool,
 
+    // 监听类参数
+    /**
+     * 每次成功执行fitBounds动作后，监听最新的zoom级别
+     */
+    zoomAfterAction: PropTypes.number,
+
+    /**
+     * 设置在动作开始执行多少毫秒后，进行相关监听类参数的更新
+     * 默认：500
+     */
+    delayAfterAction: PropTypes.number,
+
     /**
      * Dash-assigned callback that should be called to report property changes
      * to Dash, to make them available for callbacks.
@@ -176,7 +200,8 @@ FitBounds.propTypes = {
 };
 
 FitBounds.defaultProps = {
-    abortPreviousAction: true
+    abortPreviousAction: true,
+    delayAfterAction: 500
 };
 
 export default React.memo(FitBounds);

@@ -18,6 +18,9 @@ Keyword arguments:
 - delay (number; optional):
     设置动作延时，单位：毫秒.
 
+- delayAfterAction (number; default 500):
+    设置在动作开始执行多少毫秒后，进行相关监听类参数的更新  默认：500.
+
 - key (string; optional):
     强制重绘当前组件时使用.
 
@@ -65,16 +68,19 @@ Keyword arguments:
         用于设置目标地图动作对应的地图倾斜角度.
 
     - zoom (number; optional):
-        用于设置目标地图动作对应的缩放级别."""
+        用于设置目标地图动作对应的缩放级别.
+
+- zoomAfterAction (number; optional):
+    每次成功执行fitBounds动作后，监听最新的zoom级别."""
     _children_props = []
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'FitBounds'
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, mapActionConfig=Component.UNDEFINED, delay=Component.UNDEFINED, abortPreviousAction=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'abortPreviousAction', 'delay', 'key', 'mapActionConfig']
+    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, mapActionConfig=Component.UNDEFINED, delay=Component.UNDEFINED, abortPreviousAction=Component.UNDEFINED, zoomAfterAction=Component.UNDEFINED, delayAfterAction=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'abortPreviousAction', 'delay', 'delayAfterAction', 'key', 'mapActionConfig', 'zoomAfterAction']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'abortPreviousAction', 'delay', 'key', 'mapActionConfig']
+        self.available_properties = ['id', 'abortPreviousAction', 'delay', 'delayAfterAction', 'key', 'mapActionConfig', 'zoomAfterAction']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
