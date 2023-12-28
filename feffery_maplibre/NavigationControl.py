@@ -27,7 +27,7 @@ Keyword arguments:
     设置导航控件中是否显示缩放按钮  默认：True.
 
 - style (dict; optional):
-    用于设置当前地图容器的css样式.
+    用于设置当前控件容器的css样式.
 
 - visualizePitch (boolean; default False):
     设置导航控件中的指南针图标是否展示地图倾斜状态  默认：False."""

@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import MapContainer from './components/MapContainer.react';
 // 控件类型
+import AttributionControl from './components/controls/AttributionControl.react';
 import NavigationControl from './components/controls/NavigationControl.react';
 import ScaleControl from './components/controls/ScaleControl.react';
 // 图层源
@@ -37,6 +38,7 @@ import TerrainLayer from './components/deckLayers/TerrainLayer.react';
 
 export {
     MapContainer,
+    AttributionControl,
     NavigationControl,
     ScaleControl,
     Source,

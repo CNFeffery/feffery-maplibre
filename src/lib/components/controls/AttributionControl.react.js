@@ -5,30 +5,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // 地图框架相关
-import { ScaleControl as _ScaleControl } from 'react-map-gl/maplibre';
+import { AttributionControl as _AttributionControl } from 'react-map-gl/maplibre';
 
 
-const ScaleControl = (props) => {
+const AttributionControl = (props) => {
     const {
         id,
         key,
         style,
+        customAttribution,
         position,
-        maxWidth,
         setProps
     } = props;
 
     return (
-        <_ScaleControl id={id}
+        <_AttributionControl id={id}
             key={key}
             style={style}
+            customAttribution={customAttribution}
             position={position}
-            maxWidth={maxWidth}
         />
     );
 }
 
-ScaleControl.propTypes = {
+AttributionControl.propTypes = {
     // 基础参数
     /**
      * The ID used to identify this component in Dash callbacks.
@@ -46,17 +46,16 @@ ScaleControl.propTypes = {
     style: PropTypes.object,
 
     /**
-     * 设置当前比例尺控件显示方位
-     * 可选的有'top-right'、'top-left'、'bottom-right'、'bottom-left'
-     * 默认：'bottom-left'
+     * 设置标注属性信息
      */
-    position: PropTypes.oneOf(['top-right', 'top-left', 'bottom-right', 'bottom-left']),
+    customAttribution: PropTypes.string,
 
     /**
-     * 设置当前比例尺控件最大像素宽度
-     * 默认：100
+     * 设置当前属性控件显示方位
+     * 可选的有'top-right'、'top-left'、'bottom-right'、'bottom-left'
+     * 默认：'top-right'
      */
-    maxWidth: PropTypes.number,
+    position: PropTypes.oneOf(['top-right', 'top-left', 'bottom-right', 'bottom-left']),
 
     /**
      * Dash-assigned callback that should be called to report property changes
@@ -65,9 +64,8 @@ ScaleControl.propTypes = {
     setProps: PropTypes.func
 };
 
-ScaleControl.defaultProps = {
-    position: 'bottom-left',
-    maxWidth: 100
+AttributionControl.defaultProps = {
+    position: 'top-right'
 };
 
-export default React.memo(ScaleControl);
+export default React.memo(AttributionControl);

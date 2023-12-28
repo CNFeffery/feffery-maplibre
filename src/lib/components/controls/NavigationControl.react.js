@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable prefer-const */
 // react核心
@@ -44,7 +45,7 @@ NavigationControl.propTypes = {
     key: PropTypes.string,
 
     /**
-     * 用于设置当前地图容器的css样式
+     * 用于设置当前控件容器的css样式
      */
     style: PropTypes.object,
 
