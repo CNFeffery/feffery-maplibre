@@ -2,3 +2,12 @@
 body {
     margin: 0;
 }
+
+/* 自定义全屏控件图标 */
+.maplibregl-ctrl button.maplibregl-ctrl-fullscreen .maplibregl-ctrl-icon {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAPxJREFUSEvtlIEJwjAURK+b6Ca6iU6iTqKb6Ca6ifqgV9I0Jl+wgmCgFPT37t/l/u808+lmxtfXCe6JooukdUDhQtJG0i6pHRrPFZjgJmkZAHcJJGdJvDlVAsApPDwr90GSY68C1asaAV1gC8BIjpAY/NTXY9fQWO2SIyQp+LZXi3pcGHv1wgqT8DEdpsf/8bvBJzCRmAKEtzzpcXqq9xQhCN5zuexP0LQvYhGXSFKG6CVxHGW+xNYicM5LAxeZk+o2LQ1R3mSTJFcAKEMTATdZTuJ1U5xktqmXXXVCX0y1v/34uobvGl3Xbu4dBdjCmp7suFaKmjlvFfw+wQOAhzkZNVhgiAAAAABJRU5ErkJggg==");
+}
+
+.maplibregl-ctrl button.maplibregl-ctrl-shrink .maplibregl-ctrl-icon {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAQFJREFUSEvtldENwjAMRK+bwCawCUwCTAKbwCawCfRVMQqp07SFICGRn0pNfGdf4nOjyqupjK+YYCFpJen0Juk+YNzAiQk2ko7tv0O7waE5i3hwnhipRADvZpIYOApsLTvvDlKSs6R1phxAAXPBU4liDCNBR+4m9xjurSR25iXzoQps7xrAhxKBgAXJ0qsylxmy8KJKiRgB5yZXMOcV9WK+2mgfyTgF+VdQlNWTiMbCT7CMKc/04nV87g4goRf4Vmk08xayouHGWIXrwl5gbFwEIVfOvs0Isy6cEniuiEzd8CgslyQmQAoycj2lhB72jQQL7yZjOjKH5BjD0Ru7v9/JD9oeOBnZ0c2kAAAAAElFTkSuQmCC");
+}

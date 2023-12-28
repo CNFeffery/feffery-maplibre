@@ -7,8 +7,12 @@ app.layout = html.Div(
     [
         fm.MapContainer(
             [
-                fm.AttributionControl(
-                    customAttribution='自定义属性 <b style="color: black;">加粗示例</ b>',
+                fm.NavigationControl(
+                    visualizePitch=True,
+                    showCompass=True,
+                    position='top-left',
+                ),
+                fm.FullscreenControl(
                     position='top-left',
                     style={
                         'color': 'red'
