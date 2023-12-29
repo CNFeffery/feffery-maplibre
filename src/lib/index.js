@@ -3,6 +3,7 @@ import MapContainer from './components/MapContainer.react';
 // 控件类型
 import AttributionControl from './components/controls/AttributionControl.react';
 import FullscreenControl from './components/controls/FullscreenControl.react';
+import GeolocateControl from './components/controls/GeolocateControl.react';
 import NavigationControl from './components/controls/NavigationControl.react';
 import ScaleControl from './components/controls/ScaleControl.react';
 // 图层源
@@ -41,6 +42,7 @@ export {
     MapContainer,
     AttributionControl,
     FullscreenControl,
+    GeolocateControl,
     NavigationControl,
     ScaleControl,
     Source,

@@ -12,6 +12,7 @@ from .ZoomOut import ZoomOut
 from .ZoomTo import ZoomTo
 from .AttributionControl import AttributionControl
 from .FullscreenControl import FullscreenControl
+from .GeolocateControl import GeolocateControl
 from .NavigationControl import NavigationControl
 from .ScaleControl import ScaleControl
 from .ArcLayer import ArcLayer
@@ -43,6 +44,7 @@ __all__ = [
     "ZoomTo",
     "AttributionControl",
     "FullscreenControl",
+    "GeolocateControl",
     "NavigationControl",
     "ScaleControl",
     "ArcLayer",

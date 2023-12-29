@@ -18,10 +18,10 @@ Keyword arguments:
 - key (string; optional):
     强制重绘当前组件时使用.
 
-- position (a value equal to: 'top-right', 'top-left', 'bottom-right', 'bottom-left'; default 'top-right'):
+- position (a value equal to: 'top-right', 'top-left', 'bottom-right', 'bottom-left'; default 'bottom-right'):
     设置当前属性控件显示方位
     可选的有'top-right'、'top-left'、'bottom-right'、'bottom-left'
-    默认：'top-right'.
+    默认：'bottom-right'.
 
 - style (dict; optional):
     用于设置当前控件容器的css样式."""

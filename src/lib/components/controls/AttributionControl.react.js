@@ -53,7 +53,7 @@ AttributionControl.propTypes = {
     /**
      * 设置当前属性控件显示方位
      * 可选的有'top-right'、'top-left'、'bottom-right'、'bottom-left'
-     * 默认：'top-right'
+     * 默认：'bottom-right'
      */
     position: PropTypes.oneOf(['top-right', 'top-left', 'bottom-right', 'bottom-left']),
 
@@ -65,7 +65,7 @@ AttributionControl.propTypes = {
 };
 
 AttributionControl.defaultProps = {
-    position: 'top-right'
+    position: 'bottom-right'
 };
 
 export default React.memo(AttributionControl);
