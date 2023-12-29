@@ -32,7 +32,20 @@ const GeolocateControl = (props) => {
             showAccuracyCircle={showAccuracyCircle}
             showUserHeading={showUserHeading}
             trackUserLocation={trackUserLocation}
-            onGeolocate={(e) => console.log('onGeolocate: ', e)}
+            onGeolocate={(e) => e.coords && setProps({
+                geolocateInfo: {
+                    coords: {
+                        accuracy: e.coords.accuracy,
+                        altitude: e.coords.altitude,
+                        altitudeAccuracy: e.coords.altitudeAccuracy,
+                        heading: e.coords.heading,
+                        latitude: e.coords.latitude,
+                        longitude: e.coords.longitude,
+                        speed: e.coords.speed
+                    },
+                    timestamp: e.timestamp
+                }
+            })}
         />
     );
 }
@@ -107,6 +120,11 @@ GeolocateControl.propTypes = {
      * 默认：false
      */
     trackUserLocation: PropTypes.bool,
+
+    /**
+     * 监听最近一次定位相关信息
+     */
+    geolocateInfo: PropTypes.object,
 
     /**
      * Dash-assigned callback that should be called to report property changes

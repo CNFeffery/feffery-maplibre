@@ -12,6 +12,9 @@ Keyword arguments:
 - id (string; optional):
     The ID used to identify this component in Dash callbacks.
 
+- geolocateInfo (dict; optional):
+    监听最近一次定位相关信息.
+
 - key (string; optional):
     强制重绘当前组件时使用.
 
@@ -53,10 +56,10 @@ Keyword arguments:
     _namespace = 'feffery_maplibre'
     _type = 'GeolocateControl'
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, position=Component.UNDEFINED, positionOptions=Component.UNDEFINED, showUserLocation=Component.UNDEFINED, showAccuracyCircle=Component.UNDEFINED, showUserHeading=Component.UNDEFINED, trackUserLocation=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'key', 'position', 'positionOptions', 'showAccuracyCircle', 'showUserHeading', 'showUserLocation', 'style', 'trackUserLocation']
+    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, position=Component.UNDEFINED, positionOptions=Component.UNDEFINED, showUserLocation=Component.UNDEFINED, showAccuracyCircle=Component.UNDEFINED, showUserHeading=Component.UNDEFINED, trackUserLocation=Component.UNDEFINED, geolocateInfo=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'geolocateInfo', 'key', 'position', 'positionOptions', 'showAccuracyCircle', 'showUserHeading', 'showUserLocation', 'style', 'trackUserLocation']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'key', 'position', 'positionOptions', 'showAccuracyCircle', 'showUserHeading', 'showUserLocation', 'style', 'trackUserLocation']
+        self.available_properties = ['id', 'geolocateInfo', 'key', 'position', 'positionOptions', 'showAccuracyCircle', 'showUserHeading', 'showUserLocation', 'style', 'trackUserLocation']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
