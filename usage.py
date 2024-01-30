@@ -11,6 +11,13 @@ app.layout = html.Div(
     [
         fm.MapContainer(
             [
+                # 热力图层测试
+                fm.HeatmapLayer(
+                    data='https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-bike-parking.json',
+                    getPosition='COORDINATES',
+                    radiusPixels=25
+                ),
+
                 # 图层排序操作
                 fm.Fragment(
                     id='action-target'

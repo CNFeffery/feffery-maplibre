@@ -38,6 +38,7 @@ import Popup from './components/others/Popup.react';
 import ArcLayer from './components/deckLayers/ArcLayer.react';
 import GeoJsonLayer from './components/deckLayers/GeoJsonLayer.react';
 import TerrainLayer from './components/deckLayers/TerrainLayer.react';
+import HeatmapLayer from './components/deckLayers/HeatmapLayer.react';
 
 export {
     MapContainer,
@@ -70,5 +71,6 @@ export {
     Popup,
     ArcLayer,
     GeoJsonLayer,
-    TerrainLayer
+    TerrainLayer,
+    HeatmapLayer
 };
