@@ -28,32 +28,41 @@ const SortLayers = (props) => {
     useEffect(() => {
         if (map && orders && orders.length !== 0) {
             try {
-                // 提取当前已加载图层中与orders相关的图层
-                let _currentLayers = map.getStyle().layers
-                let relatedLayers = _currentLayers.filter(item => orders.includes(item.id)).map(item => item.id);
-                // 提取supremeLayers中图层顺序最低的图层
-                let lowestSupremeLayer = _currentLayers.filter(item => supremeLayers.includes(item.id)).map(item => item.id);
-                if (lowestSupremeLayer.length !== 0) {
-                    lowestSupremeLayer = lowestSupremeLayer[0];
-                } else {
-                    lowestSupremeLayer = null;
-                }
-                // 搜索发生位置移动的关键图层
-                let movedLayer = findMovedLayer(relatedLayers, orders);
-                if (movedLayer) {
-                    // 若关键图层位于orders的末尾
-                    if (orders.indexOf(movedLayer) + 1 === orders.length) {
-                        map.moveLayer(movedLayer, lowestSupremeLayer)
+                // 逐轮次排序，直到整体顺序更新完成
+                while (true) {
+                    // 提取当前已加载图层中与orders相关的图层
+                    let relatedLayers = map.getLayersOrder().filter(layerId => orders.includes(layerId));
+                    // 若当前轮次中，实际的相关图层顺序与期望的图层顺序相同
+                    if (relatedLayers.map((layerId, i) => layerId === orders[i]).every((item) => item)) {
+                        // 终止循环
+                        break;
+                    }
+                    // 提取supremeLayers中图层顺序最低的图层
+                    let lowestSupremeLayer = map.getLayersOrder().filter(layerId => supremeLayers.includes(layerId));
+                    if (lowestSupremeLayer.length !== 0) {
+                        lowestSupremeLayer = lowestSupremeLayer[0];
                     } else {
-                        // 移动至当前图层对应的更高一层图层之下
-                        map.moveLayer(movedLayer, orders[orders.indexOf(movedLayer) + 1])
+                        lowestSupremeLayer = null;
+                    }
+                    // 搜索发生位置移动的关键图层
+                    let movedLayer = findMovedLayer(relatedLayers, orders);
+                    if (movedLayer) {
+                        // 若关键图层位于orders的末尾
+                        if (orders.indexOf(movedLayer) + 1 === orders.length) {
+                            map.moveLayer(movedLayer, lowestSupremeLayer)
+                        } else {
+                            // 移动至当前图层对应的更高一层图层之下
+                            map.moveLayer(movedLayer, orders[orders.indexOf(movedLayer) + 1])
+                        }
                     }
                 }
-            } catch (e) { }
+            } catch (e) {
+                console.error(e)
+            }
         }
         // 每次执行完成后重置orders
         setProps({
-            orders: [],
+            orders: []
         });
     }, [orders]);
 
