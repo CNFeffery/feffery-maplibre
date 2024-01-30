@@ -26,6 +26,7 @@ from .Marker import Marker
 from .Popup import Popup
 from .Source import Source
 from .AddImages import AddImages
+from .Fragment import Fragment
 from .HandleRawMap import HandleRawMap
 from .SortLayers import SortLayers
 
@@ -58,6 +59,7 @@ __all__ = [
     "Popup",
     "Source",
     "AddImages",
+    "Fragment",
     "HandleRawMap",
     "SortLayers"
 ]

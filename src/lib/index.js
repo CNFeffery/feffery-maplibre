@@ -17,6 +17,7 @@ import LayerGroup from './components/groups/LayerGroup.react';
 import HandleRawMap from './components/utils/HandleRawMap.react';
 import SortLayers from './components/utils/SortLayers.react';
 import AddImages from './components/utils/AddImages.react';
+import Fragment from './components/utils/Fragment.react';
 // 地图动作
 import EaseTo from './components/actions/EaseTo.react';
 import FitBounds from './components/actions/FitBounds.react';
@@ -52,6 +53,7 @@ export {
     HandleRawMap,
     SortLayers,
     AddImages,
+    Fragment,
     EaseTo,
     FitBounds,
     FlyTo,

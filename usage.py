@@ -12,7 +12,7 @@ app.layout = html.Div(
         fm.MapContainer(
             [
                 # 图层排序操作
-                fm.LayerGroup(
+                fm.Fragment(
                     id='action-target'
                 ),
 
