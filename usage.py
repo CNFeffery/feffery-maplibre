@@ -15,7 +15,16 @@ app.layout = html.Div(
                 fm.HeatmapLayer(
                     data='https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-bike-parking.json',
                     getPosition='COORDINATES',
-                    radiusPixels=25
+                    radiusPixels=25,
+                    colorRange=[
+                        [24, 144, 255],
+                        [64, 169, 255],
+                        [105, 192, 255],
+                        [145, 213, 255],
+                        [186, 231, 255],
+                        [230, 247, 255]
+                    ],
+                    debounceTimeout=100
                 ),
 
                 # 图层排序操作
