@@ -12,12 +12,6 @@ Keyword arguments:
 - id (string; optional):
     必填，用于唯一标识当前组件.
 
-- abortPreviousAction (boolean; default True):
-    设置当上一段地图动作还未执行完成时，是否强制执行最新参数下的地图动作  默认：True.
-
-- delay (number; optional):
-    设置动作延时，单位：毫秒.
-
 - key (string; optional):
     强制重绘当前组件时使用.
 
@@ -26,22 +20,25 @@ Keyword arguments:
 
     `mapActionConfig` is a dict with keys:
 
-    - animate (boolean; optional):
-        设置是否开启动画过渡效果.
-
-    - bearing (number; optional):
-        用于设置目标地图动作对应的地图旋转角度.
-
     - center (list of numbers; optional):
         用于设置目标地图动作对应的中心坐标  格式如[中心经度, 中心纬度].
 
-    - duration (number; optional):
-        设置动画持续时长，单位：毫秒.
+    - zoom (number; optional):
+        用于设置目标地图动作对应的缩放级别.
+
+    - pitch (number; optional):
+        用于设置目标地图动作对应的地图倾斜角度.
+
+    - bearing (number; optional):
+        用于设置目标地图动作对应的地图旋转角度.
 
     - padding (dict; optional):
         用于设置目标地图动作对应不同方向的像素留白大小.
 
         `padding` is a dict with keys:
+
+        - top (number; optional):
+            设置距离地图顶端的像素留白大小.
 
         - bottom (number; optional):
             设置距离地图底端的像素留白大小.
@@ -52,23 +49,26 @@ Keyword arguments:
         - right (number; optional):
             设置距离地图右侧的像素留白大小.
 
-        - top (number; optional):
-            设置距离地图顶端的像素留白大小.
+    - duration (number; optional):
+        设置动画持续时长，单位：毫秒.
 
-    - pitch (number; optional):
-        用于设置目标地图动作对应的地图倾斜角度.
+    - animate (boolean; optional):
+        设置是否开启动画过渡效果.
 
-    - zoom (number; optional):
-        用于设置目标地图动作对应的缩放级别."""
+- delay (number; optional):
+    设置动作延时，单位：毫秒.
+
+- abortPreviousAction (boolean; default True):
+    设置当上一段地图动作还未执行完成时，是否强制执行最新参数下的地图动作  默认：True."""
     _children_props = []
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'FlyTo'
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, mapActionConfig=Component.UNDEFINED, delay=Component.UNDEFINED, abortPreviousAction=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'abortPreviousAction', 'delay', 'key', 'mapActionConfig']
+        self._prop_names = ['id', 'key', 'mapActionConfig', 'delay', 'abortPreviousAction']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'abortPreviousAction', 'delay', 'key', 'mapActionConfig']
+        self.available_properties = ['id', 'key', 'mapActionConfig', 'delay', 'abortPreviousAction']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

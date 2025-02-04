@@ -15,6 +15,9 @@ Keyword arguments:
 - key (string; optional):
     强制重绘当前组件时使用.
 
+- style (dict; optional):
+    用于设置当前控件容器的css样式.
+
 - position (a value equal to: 'top-right', 'top-left', 'bottom-right', 'bottom-left'; default 'top-right'):
     设置当前导航控件显示方位
     可选的有'top-right'、'top-left'、'bottom-right'、'bottom-left'
@@ -26,9 +29,6 @@ Keyword arguments:
 - showZoom (boolean; default True):
     设置导航控件中是否显示缩放按钮  默认：True.
 
-- style (dict; optional):
-    用于设置当前控件容器的css样式.
-
 - visualizePitch (boolean; default False):
     设置导航控件中的指南针图标是否展示地图倾斜状态  默认：False."""
     _children_props = []
@@ -37,9 +37,9 @@ Keyword arguments:
     _type = 'NavigationControl'
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, position=Component.UNDEFINED, showCompass=Component.UNDEFINED, showZoom=Component.UNDEFINED, visualizePitch=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'key', 'position', 'showCompass', 'showZoom', 'style', 'visualizePitch']
+        self._prop_names = ['id', 'key', 'style', 'position', 'showCompass', 'showZoom', 'visualizePitch']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'key', 'position', 'showCompass', 'showZoom', 'style', 'visualizePitch']
+        self.available_properties = ['id', 'key', 'style', 'position', 'showCompass', 'showZoom', 'visualizePitch']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

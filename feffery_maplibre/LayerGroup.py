@@ -9,11 +9,11 @@ class LayerGroup(Component):
 
 Keyword arguments:
 
-- children (a list of or a singular dash component, string or number; optional):
-    用于传入当前图层组内部对应的若干图层组件.
-
 - id (string; optional):
     用于唯一标识当前组件.
+
+- children (a list of or a singular dash component, string or number; optional):
+    用于传入当前图层组内部对应的若干图层组件.
 
 - key (string; optional):
     强制重绘当前组件时使用."""
@@ -23,9 +23,9 @@ Keyword arguments:
     _type = 'LayerGroup'
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'key']
+        self._prop_names = ['id', 'children', 'key']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['children', 'id', 'key']
+        self.available_properties = ['id', 'children', 'key']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
