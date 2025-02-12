@@ -1,6 +1,13 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+import typing  # noqa: F401
+import numbers # noqa: F401
+from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
+try:
+    from dash.development.base_component import ComponentType # noqa: F401
+except ImportError:
+    ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
 class Marker(Component):
@@ -68,8 +75,30 @@ Keyword arguments:
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'Marker'
+
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, anchor=Component.UNDEFINED, color=Component.UNDEFINED, draggable=Component.UNDEFINED, latitude=Component.REQUIRED, longitude=Component.REQUIRED, offset=Component.UNDEFINED, pitchAlignment=Component.UNDEFINED, rotation=Component.UNDEFINED, rotationAlignment=Component.UNDEFINED, scale=Component.UNDEFINED, nClicks=Component.UNDEFINED, debounceWait=Component.UNDEFINED, longitudeDebounce=Component.UNDEFINED, latitudeDebounce=Component.UNDEFINED, **kwargs):
+    def __init__(
+        self,
+        children: typing.Optional[typing.Union[str, int, float, ComponentType, typing.Sequence[typing.Union[str, int, float, ComponentType]]]] = None,
+        id: typing.Optional[str] = None,
+        key: typing.Optional[str] = None,
+        style: typing.Optional[dict] = None,
+        anchor: typing.Optional[Literal["center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right"]] = None,
+        color: typing.Optional[str] = None,
+        draggable: typing.Optional[bool] = None,
+        latitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        longitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        offset: typing.Optional[typing.Sequence[typing.Union[int, float, numbers.Number]]] = None,
+        pitchAlignment: typing.Optional[Literal["map", "viewport", "auto"]] = None,
+        rotation: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        rotationAlignment: typing.Optional[Literal["map", "viewport", "auto"]] = None,
+        scale: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        nClicks: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        debounceWait: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        longitudeDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        latitudeDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        **kwargs
+    ):
         self._prop_names = ['id', 'children', 'key', 'style', 'anchor', 'color', 'draggable', 'latitude', 'longitude', 'offset', 'pitchAlignment', 'rotation', 'rotationAlignment', 'scale', 'nClicks', 'debounceWait', 'longitudeDebounce', 'latitudeDebounce']
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'children', 'key', 'style', 'anchor', 'color', 'draggable', 'latitude', 'longitude', 'offset', 'pitchAlignment', 'rotation', 'rotationAlignment', 'scale', 'nClicks', 'debounceWait', 'longitudeDebounce', 'latitudeDebounce']

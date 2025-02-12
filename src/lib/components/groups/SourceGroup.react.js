@@ -5,8 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SourceGroup = (props) => {
-    const { id, children, key, setProps } = props;
+const SourceGroup = ({ id, children, key, setProps }) => {
 
     return <>{children}</>;
 };
@@ -34,7 +33,5 @@ SourceGroup.propTypes = {
      */
     setProps: PropTypes.func,
 };
-
-SourceGroup.defaultProps = {};
 
 export default React.memo(SourceGroup);

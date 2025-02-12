@@ -9,10 +9,46 @@ import PropTypes from 'prop-types';
 
 const LazyHeatmapLayer = React.lazy(() => import(/* webpackChunkName: "deck_gl_layers" */ '../../fragments/deckLayers/HeatmapLayer.react'));
 
-const HeatmapLayer = (props) => {
+const HeatmapLayer = ({
+    id,
+    data,
+    visible = true,
+    beforeId,
+    opacity = 1,
+    radiusPixels = 30,
+    colorRange,
+    intensity = 1,
+    threshold = 0.05,
+    colorDomain,
+    aggregation = 'SUM',
+    weightsTextureSize = 2048,
+    debounceTimeout = 500,
+    getPosition,
+    getWeight,
+    setProps
+}) => {
     return (
         <Suspense fallback={null}>
-            <LazyHeatmapLayer {...props} />
+            <LazyHeatmapLayer {
+                ...{
+                    id,
+                    data,
+                    visible,
+                    beforeId,
+                    opacity,
+                    radiusPixels,
+                    colorRange,
+                    intensity,
+                    threshold,
+                    colorDomain,
+                    aggregation,
+                    weightsTextureSize,
+                    debounceTimeout,
+                    getPosition,
+                    getWeight,
+                    setProps
+                }
+            } />
         </Suspense>
     );
 }
@@ -137,17 +173,6 @@ HeatmapLayer.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-HeatmapLayer.defaultProps = {
-    visible: true,
-    opacity: 1,
-    radiusPixels: 30,
-    intensity: 1,
-    threshold: 0.05,
-    aggregation: 'SUM',
-    weightsTextureSize: 2048,
-    debounceTimeout: 500
 };
 
 export default React.memo(HeatmapLayer);

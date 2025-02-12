@@ -32,6 +32,4 @@ Fragment.propTypes = {
     setProps: PropTypes.func,
 };
 
-Fragment.defaultProps = {};
-
 export default React.memo(Fragment);

@@ -1,6 +1,13 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+import typing  # noqa: F401
+import numbers # noqa: F401
+from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
+try:
+    from dash.development.base_component import ComponentType # noqa: F401
+except ImportError:
+    ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
 class HeatmapLayer(Component):
@@ -68,8 +75,41 @@ Keyword arguments:
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'HeatmapLayer'
+    GetPosition = TypedDict(
+        "GetPosition",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
+    GetWeight = TypedDict(
+        "GetWeight",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, data=Component.UNDEFINED, visible=Component.UNDEFINED, beforeId=Component.UNDEFINED, opacity=Component.UNDEFINED, radiusPixels=Component.UNDEFINED, colorRange=Component.UNDEFINED, intensity=Component.UNDEFINED, threshold=Component.UNDEFINED, colorDomain=Component.UNDEFINED, aggregation=Component.UNDEFINED, weightsTextureSize=Component.UNDEFINED, debounceTimeout=Component.UNDEFINED, getPosition=Component.UNDEFINED, getWeight=Component.UNDEFINED, **kwargs):
+    def __init__(
+        self,
+        id: typing.Optional[str] = None,
+        key: typing.Optional[str] = None,
+        data: typing.Optional[typing.Union[typing.Sequence, str]] = None,
+        visible: typing.Optional[bool] = None,
+        beforeId: typing.Optional[str] = None,
+        opacity: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        radiusPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        colorRange: typing.Optional[typing.Sequence] = None,
+        intensity: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        threshold: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        colorDomain: typing.Optional[typing.Sequence[typing.Union[int, float, numbers.Number]]] = None,
+        aggregation: typing.Optional[Literal["SUM", "MEAN"]] = None,
+        weightsTextureSize: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        debounceTimeout: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        getPosition: typing.Optional[typing.Union[str, "GetPosition"]] = None,
+        getWeight: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetWeight"]] = None,
+        **kwargs
+    ):
         self._prop_names = ['id', 'key', 'data', 'visible', 'beforeId', 'opacity', 'radiusPixels', 'colorRange', 'intensity', 'threshold', 'colorDomain', 'aggregation', 'weightsTextureSize', 'debounceTimeout', 'getPosition', 'getWeight']
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'key', 'data', 'visible', 'beforeId', 'opacity', 'radiusPixels', 'colorRange', 'intensity', 'threshold', 'colorDomain', 'aggregation', 'weightsTextureSize', 'debounceTimeout', 'getPosition', 'getWeight']

@@ -1,6 +1,13 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+import typing  # noqa: F401
+import numbers # noqa: F401
+from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
+try:
+    from dash.development.base_component import ComponentType # noqa: F401
+except ImportError:
+    ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
 class TerrainLayer(Component):
@@ -53,8 +60,30 @@ Keyword arguments:
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'TerrainLayer'
+    ElevationDecoder = TypedDict(
+        "ElevationDecoder",
+            {
+            "rScaler": NotRequired[typing.Union[int, float, numbers.Number]],
+            "gScaler": NotRequired[typing.Union[int, float, numbers.Number]],
+            "bScaler": NotRequired[typing.Union[int, float, numbers.Number]],
+            "offset": NotRequired[typing.Union[int, float, numbers.Number]]
+        }
+    )
+
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, elevationData=Component.REQUIRED, texture=Component.UNDEFINED, elevationDecoder=Component.UNDEFINED, bounds=Component.UNDEFINED, color=Component.UNDEFINED, wireframe=Component.UNDEFINED, material=Component.UNDEFINED, **kwargs):
+    def __init__(
+        self,
+        id: typing.Optional[str] = None,
+        key: typing.Optional[str] = None,
+        elevationData: typing.Optional[str] = None,
+        texture: typing.Optional[str] = None,
+        elevationDecoder: typing.Optional["ElevationDecoder"] = None,
+        bounds: typing.Optional[typing.Sequence[typing.Union[int, float, numbers.Number]]] = None,
+        color: typing.Optional[typing.Sequence[typing.Union[int, float, numbers.Number]]] = None,
+        wireframe: typing.Optional[bool] = None,
+        material: typing.Optional[bool] = None,
+        **kwargs
+    ):
         self._prop_names = ['id', 'key', 'elevationData', 'texture', 'elevationDecoder', 'bounds', 'color', 'wireframe', 'material']
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'key', 'elevationData', 'texture', 'elevationDecoder', 'bounds', 'color', 'wireframe', 'material']

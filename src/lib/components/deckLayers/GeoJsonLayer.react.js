@@ -9,10 +9,78 @@ import PropTypes from 'prop-types';
 
 const LazyGeoJsonLayer = React.lazy(() => import(/* webpackChunkName: "deck_gl_layers" */ '../../fragments/deckLayers/GeoJsonLayer.react'));
 
-const GeoJsonLayer = (props) => {
+const GeoJsonLayer = ({
+    id,
+    data = [],
+    visible = true,
+    beforeId,
+    opacity = 1,
+    pickable = false,
+    highlightColor = [0, 0, 128, 128],
+    autoHighlight = false,
+    tooltipRenderer,
+    pointType = 'circle',
+    filled = true,
+    stroked = true,
+    lineWidthUnits = 'pixels',
+    lineWidthScale = 1,
+    lineWidthMinPixels = 1,
+    lineWidthMaxPixels,
+    lineBillboard = false,
+    extruded = false,
+    wireframe = false,
+    elevationScale = 1,
+    pointRadiusUnits = 'meters',
+    pointRadiusScale = 1,
+    pointRadiusMinPixels = 0,
+    pointRadiusMaxPixels,
+    pointBillboard = false,
+    getFillColor = [0, 0, 0, 255],
+    getLineColor = [0, 0, 0, 255],
+    getLineWidth = 1,
+    getElevation = 1000,
+    getPointRadius = 1,
+    debounceWait = 200,
+    setProps
+}) => {
     return (
         <Suspense fallback={null}>
-            <LazyGeoJsonLayer {...props} />
+            <LazyGeoJsonLayer {
+                ...{
+                    id,
+                    data,
+                    visible,
+                    beforeId,
+                    opacity,
+                    pickable,
+                    highlightColor,
+                    autoHighlight,
+                    tooltipRenderer,
+                    pointType,
+                    filled,
+                    stroked,
+                    lineWidthUnits,
+                    lineWidthScale,
+                    lineWidthMinPixels,
+                    lineWidthMaxPixels,
+                    lineBillboard,
+                    extruded,
+                    wireframe,
+                    elevationScale,
+                    pointRadiusUnits,
+                    pointRadiusScale,
+                    pointRadiusMinPixels,
+                    pointRadiusMaxPixels,
+                    pointBillboard,
+                    getFillColor,
+                    getLineColor,
+                    getLineWidth,
+                    getElevation,
+                    getPointRadius,
+                    debounceWait,
+                    setProps
+                }
+            } />
         </Suspense>
     );
 }
@@ -280,35 +348,6 @@ GeoJsonLayer.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-GeoJsonLayer.defaultProps = {
-    data: [],
-    visible: true,
-    opacity: 1,
-    pickable: false,
-    highlightColor: [0, 0, 128, 128],
-    autoHighlight: false,
-    pointType: 'circle',
-    filled: true,
-    stroked: true,
-    lineWidthUnits: 'pixels',
-    lineWidthScale: 1,
-    lineWidthMinPixels: 1,
-    lineBillboard: false,
-    extruded: false,
-    wireframe: false,
-    elevationScale: 1,
-    pointRadiusUnits: 'meters',
-    pointRadiusScale: 1,
-    pointRadiusMinPixels: 0,
-    pointBillboard: false,
-    getFillColor: [0, 0, 0, 255],
-    getLineColor: [0, 0, 0, 255],
-    getLineWidth: 1,
-    getElevation: 1000,
-    getPointRadius: 1,
-    debounceWait: 200
 };
 
 export default React.memo(GeoJsonLayer);

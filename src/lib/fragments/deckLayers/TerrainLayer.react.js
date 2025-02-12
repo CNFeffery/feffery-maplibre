@@ -12,18 +12,17 @@ import { DeckGLOverlay, omitNullAndUndefined } from '../../map_utils';
 // 组件prop信息
 import { propTypes, defaultProps } from '../../components/deckLayers/TerrainLayer.react';
 
-const TerrainLayer = (props) => {
-    let {
-        id,
-        elevationData,
-        texture,
-        elevationDecoder,
-        bounds,
-        color,
-        wireframe,
-        material,
-        setProps
-    } = props;
+const TerrainLayer = ({
+    id,
+    elevationData,
+    texture,
+    elevationDecoder,
+    bounds,
+    color,
+    wireframe,
+    material,
+    setProps
+}) => {
 
     let layerConfig = omitNullAndUndefined(
         {

@@ -1,6 +1,13 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+import typing  # noqa: F401
+import numbers # noqa: F401
+from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
+try:
+    from dash.development.base_component import ComponentType # noqa: F401
+except ImportError:
+    ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
 class Popup(Component):
@@ -53,8 +60,25 @@ Keyword arguments:
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'Popup'
+
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, latitude=Component.REQUIRED, longitude=Component.REQUIRED, anchor=Component.UNDEFINED, maxWidth=Component.UNDEFINED, closeButton=Component.UNDEFINED, closeOnMove=Component.UNDEFINED, closeOnClick=Component.UNDEFINED, offset=Component.UNDEFINED, **kwargs):
+    def __init__(
+        self,
+        children: typing.Optional[typing.Union[str, int, float, ComponentType, typing.Sequence[typing.Union[str, int, float, ComponentType]]]] = None,
+        id: typing.Optional[str] = None,
+        key: typing.Optional[str] = None,
+        style: typing.Optional[dict] = None,
+        className: typing.Optional[str] = None,
+        latitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        longitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        anchor: typing.Optional[Literal["center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right"]] = None,
+        maxWidth: typing.Optional[str] = None,
+        closeButton: typing.Optional[bool] = None,
+        closeOnMove: typing.Optional[bool] = None,
+        closeOnClick: typing.Optional[bool] = None,
+        offset: typing.Optional[typing.Sequence[typing.Union[int, float, numbers.Number]]] = None,
+        **kwargs
+    ):
         self._prop_names = ['id', 'children', 'key', 'style', 'className', 'latitude', 'longitude', 'anchor', 'maxWidth', 'closeButton', 'closeOnMove', 'closeOnClick', 'offset']
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'children', 'key', 'style', 'className', 'latitude', 'longitude', 'anchor', 'maxWidth', 'closeButton', 'closeOnMove', 'closeOnClick', 'offset']

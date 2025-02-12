@@ -9,10 +9,62 @@ import PropTypes from 'prop-types';
 
 const LazyArcLayer = React.lazy(() => import(/* webpackChunkName: "deck_gl_layers" */ '../../fragments/deckLayers/ArcLayer.react'));
 
-const ArcLayer = (props) => {
+const ArcLayer = ({
+    id,
+    data,
+    visible = true,
+    beforeId,
+    opacity = 1,
+    pickable = false,
+    highlightColor = [0, 0, 128, 128],
+    autoHighlight = false,
+    tooltipRenderer,
+    greatCircle = false,
+    numSegments = 50,
+    widthUnits = 'pixels',
+    widthScale = 1,
+    widthMinPixels = 1,
+    widthMaxPixels,
+    getSourcePosition,
+    getTargetPosition,
+    getSourceColor,
+    getTargetColor,
+    getWidth,
+    getHeight,
+    getTilt,
+    debounceWait = 200,
+    setProps
+}) => {
     return (
         <Suspense fallback={null}>
-            <LazyArcLayer {...props} />
+            <LazyArcLayer {
+                ...{
+                    id,
+                    data,
+                    visible,
+                    beforeId,
+                    opacity,
+                    pickable,
+                    highlightColor,
+                    autoHighlight,
+                    tooltipRenderer,
+                    greatCircle,
+                    numSegments,
+                    widthUnits,
+                    widthScale,
+                    widthMinPixels,
+                    widthMaxPixels,
+                    getSourcePosition,
+                    getTargetPosition,
+                    getSourceColor,
+                    getTargetColor,
+                    getWidth,
+                    getHeight,
+                    getTilt,
+                    debounceWait,
+                    setProps
+                }
+            } />
         </Suspense>
     );
 }
@@ -235,20 +287,6 @@ ArcLayer.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-ArcLayer.defaultProps = {
-    visible: true,
-    opacity: 1,
-    pickable: false,
-    highlightColor: [0, 0, 128, 128],
-    autoHighlight: false,
-    greatCircle: false,
-    numSegments: 50,
-    widthUnits: 'pixels',
-    widthScale: 1,
-    widthMinPixels: 1,
-    debounceWait: 200
 };
 
 export default React.memo(ArcLayer);

@@ -8,17 +8,16 @@ import PropTypes from 'prop-types';
 import { NavigationControl as _NavigationControl } from 'react-map-gl/maplibre';
 
 
-const NavigationControl = (props) => {
-    const {
-        id,
-        key,
-        style,
-        position,
-        showCompass,
-        showZoom,
-        visualizePitch,
-        setProps
-    } = props;
+const NavigationControl = ({
+    id,
+    key,
+    style,
+    position = 'top-right',
+    showCompass = true,
+    showZoom = true,
+    visualizePitch = false,
+    setProps
+}) => {
 
     return (
         <_NavigationControl id={id}
@@ -79,13 +78,6 @@ NavigationControl.propTypes = {
      * to Dash, to make them available for callbacks.
     */
     setProps: PropTypes.func
-};
-
-NavigationControl.defaultProps = {
-    position: 'top-right',
-    showCompass: true,
-    showZoom: true,
-    visualizePitch: false
 };
 
 export default React.memo(NavigationControl);

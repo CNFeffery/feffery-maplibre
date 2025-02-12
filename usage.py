@@ -3,7 +3,7 @@ from dash import Dash, html
 import feffery_maplibre as fm
 from dash.dependencies import Input, Output
 
-app = Dash(__name__)
+app = Dash(__name__, suppress_callback_exceptions=True)
 
 colors = ["red", "blue", "yellow"]
 
@@ -32,13 +32,13 @@ app.layout = html.Div(
                     [
                         fm.Source(
                             fm.Layer(
-                                id=f"demo-layer{i+1}",
+                                id=f"demo-layer{i + 1}",
                                 layerProps={
                                     "type": "fill",
                                     "paint": {"fill-color": colors[i]},
                                 },
                             ),
-                            id=f"demo-source{i+1}",
+                            id=f"demo-source{i + 1}",
                             sourceProps={
                                 "type": "geojson",
                                 # 模拟生成面要素
@@ -107,4 +107,4 @@ def handle_layers_order_update(n_clicks):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)

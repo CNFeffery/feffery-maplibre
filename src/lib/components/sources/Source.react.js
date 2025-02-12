@@ -10,8 +10,7 @@ import { Source as _Source, useMap } from 'react-map-gl/maplibre';
 // 上下文管理器
 import SourceContext from '../../contexts/SourceContext';
 
-const Source = (props) => {
-    const { id, children, key, sourceId, sourceProps, setProps } = props;
+const Source = ({ id, children, key, sourceId, sourceProps, setProps }) => {
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -69,7 +68,5 @@ Source.propTypes = {
      */
     setProps: PropTypes.func,
 };
-
-Source.defaultProps = {};
 
 export default Source;

@@ -1,6 +1,13 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+import typing  # noqa: F401
+import numbers # noqa: F401
+from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
+try:
+    from dash.development.base_component import ComponentType # noqa: F401
+except ImportError:
+    ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
 class MapContainer(Component):
@@ -287,8 +294,119 @@ Keyword arguments:
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'MapContainer'
+    InitialViewState = TypedDict(
+        "InitialViewState",
+            {
+            "longitude": NotRequired[typing.Union[int, float, numbers.Number]],
+            "latitude": NotRequired[typing.Union[int, float, numbers.Number]],
+            "zoom": NotRequired[typing.Union[int, float, numbers.Number]],
+            "pitch": NotRequired[typing.Union[int, float, numbers.Number]],
+            "bearing": NotRequired[typing.Union[int, float, numbers.Number]],
+            "bounds": NotRequired[typing.Sequence]
+        }
+    )
+
+    DrawControls = TypedDict(
+        "DrawControls",
+            {
+            "point": NotRequired[bool],
+            "line_string": NotRequired[bool],
+            "polygon": NotRequired[bool],
+            "trash": NotRequired[bool],
+            "combine_features": NotRequired[bool],
+            "uncombine_features": NotRequired[bool]
+        }
+    )
+
+    ClickedLngLat = TypedDict(
+        "ClickedLngLat",
+            {
+            "lng": NotRequired[typing.Union[int, float, numbers.Number]],
+            "lat": NotRequired[typing.Union[int, float, numbers.Number]],
+            "timestamp": NotRequired[typing.Union[int, float, numbers.Number]]
+        }
+    )
+
+    HoveredLngLat = TypedDict(
+        "HoveredLngLat",
+            {
+            "lng": NotRequired[typing.Union[int, float, numbers.Number]],
+            "lat": NotRequired[typing.Union[int, float, numbers.Number]],
+            "timestamp": NotRequired[typing.Union[int, float, numbers.Number]]
+        }
+    )
+
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, cursor=Component.UNDEFINED, mapStyle=Component.UNDEFINED, renderWorldCopies=Component.UNDEFINED, initialViewState=Component.UNDEFINED, longitude=Component.UNDEFINED, latitude=Component.UNDEFINED, zoom=Component.UNDEFINED, pitch=Component.UNDEFINED, bearing=Component.UNDEFINED, minZoom=Component.UNDEFINED, maxZoom=Component.UNDEFINED, minPitch=Component.UNDEFINED, maxPitch=Component.UNDEFINED, maxBounds=Component.UNDEFINED, boxZoom=Component.UNDEFINED, doubleClickZoom=Component.UNDEFINED, dragRotate=Component.UNDEFINED, dragPan=Component.UNDEFINED, keyboard=Component.UNDEFINED, scrollZoom=Component.UNDEFINED, touchPitch=Component.UNDEFINED, clickListenLayerIds=Component.UNDEFINED, clickListenBoxSize=Component.UNDEFINED, enableDraw=Component.UNDEFINED, drawControls=Component.UNDEFINED, setDrawMode=Component.UNDEFINED, currentDrawMode=Component.UNDEFINED, drawControlsPosition=Component.UNDEFINED, drawOnlyOne=Component.UNDEFINED, drawCircleSteps=Component.UNDEFINED, drawnFeatures=Component.UNDEFINED, enableDrawSpatialJudge=Component.UNDEFINED, drawSpatialJudgePredicate=Component.UNDEFINED, drawSpatialJudgeListenLayerIds=Component.UNDEFINED, drawSpatialJudgeListenLayerFeatures=Component.UNDEFINED, drawDeleteAll=Component.UNDEFINED, drawDeleteSelected=Component.UNDEFINED, locale=Component.UNDEFINED, localeInfo=Component.UNDEFINED, interactive=Component.UNDEFINED, workerCount=Component.UNDEFINED, resizeEventCount=Component.UNDEFINED, wheelEventCount=Component.UNDEFINED, moveStartEventCount=Component.UNDEFINED, dragStartEventCount=Component.UNDEFINED, clickedLngLat=Component.UNDEFINED, hoveredLngLat=Component.UNDEFINED, clickListenLayerFeatures=Component.UNDEFINED, clickListenLayerCount=Component.UNDEFINED, loadedSources=Component.UNDEFINED, loadedLayers=Component.UNDEFINED, debounceWait=Component.UNDEFINED, longitudeDebounce=Component.UNDEFINED, latitudeDebounce=Component.UNDEFINED, zoomDebounce=Component.UNDEFINED, pitchDebounce=Component.UNDEFINED, bearingDebounce=Component.UNDEFINED, boundsDebounce=Component.UNDEFINED, debug=Component.UNDEFINED, debugProps=Component.UNDEFINED, mapboxAccessToken=Component.UNDEFINED, terrain=Component.UNDEFINED, **kwargs):
+    def __init__(
+        self,
+        children: typing.Optional[typing.Union[str, int, float, ComponentType, typing.Sequence[typing.Union[str, int, float, ComponentType]]]] = None,
+        id: typing.Optional[str] = None,
+        key: typing.Optional[str] = None,
+        style: typing.Optional[dict] = None,
+        cursor: typing.Optional[str] = None,
+        mapStyle: typing.Optional[typing.Union[str, dict]] = None,
+        renderWorldCopies: typing.Optional[bool] = None,
+        initialViewState: typing.Optional["InitialViewState"] = None,
+        longitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        latitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        zoom: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        pitch: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        bearing: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        minZoom: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        maxZoom: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        minPitch: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        maxPitch: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        maxBounds: typing.Optional[typing.Sequence] = None,
+        boxZoom: typing.Optional[bool] = None,
+        doubleClickZoom: typing.Optional[bool] = None,
+        dragRotate: typing.Optional[bool] = None,
+        dragPan: typing.Optional[bool] = None,
+        keyboard: typing.Optional[bool] = None,
+        scrollZoom: typing.Optional[bool] = None,
+        touchPitch: typing.Optional[bool] = None,
+        clickListenLayerIds: typing.Optional[typing.Sequence] = None,
+        clickListenBoxSize: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        enableDraw: typing.Optional[bool] = None,
+        drawControls: typing.Optional["DrawControls"] = None,
+        setDrawMode: typing.Optional[Literal["simple_select", "draw_line_string", "draw_polygon", "draw_point", "draw_circle", "freehand_polygon"]] = None,
+        currentDrawMode: typing.Optional[str] = None,
+        drawControlsPosition: typing.Optional[Literal["top-right", "top-left", "bottom-right", "bottom-left"]] = None,
+        drawOnlyOne: typing.Optional[bool] = None,
+        drawCircleSteps: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        drawnFeatures: typing.Optional[typing.Sequence] = None,
+        enableDrawSpatialJudge: typing.Optional[bool] = None,
+        drawSpatialJudgePredicate: typing.Optional[Literal["intersects", "contains"]] = None,
+        drawSpatialJudgeListenLayerIds: typing.Optional[typing.Sequence] = None,
+        drawSpatialJudgeListenLayerFeatures: typing.Optional[typing.Sequence] = None,
+        drawDeleteAll: typing.Optional[bool] = None,
+        drawDeleteSelected: typing.Optional[bool] = None,
+        locale: typing.Optional[Literal["zh-cn", "en-us"]] = None,
+        localeInfo: typing.Optional[dict] = None,
+        interactive: typing.Optional[bool] = None,
+        workerCount: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        resizeEventCount: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        wheelEventCount: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        moveStartEventCount: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        dragStartEventCount: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        clickedLngLat: typing.Optional["ClickedLngLat"] = None,
+        hoveredLngLat: typing.Optional["HoveredLngLat"] = None,
+        clickListenLayerFeatures: typing.Optional[typing.Sequence] = None,
+        clickListenLayerCount: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        loadedSources: typing.Optional[dict] = None,
+        loadedLayers: typing.Optional[typing.Sequence] = None,
+        debounceWait: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        longitudeDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        latitudeDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        zoomDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        pitchDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        bearingDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        boundsDebounce: typing.Optional[typing.Sequence] = None,
+        debug: typing.Optional[bool] = None,
+        debugProps: typing.Optional[typing.Sequence[Literal["viewState", "loadedSources", "loadedLayers", "clickedLngLat", "hoveredLngLat"]]] = None,
+        mapboxAccessToken: typing.Optional[str] = None,
+        terrain: typing.Optional[dict] = None,
+        **kwargs
+    ):
         self._prop_names = ['id', 'children', 'key', 'style', 'cursor', 'mapStyle', 'renderWorldCopies', 'initialViewState', 'longitude', 'latitude', 'zoom', 'pitch', 'bearing', 'minZoom', 'maxZoom', 'minPitch', 'maxPitch', 'maxBounds', 'boxZoom', 'doubleClickZoom', 'dragRotate', 'dragPan', 'keyboard', 'scrollZoom', 'touchPitch', 'clickListenLayerIds', 'clickListenBoxSize', 'enableDraw', 'drawControls', 'setDrawMode', 'currentDrawMode', 'drawControlsPosition', 'drawOnlyOne', 'drawCircleSteps', 'drawnFeatures', 'enableDrawSpatialJudge', 'drawSpatialJudgePredicate', 'drawSpatialJudgeListenLayerIds', 'drawSpatialJudgeListenLayerFeatures', 'drawDeleteAll', 'drawDeleteSelected', 'locale', 'localeInfo', 'interactive', 'workerCount', 'resizeEventCount', 'wheelEventCount', 'moveStartEventCount', 'dragStartEventCount', 'clickedLngLat', 'hoveredLngLat', 'clickListenLayerFeatures', 'clickListenLayerCount', 'loadedSources', 'loadedLayers', 'debounceWait', 'longitudeDebounce', 'latitudeDebounce', 'zoomDebounce', 'pitchDebounce', 'bearingDebounce', 'boundsDebounce', 'debug', 'debugProps', 'mapboxAccessToken', 'terrain']
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'children', 'key', 'style', 'cursor', 'mapStyle', 'renderWorldCopies', 'initialViewState', 'longitude', 'latitude', 'zoom', 'pitch', 'bearing', 'minZoom', 'maxZoom', 'minPitch', 'maxPitch', 'maxBounds', 'boxZoom', 'doubleClickZoom', 'dragRotate', 'dragPan', 'keyboard', 'scrollZoom', 'touchPitch', 'clickListenLayerIds', 'clickListenBoxSize', 'enableDraw', 'drawControls', 'setDrawMode', 'currentDrawMode', 'drawControlsPosition', 'drawOnlyOne', 'drawCircleSteps', 'drawnFeatures', 'enableDrawSpatialJudge', 'drawSpatialJudgePredicate', 'drawSpatialJudgeListenLayerIds', 'drawSpatialJudgeListenLayerFeatures', 'drawDeleteAll', 'drawDeleteSelected', 'locale', 'localeInfo', 'interactive', 'workerCount', 'resizeEventCount', 'wheelEventCount', 'moveStartEventCount', 'dragStartEventCount', 'clickedLngLat', 'hoveredLngLat', 'clickListenLayerFeatures', 'clickListenLayerCount', 'loadedSources', 'loadedLayers', 'debounceWait', 'longitudeDebounce', 'latitudeDebounce', 'zoomDebounce', 'pitchDebounce', 'bearingDebounce', 'boundsDebounce', 'debug', 'debugProps', 'mapboxAccessToken', 'terrain']

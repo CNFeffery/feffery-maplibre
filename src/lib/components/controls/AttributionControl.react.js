@@ -8,15 +8,14 @@ import PropTypes from 'prop-types';
 import { AttributionControl as _AttributionControl } from 'react-map-gl/maplibre';
 
 
-const AttributionControl = (props) => {
-    const {
-        id,
-        key,
-        style,
-        customAttribution,
-        position,
-        setProps
-    } = props;
+const AttributionControl = ({
+    id,
+    key,
+    style,
+    customAttribution,
+    position = 'bottom-right',
+    setProps
+}) => {
 
     return (
         <_AttributionControl id={id}
@@ -62,10 +61,6 @@ AttributionControl.propTypes = {
      * to Dash, to make them available for callbacks.
     */
     setProps: PropTypes.func
-};
-
-AttributionControl.defaultProps = {
-    position: 'bottom-right'
 };
 
 export default React.memo(AttributionControl);

@@ -8,19 +8,18 @@ import PropTypes from 'prop-types';
 import { GeolocateControl as _GeolocateControl } from 'react-map-gl/maplibre';
 
 
-const GeolocateControl = (props) => {
-    const {
-        id,
-        key,
-        style,
-        position,
-        positionOptions,
-        showUserLocation,
-        showAccuracyCircle,
-        showUserHeading,
-        trackUserLocation,
-        setProps
-    } = props;
+const GeolocateControl = ({
+    id,
+    key,
+    style,
+    position = 'bottom-right',
+    positionOptions,
+    showUserLocation = true,
+    showAccuracyCircle = true,
+    showUserHeading = false,
+    trackUserLocation = false,
+    setProps
+}) => {
 
     return (
         <_GeolocateControl id={id}
@@ -131,14 +130,6 @@ GeolocateControl.propTypes = {
      * to Dash, to make them available for callbacks.
     */
     setProps: PropTypes.func
-};
-
-GeolocateControl.defaultProps = {
-    position: 'bottom-right',
-    showUserLocation: true,
-    showAccuracyCircle: true,
-    trackUserLocation: false,
-    showUserHeading: false
 };
 
 export default React.memo(GeolocateControl);

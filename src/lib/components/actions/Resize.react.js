@@ -9,8 +9,7 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import { useMap } from 'react-map-gl/maplibre';
 
-const Resize = (props) => {
-    let { resize, delay, setProps } = props;
+const Resize = ({ resize = false, delay, setProps }) => {
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -69,10 +68,6 @@ Resize.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-Resize.defaultProps = {
-    resize: false
 };
 
 export default React.memo(Resize);

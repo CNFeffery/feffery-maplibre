@@ -8,8 +8,7 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import { useMap } from 'react-map-gl/maplibre';
 
-const HandleRawMap = (props) => {
-    let { jsString, setProps } = props;
+const HandleRawMap = ({ jsString, setProps }) => {
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -57,7 +56,5 @@ HandleRawMap.propTypes = {
      */
     setProps: PropTypes.func,
 };
-
-HandleRawMap.defaultProps = {};
 
 export default React.memo(HandleRawMap);

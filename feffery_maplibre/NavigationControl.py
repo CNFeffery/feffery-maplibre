@@ -1,6 +1,13 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+import typing  # noqa: F401
+import numbers # noqa: F401
+from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
+try:
+    from dash.development.base_component import ComponentType # noqa: F401
+except ImportError:
+    ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
 class NavigationControl(Component):
@@ -35,8 +42,19 @@ Keyword arguments:
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'NavigationControl'
+
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, style=Component.UNDEFINED, position=Component.UNDEFINED, showCompass=Component.UNDEFINED, showZoom=Component.UNDEFINED, visualizePitch=Component.UNDEFINED, **kwargs):
+    def __init__(
+        self,
+        id: typing.Optional[str] = None,
+        key: typing.Optional[str] = None,
+        style: typing.Optional[dict] = None,
+        position: typing.Optional[Literal["top-right", "top-left", "bottom-right", "bottom-left"]] = None,
+        showCompass: typing.Optional[bool] = None,
+        showZoom: typing.Optional[bool] = None,
+        visualizePitch: typing.Optional[bool] = None,
+        **kwargs
+    ):
         self._prop_names = ['id', 'key', 'style', 'position', 'showCompass', 'showZoom', 'visualizePitch']
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'key', 'style', 'position', 'showCompass', 'showZoom', 'visualizePitch']

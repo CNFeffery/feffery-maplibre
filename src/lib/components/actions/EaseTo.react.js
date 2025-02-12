@@ -8,8 +8,7 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import { useMap } from 'react-map-gl/maplibre';
 
-const EaseTo = (props) => {
-    let { mapActionConfig, abortPreviousAction, delay, setProps } = props;
+const EaseTo = ({ mapActionConfig, abortPreviousAction = true, delay, setProps }) => {
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -154,10 +153,6 @@ EaseTo.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-EaseTo.defaultProps = {
-    abortPreviousAction: true
 };
 
 export default React.memo(EaseTo);

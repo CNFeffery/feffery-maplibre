@@ -8,8 +8,7 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import { useMap } from 'react-map-gl/maplibre';
 
-const FitBounds = (props) => {
-    let { mapActionConfig, abortPreviousAction, delay, delayAfterAction, setProps } = props;
+const FitBounds = ({ mapActionConfig, abortPreviousAction = true, delay, delayAfterAction = 500, setProps }) => {
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -197,11 +196,6 @@ FitBounds.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-FitBounds.defaultProps = {
-    abortPreviousAction: true,
-    delayAfterAction: 500
 };
 
 export default React.memo(FitBounds);
