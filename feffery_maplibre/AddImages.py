@@ -1,6 +1,13 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+import typing  # noqa: F401
+import numbers # noqa: F401
+from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
+try:
+    from dash.development.base_component import ComponentType # noqa: F401
+except ImportError:
+    ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
 class AddImages(Component):
@@ -29,8 +36,22 @@ Keyword arguments:
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'AddImages'
+    Images = TypedDict(
+        "Images",
+            {
+            "id": str,
+            "url": str
+        }
+    )
+
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, images=Component.UNDEFINED, **kwargs):
+    def __init__(
+        self,
+        id: typing.Optional[str] = None,
+        key: typing.Optional[str] = None,
+        images: typing.Optional[typing.Sequence["Images"]] = None,
+        **kwargs
+    ):
         self._prop_names = ['id', 'key', 'images']
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'key', 'images']

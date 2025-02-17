@@ -1,6 +1,13 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+import typing  # noqa: F401
+import numbers # noqa: F401
+from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
+try:
+    from dash.development.base_component import ComponentType # noqa: F401
+except ImportError:
+    ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
 class EaseTo(Component):
@@ -64,8 +71,39 @@ Keyword arguments:
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'EaseTo'
+    MapActionConfigPadding = TypedDict(
+        "MapActionConfigPadding",
+            {
+            "top": NotRequired[typing.Union[int, float, numbers.Number]],
+            "bottom": NotRequired[typing.Union[int, float, numbers.Number]],
+            "left": NotRequired[typing.Union[int, float, numbers.Number]],
+            "right": NotRequired[typing.Union[int, float, numbers.Number]]
+        }
+    )
+
+    MapActionConfig = TypedDict(
+        "MapActionConfig",
+            {
+            "center": NotRequired[typing.Sequence[typing.Union[int, float, numbers.Number]]],
+            "zoom": NotRequired[typing.Union[int, float, numbers.Number]],
+            "pitch": NotRequired[typing.Union[int, float, numbers.Number]],
+            "bearing": NotRequired[typing.Union[int, float, numbers.Number]],
+            "padding": NotRequired["MapActionConfigPadding"],
+            "duration": NotRequired[typing.Union[int, float, numbers.Number]],
+            "animate": NotRequired[bool]
+        }
+    )
+
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, mapActionConfig=Component.UNDEFINED, delay=Component.UNDEFINED, abortPreviousAction=Component.UNDEFINED, **kwargs):
+    def __init__(
+        self,
+        id: typing.Optional[str] = None,
+        key: typing.Optional[str] = None,
+        mapActionConfig: typing.Optional["MapActionConfig"] = None,
+        delay: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        abortPreviousAction: typing.Optional[bool] = None,
+        **kwargs
+    ):
         self._prop_names = ['id', 'key', 'mapActionConfig', 'delay', 'abortPreviousAction']
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'key', 'mapActionConfig', 'delay', 'abortPreviousAction']

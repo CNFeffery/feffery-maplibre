@@ -9,8 +9,7 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import { useMap } from 'react-map-gl/maplibre';
 
-const AddImages = (props) => {
-    let { images, setProps } = props;
+const AddImages = ({ images = [], setProps }) => {
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -79,10 +78,6 @@ AddImages.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-AddImages.defaultProps = {
-    images: []
 };
 
 export default React.memo(AddImages);

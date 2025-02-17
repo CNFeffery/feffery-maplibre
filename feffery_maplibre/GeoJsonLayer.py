@@ -1,6 +1,13 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+import typing  # noqa: F401
+import numbers # noqa: F401
+from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
+try:
+    from dash.development.base_component import ComponentType # noqa: F401
+except ImportError:
+    ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
 class GeoJsonLayer(Component):
@@ -139,8 +146,80 @@ Keyword arguments:
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'GeoJsonLayer'
+    GetFillColor = TypedDict(
+        "GetFillColor",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
+    GetLineColor = TypedDict(
+        "GetLineColor",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
+    GetLineWidth = TypedDict(
+        "GetLineWidth",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
+    GetElevation = TypedDict(
+        "GetElevation",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
+    GetPointRadius = TypedDict(
+        "GetPointRadius",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, data=Component.UNDEFINED, visible=Component.UNDEFINED, beforeId=Component.UNDEFINED, opacity=Component.UNDEFINED, pickable=Component.UNDEFINED, highlightColor=Component.UNDEFINED, autoHighlight=Component.UNDEFINED, tooltipRenderer=Component.UNDEFINED, pointType=Component.UNDEFINED, filled=Component.UNDEFINED, stroked=Component.UNDEFINED, lineWidthUnits=Component.UNDEFINED, lineWidthScale=Component.UNDEFINED, lineWidthMinPixels=Component.UNDEFINED, lineWidthMaxPixels=Component.UNDEFINED, lineBillboard=Component.UNDEFINED, extruded=Component.UNDEFINED, wireframe=Component.UNDEFINED, elevationScale=Component.UNDEFINED, pointRadiusUnits=Component.UNDEFINED, pointRadiusScale=Component.UNDEFINED, pointRadiusMinPixels=Component.UNDEFINED, pointRadiusMaxPixels=Component.UNDEFINED, pointBillboard=Component.UNDEFINED, getFillColor=Component.UNDEFINED, getLineColor=Component.UNDEFINED, getLineWidth=Component.UNDEFINED, getElevation=Component.UNDEFINED, getPointRadius=Component.UNDEFINED, debounceWait=Component.UNDEFINED, hoverEvent=Component.UNDEFINED, clickEvent=Component.UNDEFINED, **kwargs):
+    def __init__(
+        self,
+        id: typing.Optional[str] = None,
+        key: typing.Optional[str] = None,
+        data: typing.Optional[typing.Union[typing.Sequence, str, dict]] = None,
+        visible: typing.Optional[bool] = None,
+        beforeId: typing.Optional[str] = None,
+        opacity: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        pickable: typing.Optional[bool] = None,
+        highlightColor: typing.Optional[typing.Sequence] = None,
+        autoHighlight: typing.Optional[bool] = None,
+        tooltipRenderer: typing.Optional[str] = None,
+        pointType: typing.Optional[Literal["circle", "icon", "text"]] = None,
+        filled: typing.Optional[bool] = None,
+        stroked: typing.Optional[bool] = None,
+        lineWidthUnits: typing.Optional[Literal["meters", "common", "pixels"]] = None,
+        lineWidthScale: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        lineWidthMinPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        lineWidthMaxPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        lineBillboard: typing.Optional[bool] = None,
+        extruded: typing.Optional[bool] = None,
+        wireframe: typing.Optional[bool] = None,
+        elevationScale: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        pointRadiusUnits: typing.Optional[Literal["meters", "common", "pixels"]] = None,
+        pointRadiusScale: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        pointRadiusMinPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        pointRadiusMaxPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        pointBillboard: typing.Optional[bool] = None,
+        getFillColor: typing.Optional[typing.Union[typing.Sequence, str, "GetFillColor"]] = None,
+        getLineColor: typing.Optional[typing.Union[typing.Sequence, str, "GetLineColor"]] = None,
+        getLineWidth: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetLineWidth"]] = None,
+        getElevation: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetElevation"]] = None,
+        getPointRadius: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetPointRadius"]] = None,
+        debounceWait: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        hoverEvent: typing.Optional[dict] = None,
+        clickEvent: typing.Optional[dict] = None,
+        **kwargs
+    ):
         self._prop_names = ['id', 'key', 'data', 'visible', 'beforeId', 'opacity', 'pickable', 'highlightColor', 'autoHighlight', 'tooltipRenderer', 'pointType', 'filled', 'stroked', 'lineWidthUnits', 'lineWidthScale', 'lineWidthMinPixels', 'lineWidthMaxPixels', 'lineBillboard', 'extruded', 'wireframe', 'elevationScale', 'pointRadiusUnits', 'pointRadiusScale', 'pointRadiusMinPixels', 'pointRadiusMaxPixels', 'pointBillboard', 'getFillColor', 'getLineColor', 'getLineWidth', 'getElevation', 'getPointRadius', 'debounceWait', 'hoverEvent', 'clickEvent']
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'key', 'data', 'visible', 'beforeId', 'opacity', 'pickable', 'highlightColor', 'autoHighlight', 'tooltipRenderer', 'pointType', 'filled', 'stroked', 'lineWidthUnits', 'lineWidthScale', 'lineWidthMinPixels', 'lineWidthMaxPixels', 'lineBillboard', 'extruded', 'wireframe', 'elevationScale', 'pointRadiusUnits', 'pointRadiusScale', 'pointRadiusMinPixels', 'pointRadiusMaxPixels', 'pointBillboard', 'getFillColor', 'getLineColor', 'getLineWidth', 'getElevation', 'getPointRadius', 'debounceWait', 'hoverEvent', 'clickEvent']

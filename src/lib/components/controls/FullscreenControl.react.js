@@ -8,14 +8,13 @@ import PropTypes from 'prop-types';
 import { FullscreenControl as _FullscreenControl } from 'react-map-gl/maplibre';
 
 
-const FullscreenControl = (props) => {
-    const {
-        id,
-        key,
-        style,
-        position,
-        setProps
-    } = props;
+const FullscreenControl = ({
+    id,
+    key,
+    style,
+    position = 'top-right',
+    setProps
+}) => {
 
     return (
         <_FullscreenControl id={id}
@@ -55,10 +54,6 @@ FullscreenControl.propTypes = {
      * to Dash, to make them available for callbacks.
     */
     setProps: PropTypes.func
-};
-
-FullscreenControl.defaultProps = {
-    position: 'top-right'
 };
 
 export default React.memo(FullscreenControl);

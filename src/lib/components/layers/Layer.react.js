@@ -10,8 +10,7 @@ import { Layer as _Layer, useMap } from 'react-map-gl/maplibre';
 // 上下文管理器
 import SourceContext from '../../contexts/SourceContext';
 
-const Layer = (props) => {
-    let { id, key, layerId, beforeId, layerProps, hoverCursor, setProps } = props;
+const Layer = ({ id, key, layerId, beforeId, layerProps, hoverCursor, setProps }) => {
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -94,7 +93,5 @@ Layer.propTypes = {
      */
     setProps: PropTypes.func,
 };
-
-Layer.defaultProps = {};
 
 export default Layer;

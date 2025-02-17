@@ -1,6 +1,13 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+import typing  # noqa: F401
+import numbers # noqa: F401
+from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
+try:
+    from dash.development.base_component import ComponentType # noqa: F401
+except ImportError:
+    ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
 class Layer(Component):
@@ -31,8 +38,18 @@ Keyword arguments:
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'Layer'
+
     @_explicitize_args
-    def __init__(self, id=Component.REQUIRED, key=Component.UNDEFINED, layerId=Component.UNDEFINED, beforeId=Component.UNDEFINED, layerProps=Component.UNDEFINED, hoverCursor=Component.UNDEFINED, **kwargs):
+    def __init__(
+        self,
+        id: typing.Optional[str] = None,
+        key: typing.Optional[str] = None,
+        layerId: typing.Optional[str] = None,
+        beforeId: typing.Optional[str] = None,
+        layerProps: typing.Optional[dict] = None,
+        hoverCursor: typing.Optional[str] = None,
+        **kwargs
+    ):
         self._prop_names = ['id', 'key', 'layerId', 'beforeId', 'layerProps', 'hoverCursor']
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'key', 'layerId', 'beforeId', 'layerProps', 'hoverCursor']

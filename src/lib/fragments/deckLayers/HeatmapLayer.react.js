@@ -12,25 +12,24 @@ import { DeckGLOverlay, parseDeckGet, omitNullAndUndefined, hex2RGB } from '../.
 import { propTypes, defaultProps } from '../../components/deckLayers/HeatmapLayer.react';
 
 
-const HeatmapLayer = (props) => {
-    let {
-        id,
-        data,
-        visible,
-        beforeId,
-        opacity,
-        radiusPixels,
-        colorRange,
-        intensity,
-        threshold,
-        colorDomain,
-        aggregation,
-        weightsTextureSize,
-        debounceTimeout,
-        getPosition,
-        getWeight,
-        setProps
-    } = props;
+const HeatmapLayer = ({
+    id,
+    data,
+    visible,
+    beforeId,
+    opacity,
+    radiusPixels,
+    colorRange,
+    intensity,
+    threshold,
+    colorDomain,
+    aggregation,
+    weightsTextureSize,
+    debounceTimeout,
+    getPosition,
+    getWeight,
+    setProps
+}) => {
 
     let layerConfig = omitNullAndUndefined(
         {

@@ -1,6 +1,13 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
+import typing  # noqa: F401
+import numbers # noqa: F401
+from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
+try:
+    from dash.development.base_component import ComponentType # noqa: F401
+except ImportError:
+    ComponentType = typing.TypeVar("ComponentType", bound=Component)
 
 
 class ArcLayer(Component):
@@ -119,8 +126,86 @@ Keyword arguments:
     _base_nodes = ['children']
     _namespace = 'feffery_maplibre'
     _type = 'ArcLayer'
+    GetSourcePosition = TypedDict(
+        "GetSourcePosition",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
+    GetTargetPosition = TypedDict(
+        "GetTargetPosition",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
+    GetSourceColor = TypedDict(
+        "GetSourceColor",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
+    GetTargetColor = TypedDict(
+        "GetTargetColor",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
+    GetWidth = TypedDict(
+        "GetWidth",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
+    GetHeight = TypedDict(
+        "GetHeight",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
+    GetTilt = TypedDict(
+        "GetTilt",
+            {
+            "func": NotRequired[str]
+        }
+    )
+
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, key=Component.UNDEFINED, data=Component.UNDEFINED, visible=Component.UNDEFINED, beforeId=Component.UNDEFINED, opacity=Component.UNDEFINED, pickable=Component.UNDEFINED, highlightColor=Component.UNDEFINED, autoHighlight=Component.UNDEFINED, tooltipRenderer=Component.UNDEFINED, greatCircle=Component.UNDEFINED, numSegments=Component.UNDEFINED, widthUnits=Component.UNDEFINED, widthScale=Component.UNDEFINED, widthMinPixels=Component.UNDEFINED, widthMaxPixels=Component.UNDEFINED, getSourcePosition=Component.UNDEFINED, getTargetPosition=Component.UNDEFINED, getSourceColor=Component.UNDEFINED, getTargetColor=Component.UNDEFINED, getWidth=Component.UNDEFINED, getHeight=Component.UNDEFINED, getTilt=Component.UNDEFINED, debounceWait=Component.UNDEFINED, hoverEvent=Component.UNDEFINED, clickEvent=Component.UNDEFINED, **kwargs):
+    def __init__(
+        self,
+        id: typing.Optional[str] = None,
+        key: typing.Optional[str] = None,
+        data: typing.Optional[typing.Union[typing.Sequence, str]] = None,
+        visible: typing.Optional[bool] = None,
+        beforeId: typing.Optional[str] = None,
+        opacity: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        pickable: typing.Optional[bool] = None,
+        highlightColor: typing.Optional[typing.Sequence] = None,
+        autoHighlight: typing.Optional[bool] = None,
+        tooltipRenderer: typing.Optional[str] = None,
+        greatCircle: typing.Optional[bool] = None,
+        numSegments: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        widthUnits: typing.Optional[Literal["meters", "common", "pixels"]] = None,
+        widthScale: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        widthMinPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        widthMaxPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        getSourcePosition: typing.Optional[typing.Union[str, "GetSourcePosition"]] = None,
+        getTargetPosition: typing.Optional[typing.Union[str, "GetTargetPosition"]] = None,
+        getSourceColor: typing.Optional[typing.Union[typing.Sequence, str, "GetSourceColor"]] = None,
+        getTargetColor: typing.Optional[typing.Union[typing.Sequence, str, "GetTargetColor"]] = None,
+        getWidth: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetWidth"]] = None,
+        getHeight: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetHeight"]] = None,
+        getTilt: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetTilt"]] = None,
+        debounceWait: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        hoverEvent: typing.Optional[dict] = None,
+        clickEvent: typing.Optional[dict] = None,
+        **kwargs
+    ):
         self._prop_names = ['id', 'key', 'data', 'visible', 'beforeId', 'opacity', 'pickable', 'highlightColor', 'autoHighlight', 'tooltipRenderer', 'greatCircle', 'numSegments', 'widthUnits', 'widthScale', 'widthMinPixels', 'widthMaxPixels', 'getSourcePosition', 'getTargetPosition', 'getSourceColor', 'getTargetColor', 'getWidth', 'getHeight', 'getTilt', 'debounceWait', 'hoverEvent', 'clickEvent']
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'key', 'data', 'visible', 'beforeId', 'opacity', 'pickable', 'highlightColor', 'autoHighlight', 'tooltipRenderer', 'greatCircle', 'numSegments', 'widthUnits', 'widthScale', 'widthMinPixels', 'widthMaxPixels', 'getSourcePosition', 'getTargetPosition', 'getSourceColor', 'getTargetColor', 'getWidth', 'getHeight', 'getTilt', 'debounceWait', 'hoverEvent', 'clickEvent']

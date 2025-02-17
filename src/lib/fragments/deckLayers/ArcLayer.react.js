@@ -14,33 +14,32 @@ import { propTypes, defaultProps } from '../../components/deckLayers/ArcLayer.re
 import { useRequest } from 'ahooks';
 
 
-const ArcLayer = (props) => {
-    let {
-        id,
-        data,
-        visible,
-        beforeId,
-        opacity,
-        pickable,
-        highlightColor,
-        autoHighlight,
-        tooltipRenderer,
-        greatCircle,
-        numSegments,
-        widthUnits,
-        widthScale,
-        widthMinPixels,
-        widthMaxPixels,
-        getSourcePosition,
-        getTargetPosition,
-        getSourceColor,
-        getTargetColor,
-        getWidth,
-        getHeight,
-        getTilt,
-        debounceWait,
-        setProps
-    } = props;
+const ArcLayer = ({
+    id,
+    data,
+    visible,
+    beforeId,
+    opacity,
+    pickable,
+    highlightColor,
+    autoHighlight,
+    tooltipRenderer,
+    greatCircle,
+    numSegments,
+    widthUnits,
+    widthScale,
+    widthMinPixels,
+    widthMaxPixels,
+    getSourcePosition,
+    getTargetPosition,
+    getSourceColor,
+    getTargetColor,
+    getWidth,
+    getHeight,
+    getTilt,
+    debounceWait,
+    setProps
+}) => {
 
     const { run: onDebounceHover } = useRequest(
         (e) => {

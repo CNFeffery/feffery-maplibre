@@ -10,26 +10,25 @@ import { Marker as _Marker } from 'react-map-gl/maplibre';
 // 其他第三方辅助
 import { useRequest } from 'ahooks';
 
-const Marker = (props) => {
-    let {
-        id,
-        children,
-        key,
-        style,
-        anchor,
-        color,
-        draggable,
-        latitude,
-        longitude,
-        offset,
-        pitchAlignment,
-        rotation,
-        rotationAlignment,
-        scale,
-        nClicks,
-        debounceWait,
-        setProps
-    } = props;
+const Marker = ({
+    id,
+    children,
+    key,
+    style,
+    anchor = 'center',
+    color = '#3FB1CE',
+    draggable = false,
+    latitude,
+    longitude,
+    offset,
+    pitchAlignment = 'auto',
+    rotation = 0,
+    rotationAlignment = 'auto',
+    scale = 1,
+    nClicks = 0,
+    debounceWait = 200,
+    setProps
+}) => {
 
     // 初始化同步latitudeDebounce、longitudeDebounce
     useEffect(() => {
@@ -193,18 +192,6 @@ Marker.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-Marker.defaultProps = {
-    anchor: 'center',
-    color: '#3FB1CE',
-    draggable: false,
-    pitchAlignment: 'auto',
-    rotation: 0,
-    rotationAlignment: 'auto',
-    scale: 1,
-    nClicks: 0,
-    debounceWait: 200
 };
 
 export default React.memo(Marker);

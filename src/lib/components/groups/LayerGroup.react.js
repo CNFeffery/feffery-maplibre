@@ -5,8 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LayerGroup = (props) => {
-    const { id, children, key, setProps } = props;
+const LayerGroup = ({ id, children, key, setProps }) => {
 
     return <>{children}</>;
 };
@@ -34,7 +33,5 @@ LayerGroup.propTypes = {
      */
     setProps: PropTypes.func,
 };
-
-LayerGroup.defaultProps = {};
 
 export default React.memo(LayerGroup);

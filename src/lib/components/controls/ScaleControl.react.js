@@ -8,15 +8,14 @@ import PropTypes from 'prop-types';
 import { ScaleControl as _ScaleControl } from 'react-map-gl/maplibre';
 
 
-const ScaleControl = (props) => {
-    const {
-        id,
-        key,
-        style,
-        position,
-        maxWidth,
-        setProps
-    } = props;
+const ScaleControl = ({
+    id,
+    key,
+    style,
+    position = 'bottom-left',
+    maxWidth = 100,
+    setProps
+}) => {
 
     return (
         <_ScaleControl id={id}
@@ -63,11 +62,6 @@ ScaleControl.propTypes = {
      * to Dash, to make them available for callbacks.
     */
     setProps: PropTypes.func
-};
-
-ScaleControl.defaultProps = {
-    position: 'bottom-left',
-    maxWidth: 100
 };
 
 export default React.memo(ScaleControl);

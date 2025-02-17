@@ -9,10 +9,37 @@ import PropTypes from 'prop-types';
 
 const LazyTerrainLayer = React.lazy(() => import(/* webpackChunkName: "deck_gl_layers" */ '../../fragments/deckLayers/TerrainLayer.react'));
 
-const TerrainLayer = (props) => {
+const TerrainLayer = ({
+    id,
+    elevationData,
+    texture,
+    elevationDecoder = {
+        rScaler: 6553.6,
+        gScaler: 25.6,
+        bScaler: 0.1,
+        offset: -10000
+    },
+    bounds,
+    color = [255, 255, 255],
+    wireframe = false,
+    material = true,
+    setProps
+}) => {
     return (
         <Suspense fallback={null}>
-            <LazyTerrainLayer {...props} />
+            <LazyTerrainLayer {
+                ...{
+                    id,
+                    elevationData,
+                    texture,
+                    elevationDecoder,
+                    bounds,
+                    color,
+                    wireframe,
+                    material,
+                    setProps
+                }
+            } />
         </Suspense>
     );
 }
@@ -93,18 +120,6 @@ TerrainLayer.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-TerrainLayer.defaultProps = {
-    elevationDecoder: {
-        rScaler: 6553.6,
-        gScaler: 25.6,
-        bScaler: 0.1,
-        offset: -10000
-    },
-    color: [255, 255, 255],
-    wireframe: false,
-    material: true
 };
 
 export default React.memo(TerrainLayer);

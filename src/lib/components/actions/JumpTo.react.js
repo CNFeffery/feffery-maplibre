@@ -8,8 +8,7 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import { useMap } from 'react-map-gl/maplibre';
 
-const JumpTo = (props) => {
-    let { mapActionConfig, delay, setProps } = props;
+const JumpTo = ({ mapActionConfig, delay, setProps }) => {
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -117,9 +116,6 @@ JumpTo.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-JumpTo.defaultProps = {
 };
 
 export default React.memo(JumpTo);

@@ -9,8 +9,7 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import { useMap } from 'react-map-gl/maplibre';
 
-const Stop = (props) => {
-    let { execute, delay, setProps } = props;
+const Stop = ({ execute = false, delay, setProps }) => {
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -62,10 +61,6 @@ Stop.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-Stop.defaultProps = {
-    execute: false
 };
 
 export default React.memo(Stop);

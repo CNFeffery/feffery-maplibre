@@ -8,23 +8,22 @@ import PropTypes from 'prop-types';
 // 地图框架相关
 import { Popup as _Popup } from 'react-map-gl/maplibre';
 
-const Popup = (props) => {
-    let {
-        id,
-        children,
-        key,
-        style,
-        className,
-        latitude,
-        longitude,
-        anchor,
-        maxWidth,
-        closeButton,
-        closeOnMove,
-        closeOnClick,
-        offset,
-        setProps
-    } = props;
+const Popup = ({
+    id,
+    children,
+    key,
+    style,
+    className,
+    latitude,
+    longitude,
+    anchor,
+    maxWidth = '240px',
+    closeButton = true,
+    closeOnMove = false,
+    closeOnClick = true,
+    offset,
+    setProps
+}) => {
 
     return (
         <_Popup id={id}
@@ -125,13 +124,6 @@ Popup.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-Popup.defaultProps = {
-    maxWidth: '240px',
-    closeButton: true,
-    closeOnMove: false,
-    closeOnClick: true
 };
 
 export default React.memo(Popup);

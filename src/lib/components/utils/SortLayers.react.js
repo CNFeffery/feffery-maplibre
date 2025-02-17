@@ -19,8 +19,7 @@ const findMovedLayer = (before, after) => {
     return before[idx];
 }
 
-const SortLayers = (props) => {
-    let { orders, supremeLayers, setProps } = props;
+const SortLayers = ({ orders = [], supremeLayers = [], setProps }) => {
 
     // 取得传递的地图实例
     const { current: map } = useMap();
@@ -99,11 +98,6 @@ SortLayers.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-};
-
-SortLayers.defaultProps = {
-    orders: [],
-    supremeLayers: []
 };
 
 export default React.memo(SortLayers);
