@@ -35,7 +35,7 @@ Keyword arguments:
     @_explicitize_args
     def __init__(
         self,
-        id: typing.Optional[str] = None,
+        id: typing.Optional[typing.Union[str, dict]] = None,
         key: typing.Optional[str] = None,
         resize: typing.Optional[bool] = None,
         delay: typing.Optional[typing.Union[int, float, numbers.Number]] = None,

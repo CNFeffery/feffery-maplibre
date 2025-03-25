@@ -404,6 +404,7 @@ const MapContainer = ({
     drawControlsPosition = 'top-left',
     drawOnlyOne = false,
     drawCircleSteps = 64,
+    drawStyles = [],
     enableDrawSpatialJudge = false,
     drawSpatialJudgePredicate = 'intersects',
     drawSpatialJudgeListenLayerIds = [],
@@ -730,6 +731,7 @@ const MapContainer = ({
                     drawDeleteSelected={drawDeleteSelected}
                     setDrawMode={setDrawMode}
                     drawCircleSteps={drawCircleSteps}
+                    styles={drawStyles}
                     setProps={setProps}
                     mapRef={mapRef}
                 />
@@ -1018,6 +1020,11 @@ MapContainer.propTypes = {
      * 默认：64
      */
     drawCircleSteps: PropTypes.number,
+
+    /**
+     * 添加矢量绘制自定义样式规则，具体参考：https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/API.md#styling-draw
+     */
+    drawStyles: PropTypes.array,
 
     /**
      * 用于监听通过绘图控件已绘制的要素数组

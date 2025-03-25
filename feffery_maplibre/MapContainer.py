@@ -25,9 +25,6 @@ Keyword arguments:
 - key (string; optional):
     强制重绘当前组件时使用.
 
-- style (dict; optional):
-    用于设置当前地图容器的css样式.
-
 - cursor (string; optional):
     设置默认鼠标指针样式，同css中的cursor属性
     参考资料：https://developer.mozilla.org/en-US/docs/Web/CSS/cursor.
@@ -164,6 +161,9 @@ Keyword arguments:
 
 - drawCircleSteps (number; default 64):
     设置绘制圆形时，生成矢量中circle字段返回对应圆形矢量数据的精度，越大越精准  默认：64.
+
+- drawStyles (list; optional):
+    添加矢量绘制自定义样式规则，具体参考：https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/API.md#styling-draw.
 
 - drawnFeatures (list; optional):
     用于监听通过绘图控件已绘制的要素数组.
@@ -340,9 +340,9 @@ Keyword arguments:
     def __init__(
         self,
         children: typing.Optional[typing.Union[str, int, float, ComponentType, typing.Sequence[typing.Union[str, int, float, ComponentType]]]] = None,
-        id: typing.Optional[str] = None,
+        id: typing.Optional[typing.Union[str, dict]] = None,
         key: typing.Optional[str] = None,
-        style: typing.Optional[dict] = None,
+        style: typing.Optional[typing.Any] = None,
         cursor: typing.Optional[str] = None,
         mapStyle: typing.Optional[typing.Union[str, dict]] = None,
         renderWorldCopies: typing.Optional[bool] = None,
@@ -373,6 +373,7 @@ Keyword arguments:
         drawControlsPosition: typing.Optional[Literal["top-right", "top-left", "bottom-right", "bottom-left"]] = None,
         drawOnlyOne: typing.Optional[bool] = None,
         drawCircleSteps: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        drawStyles: typing.Optional[typing.Sequence] = None,
         drawnFeatures: typing.Optional[typing.Sequence] = None,
         enableDrawSpatialJudge: typing.Optional[bool] = None,
         drawSpatialJudgePredicate: typing.Optional[Literal["intersects", "contains"]] = None,
@@ -407,9 +408,9 @@ Keyword arguments:
         terrain: typing.Optional[dict] = None,
         **kwargs
     ):
-        self._prop_names = ['id', 'children', 'key', 'style', 'cursor', 'mapStyle', 'renderWorldCopies', 'initialViewState', 'longitude', 'latitude', 'zoom', 'pitch', 'bearing', 'minZoom', 'maxZoom', 'minPitch', 'maxPitch', 'maxBounds', 'boxZoom', 'doubleClickZoom', 'dragRotate', 'dragPan', 'keyboard', 'scrollZoom', 'touchPitch', 'clickListenLayerIds', 'clickListenBoxSize', 'enableDraw', 'drawControls', 'setDrawMode', 'currentDrawMode', 'drawControlsPosition', 'drawOnlyOne', 'drawCircleSteps', 'drawnFeatures', 'enableDrawSpatialJudge', 'drawSpatialJudgePredicate', 'drawSpatialJudgeListenLayerIds', 'drawSpatialJudgeListenLayerFeatures', 'drawDeleteAll', 'drawDeleteSelected', 'locale', 'localeInfo', 'interactive', 'workerCount', 'resizeEventCount', 'wheelEventCount', 'moveStartEventCount', 'dragStartEventCount', 'clickedLngLat', 'hoveredLngLat', 'clickListenLayerFeatures', 'clickListenLayerCount', 'loadedSources', 'loadedLayers', 'debounceWait', 'longitudeDebounce', 'latitudeDebounce', 'zoomDebounce', 'pitchDebounce', 'bearingDebounce', 'boundsDebounce', 'debug', 'debugProps', 'mapboxAccessToken', 'terrain']
+        self._prop_names = ['id', 'children', 'key', 'style', 'cursor', 'mapStyle', 'renderWorldCopies', 'initialViewState', 'longitude', 'latitude', 'zoom', 'pitch', 'bearing', 'minZoom', 'maxZoom', 'minPitch', 'maxPitch', 'maxBounds', 'boxZoom', 'doubleClickZoom', 'dragRotate', 'dragPan', 'keyboard', 'scrollZoom', 'touchPitch', 'clickListenLayerIds', 'clickListenBoxSize', 'enableDraw', 'drawControls', 'setDrawMode', 'currentDrawMode', 'drawControlsPosition', 'drawOnlyOne', 'drawCircleSteps', 'drawStyles', 'drawnFeatures', 'enableDrawSpatialJudge', 'drawSpatialJudgePredicate', 'drawSpatialJudgeListenLayerIds', 'drawSpatialJudgeListenLayerFeatures', 'drawDeleteAll', 'drawDeleteSelected', 'locale', 'localeInfo', 'interactive', 'workerCount', 'resizeEventCount', 'wheelEventCount', 'moveStartEventCount', 'dragStartEventCount', 'clickedLngLat', 'hoveredLngLat', 'clickListenLayerFeatures', 'clickListenLayerCount', 'loadedSources', 'loadedLayers', 'debounceWait', 'longitudeDebounce', 'latitudeDebounce', 'zoomDebounce', 'pitchDebounce', 'bearingDebounce', 'boundsDebounce', 'debug', 'debugProps', 'mapboxAccessToken', 'terrain']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'children', 'key', 'style', 'cursor', 'mapStyle', 'renderWorldCopies', 'initialViewState', 'longitude', 'latitude', 'zoom', 'pitch', 'bearing', 'minZoom', 'maxZoom', 'minPitch', 'maxPitch', 'maxBounds', 'boxZoom', 'doubleClickZoom', 'dragRotate', 'dragPan', 'keyboard', 'scrollZoom', 'touchPitch', 'clickListenLayerIds', 'clickListenBoxSize', 'enableDraw', 'drawControls', 'setDrawMode', 'currentDrawMode', 'drawControlsPosition', 'drawOnlyOne', 'drawCircleSteps', 'drawnFeatures', 'enableDrawSpatialJudge', 'drawSpatialJudgePredicate', 'drawSpatialJudgeListenLayerIds', 'drawSpatialJudgeListenLayerFeatures', 'drawDeleteAll', 'drawDeleteSelected', 'locale', 'localeInfo', 'interactive', 'workerCount', 'resizeEventCount', 'wheelEventCount', 'moveStartEventCount', 'dragStartEventCount', 'clickedLngLat', 'hoveredLngLat', 'clickListenLayerFeatures', 'clickListenLayerCount', 'loadedSources', 'loadedLayers', 'debounceWait', 'longitudeDebounce', 'latitudeDebounce', 'zoomDebounce', 'pitchDebounce', 'bearingDebounce', 'boundsDebounce', 'debug', 'debugProps', 'mapboxAccessToken', 'terrain']
+        self.available_properties = ['id', 'children', 'key', 'style', 'cursor', 'mapStyle', 'renderWorldCopies', 'initialViewState', 'longitude', 'latitude', 'zoom', 'pitch', 'bearing', 'minZoom', 'maxZoom', 'minPitch', 'maxPitch', 'maxBounds', 'boxZoom', 'doubleClickZoom', 'dragRotate', 'dragPan', 'keyboard', 'scrollZoom', 'touchPitch', 'clickListenLayerIds', 'clickListenBoxSize', 'enableDraw', 'drawControls', 'setDrawMode', 'currentDrawMode', 'drawControlsPosition', 'drawOnlyOne', 'drawCircleSteps', 'drawStyles', 'drawnFeatures', 'enableDrawSpatialJudge', 'drawSpatialJudgePredicate', 'drawSpatialJudgeListenLayerIds', 'drawSpatialJudgeListenLayerFeatures', 'drawDeleteAll', 'drawDeleteSelected', 'locale', 'localeInfo', 'interactive', 'workerCount', 'resizeEventCount', 'wheelEventCount', 'moveStartEventCount', 'dragStartEventCount', 'clickedLngLat', 'hoveredLngLat', 'clickListenLayerFeatures', 'clickListenLayerCount', 'loadedSources', 'loadedLayers', 'debounceWait', 'longitudeDebounce', 'latitudeDebounce', 'zoomDebounce', 'pitchDebounce', 'bearingDebounce', 'boundsDebounce', 'debug', 'debugProps', 'mapboxAccessToken', 'terrain']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

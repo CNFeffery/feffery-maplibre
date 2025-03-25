@@ -22,9 +22,6 @@ Keyword arguments:
 - key (string; optional):
     强制重绘当前组件时使用.
 
-- style (dict; optional):
-    用于设置当前控件容器的css样式.
-
 - customAttribution (string; optional):
     设置标注属性信息.
 
@@ -40,9 +37,9 @@ Keyword arguments:
     @_explicitize_args
     def __init__(
         self,
-        id: typing.Optional[str] = None,
+        id: typing.Optional[typing.Union[str, dict]] = None,
         key: typing.Optional[str] = None,
-        style: typing.Optional[dict] = None,
+        style: typing.Optional[typing.Any] = None,
         customAttribution: typing.Optional[str] = None,
         position: typing.Optional[Literal["top-right", "top-left", "bottom-right", "bottom-left"]] = None,
         **kwargs

@@ -25,9 +25,6 @@ Keyword arguments:
 - key (string; optional):
     强制重绘当前组件时使用.
 
-- style (dict; optional):
-    用于设置当前标记容器的css样式.
-
 - anchor (a value equal to: 'center', 'top', 'bottom', 'left', 'right', 'top-left', 'top-right', 'bottom-left', 'bottom-right'; default 'center'):
     当前标记坐标点相对标记内容的方位
     可选的有'center'、'top'、'bottom'、'left'、'right'、'top-left'、'top-right'、'bottom-left'、'bottom-right'
@@ -80,9 +77,9 @@ Keyword arguments:
     def __init__(
         self,
         children: typing.Optional[typing.Union[str, int, float, ComponentType, typing.Sequence[typing.Union[str, int, float, ComponentType]]]] = None,
-        id: typing.Optional[str] = None,
+        id: typing.Optional[typing.Union[str, dict]] = None,
         key: typing.Optional[str] = None,
-        style: typing.Optional[dict] = None,
+        style: typing.Optional[typing.Any] = None,
         anchor: typing.Optional[Literal["center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right"]] = None,
         color: typing.Optional[str] = None,
         draggable: typing.Optional[bool] = None,

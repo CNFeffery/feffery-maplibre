@@ -73,7 +73,7 @@ Keyword arguments:
     @_explicitize_args
     def __init__(
         self,
-        id: typing.Optional[str] = None,
+        id: typing.Optional[typing.Union[str, dict]] = None,
         key: typing.Optional[str] = None,
         elevationData: typing.Optional[str] = None,
         texture: typing.Optional[str] = None,

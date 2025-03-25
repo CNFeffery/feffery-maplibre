@@ -25,9 +25,6 @@ Keyword arguments:
 - key (string; optional):
     强制重绘当前组件时使用.
 
-- style (dict; optional):
-    用于设置当前弹出卡片的css样式.
-
 - className (string; optional):
     用于设置当前弹出卡片的css类名.
 
@@ -65,9 +62,9 @@ Keyword arguments:
     def __init__(
         self,
         children: typing.Optional[typing.Union[str, int, float, ComponentType, typing.Sequence[typing.Union[str, int, float, ComponentType]]]] = None,
-        id: typing.Optional[str] = None,
+        id: typing.Optional[typing.Union[str, dict]] = None,
         key: typing.Optional[str] = None,
-        style: typing.Optional[dict] = None,
+        style: typing.Optional[typing.Any] = None,
         className: typing.Optional[str] = None,
         latitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
         longitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,

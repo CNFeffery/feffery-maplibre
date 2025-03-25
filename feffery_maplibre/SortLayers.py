@@ -36,7 +36,7 @@ Keyword arguments:
     @_explicitize_args
     def __init__(
         self,
-        id: typing.Optional[str] = None,
+        id: typing.Optional[typing.Union[str, dict]] = None,
         key: typing.Optional[str] = None,
         orders: typing.Optional[typing.Sequence[str]] = None,
         supremeLayers: typing.Optional[typing.Sequence[str]] = None,
