@@ -31,9 +31,9 @@
     "@turf/turf": "^6.5.0",
     "deck.gl": "^8.9.18",
     "mapbox-gl-draw-geodesic": "^2.2.5",
-    "maplibre-gl": "^4.0.0",
+    "maplibre-gl": "^5.0.0",
     "ramda": "^0.26.1",
-    "react-map-gl": "^7.1.6"
+    "react-map-gl": "^8.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",
