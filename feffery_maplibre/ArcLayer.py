@@ -1,13 +1,21 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 import typing  # noqa: F401
-import numbers # noqa: F401
 from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
-try:
-    from dash.development.base_component import ComponentType # noqa: F401
-except ImportError:
-    ComponentType = typing.TypeVar("ComponentType", bound=Component)
+
+ComponentType = typing.Union[
+    str,
+    int,
+    float,
+    Component,
+    None,
+    typing.Sequence[typing.Union[str, int, float, Component, None]],
+]
+
+NumberType = typing.Union[
+    typing.SupportsFloat, typing.SupportsInt, typing.SupportsComplex
+]
 
 
 class ArcLayer(Component):
@@ -175,7 +183,7 @@ Keyword arguments:
         }
     )
 
-    @_explicitize_args
+
     def __init__(
         self,
         id: typing.Optional[typing.Union[str, dict]] = None,
@@ -183,25 +191,25 @@ Keyword arguments:
         data: typing.Optional[typing.Union[typing.Sequence, str]] = None,
         visible: typing.Optional[bool] = None,
         beforeId: typing.Optional[str] = None,
-        opacity: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        opacity: typing.Optional[NumberType] = None,
         pickable: typing.Optional[bool] = None,
         highlightColor: typing.Optional[typing.Sequence] = None,
         autoHighlight: typing.Optional[bool] = None,
         tooltipRenderer: typing.Optional[str] = None,
         greatCircle: typing.Optional[bool] = None,
-        numSegments: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        numSegments: typing.Optional[NumberType] = None,
         widthUnits: typing.Optional[Literal["meters", "common", "pixels"]] = None,
-        widthScale: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        widthMinPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        widthMaxPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        widthScale: typing.Optional[NumberType] = None,
+        widthMinPixels: typing.Optional[NumberType] = None,
+        widthMaxPixels: typing.Optional[NumberType] = None,
         getSourcePosition: typing.Optional[typing.Union[str, "GetSourcePosition"]] = None,
         getTargetPosition: typing.Optional[typing.Union[str, "GetTargetPosition"]] = None,
         getSourceColor: typing.Optional[typing.Union[typing.Sequence, str, "GetSourceColor"]] = None,
         getTargetColor: typing.Optional[typing.Union[typing.Sequence, str, "GetTargetColor"]] = None,
-        getWidth: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetWidth"]] = None,
-        getHeight: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetHeight"]] = None,
-        getTilt: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetTilt"]] = None,
-        debounceWait: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        getWidth: typing.Optional[typing.Union[NumberType, str, "GetWidth"]] = None,
+        getHeight: typing.Optional[typing.Union[NumberType, str, "GetHeight"]] = None,
+        getTilt: typing.Optional[typing.Union[NumberType, str, "GetTilt"]] = None,
+        debounceWait: typing.Optional[NumberType] = None,
         hoverEvent: typing.Optional[dict] = None,
         clickEvent: typing.Optional[dict] = None,
         **kwargs
@@ -216,3 +224,5 @@ Keyword arguments:
         args = {k: _locals[k] for k in _explicit_args}
 
         super(ArcLayer, self).__init__(**args)
+
+setattr(ArcLayer, "__init__", _explicitize_args(ArcLayer.__init__))

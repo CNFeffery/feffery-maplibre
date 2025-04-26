@@ -1,13 +1,21 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 import typing  # noqa: F401
-import numbers # noqa: F401
 from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
-try:
-    from dash.development.base_component import ComponentType # noqa: F401
-except ImportError:
-    ComponentType = typing.TypeVar("ComponentType", bound=Component)
+
+ComponentType = typing.Union[
+    str,
+    int,
+    float,
+    Component,
+    None,
+    typing.Sequence[typing.Union[str, int, float, Component, None]],
+]
+
+NumberType = typing.Union[
+    typing.SupportsFloat, typing.SupportsInt, typing.SupportsComplex
+]
 
 
 class GeoJsonLayer(Component):
@@ -181,7 +189,7 @@ Keyword arguments:
         }
     )
 
-    @_explicitize_args
+
     def __init__(
         self,
         id: typing.Optional[typing.Union[str, dict]] = None,
@@ -189,7 +197,7 @@ Keyword arguments:
         data: typing.Optional[typing.Union[typing.Sequence, str, dict]] = None,
         visible: typing.Optional[bool] = None,
         beforeId: typing.Optional[str] = None,
-        opacity: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        opacity: typing.Optional[NumberType] = None,
         pickable: typing.Optional[bool] = None,
         highlightColor: typing.Optional[typing.Sequence] = None,
         autoHighlight: typing.Optional[bool] = None,
@@ -198,24 +206,24 @@ Keyword arguments:
         filled: typing.Optional[bool] = None,
         stroked: typing.Optional[bool] = None,
         lineWidthUnits: typing.Optional[Literal["meters", "common", "pixels"]] = None,
-        lineWidthScale: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        lineWidthMinPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        lineWidthMaxPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        lineWidthScale: typing.Optional[NumberType] = None,
+        lineWidthMinPixels: typing.Optional[NumberType] = None,
+        lineWidthMaxPixels: typing.Optional[NumberType] = None,
         lineBillboard: typing.Optional[bool] = None,
         extruded: typing.Optional[bool] = None,
         wireframe: typing.Optional[bool] = None,
-        elevationScale: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        elevationScale: typing.Optional[NumberType] = None,
         pointRadiusUnits: typing.Optional[Literal["meters", "common", "pixels"]] = None,
-        pointRadiusScale: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        pointRadiusMinPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        pointRadiusMaxPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        pointRadiusScale: typing.Optional[NumberType] = None,
+        pointRadiusMinPixels: typing.Optional[NumberType] = None,
+        pointRadiusMaxPixels: typing.Optional[NumberType] = None,
         pointBillboard: typing.Optional[bool] = None,
         getFillColor: typing.Optional[typing.Union[typing.Sequence, str, "GetFillColor"]] = None,
         getLineColor: typing.Optional[typing.Union[typing.Sequence, str, "GetLineColor"]] = None,
-        getLineWidth: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetLineWidth"]] = None,
-        getElevation: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetElevation"]] = None,
-        getPointRadius: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetPointRadius"]] = None,
-        debounceWait: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        getLineWidth: typing.Optional[typing.Union[NumberType, str, "GetLineWidth"]] = None,
+        getElevation: typing.Optional[typing.Union[NumberType, str, "GetElevation"]] = None,
+        getPointRadius: typing.Optional[typing.Union[NumberType, str, "GetPointRadius"]] = None,
+        debounceWait: typing.Optional[NumberType] = None,
         hoverEvent: typing.Optional[dict] = None,
         clickEvent: typing.Optional[dict] = None,
         **kwargs
@@ -230,3 +238,5 @@ Keyword arguments:
         args = {k: _locals[k] for k in _explicit_args}
 
         super(GeoJsonLayer, self).__init__(**args)
+
+setattr(GeoJsonLayer, "__init__", _explicitize_args(GeoJsonLayer.__init__))

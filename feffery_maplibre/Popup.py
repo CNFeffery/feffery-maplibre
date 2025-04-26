@@ -1,13 +1,21 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 import typing  # noqa: F401
-import numbers # noqa: F401
 from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
-try:
-    from dash.development.base_component import ComponentType # noqa: F401
-except ImportError:
-    ComponentType = typing.TypeVar("ComponentType", bound=Component)
+
+ComponentType = typing.Union[
+    str,
+    int,
+    float,
+    Component,
+    None,
+    typing.Sequence[typing.Union[str, int, float, Component, None]],
+]
+
+NumberType = typing.Union[
+    typing.SupportsFloat, typing.SupportsInt, typing.SupportsComplex
+]
 
 
 class Popup(Component):
@@ -58,22 +66,22 @@ Keyword arguments:
     _namespace = 'feffery_maplibre'
     _type = 'Popup'
 
-    @_explicitize_args
+
     def __init__(
         self,
-        children: typing.Optional[typing.Union[str, int, float, ComponentType, typing.Sequence[typing.Union[str, int, float, ComponentType]]]] = None,
+        children: typing.Optional[ComponentType] = None,
         id: typing.Optional[typing.Union[str, dict]] = None,
         key: typing.Optional[str] = None,
         style: typing.Optional[typing.Any] = None,
         className: typing.Optional[str] = None,
-        latitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        longitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        latitude: typing.Optional[NumberType] = None,
+        longitude: typing.Optional[NumberType] = None,
         anchor: typing.Optional[Literal["center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right"]] = None,
         maxWidth: typing.Optional[str] = None,
         closeButton: typing.Optional[bool] = None,
         closeOnMove: typing.Optional[bool] = None,
         closeOnClick: typing.Optional[bool] = None,
-        offset: typing.Optional[typing.Sequence[typing.Union[int, float, numbers.Number]]] = None,
+        offset: typing.Optional[typing.Sequence[NumberType]] = None,
         **kwargs
     ):
         self._prop_names = ['id', 'children', 'key', 'style', 'className', 'latitude', 'longitude', 'anchor', 'maxWidth', 'closeButton', 'closeOnMove', 'closeOnClick', 'offset']
@@ -91,3 +99,5 @@ Keyword arguments:
                     'Required argument `' + k + '` was not specified.')
 
         super(Popup, self).__init__(children=children, **args)
+
+setattr(Popup, "__init__", _explicitize_args(Popup.__init__))

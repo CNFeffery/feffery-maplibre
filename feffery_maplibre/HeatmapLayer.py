@@ -1,13 +1,21 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 import typing  # noqa: F401
-import numbers # noqa: F401
 from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
-try:
-    from dash.development.base_component import ComponentType # noqa: F401
-except ImportError:
-    ComponentType = typing.TypeVar("ComponentType", bound=Component)
+
+ComponentType = typing.Union[
+    str,
+    int,
+    float,
+    Component,
+    None,
+    typing.Sequence[typing.Union[str, int, float, Component, None]],
+]
+
+NumberType = typing.Union[
+    typing.SupportsFloat, typing.SupportsInt, typing.SupportsComplex
+]
 
 
 class HeatmapLayer(Component):
@@ -89,7 +97,7 @@ Keyword arguments:
         }
     )
 
-    @_explicitize_args
+
     def __init__(
         self,
         id: typing.Optional[typing.Union[str, dict]] = None,
@@ -97,17 +105,17 @@ Keyword arguments:
         data: typing.Optional[typing.Union[typing.Sequence, str]] = None,
         visible: typing.Optional[bool] = None,
         beforeId: typing.Optional[str] = None,
-        opacity: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        radiusPixels: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        opacity: typing.Optional[NumberType] = None,
+        radiusPixels: typing.Optional[NumberType] = None,
         colorRange: typing.Optional[typing.Sequence] = None,
-        intensity: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        threshold: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        colorDomain: typing.Optional[typing.Sequence[typing.Union[int, float, numbers.Number]]] = None,
+        intensity: typing.Optional[NumberType] = None,
+        threshold: typing.Optional[NumberType] = None,
+        colorDomain: typing.Optional[typing.Sequence[NumberType]] = None,
         aggregation: typing.Optional[Literal["SUM", "MEAN"]] = None,
-        weightsTextureSize: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        debounceTimeout: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        weightsTextureSize: typing.Optional[NumberType] = None,
+        debounceTimeout: typing.Optional[NumberType] = None,
         getPosition: typing.Optional[typing.Union[str, "GetPosition"]] = None,
-        getWeight: typing.Optional[typing.Union[typing.Union[int, float, numbers.Number], str, "GetWeight"]] = None,
+        getWeight: typing.Optional[typing.Union[NumberType, str, "GetWeight"]] = None,
         **kwargs
     ):
         self._prop_names = ['id', 'key', 'data', 'visible', 'beforeId', 'opacity', 'radiusPixels', 'colorRange', 'intensity', 'threshold', 'colorDomain', 'aggregation', 'weightsTextureSize', 'debounceTimeout', 'getPosition', 'getWeight']
@@ -120,3 +128,5 @@ Keyword arguments:
         args = {k: _locals[k] for k in _explicit_args}
 
         super(HeatmapLayer, self).__init__(**args)
+
+setattr(HeatmapLayer, "__init__", _explicitize_args(HeatmapLayer.__init__))

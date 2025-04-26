@@ -1,13 +1,21 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 import typing  # noqa: F401
-import numbers # noqa: F401
 from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
-try:
-    from dash.development.base_component import ComponentType # noqa: F401
-except ImportError:
-    ComponentType = typing.TypeVar("ComponentType", bound=Component)
+
+ComponentType = typing.Union[
+    str,
+    int,
+    float,
+    Component,
+    None,
+    typing.Sequence[typing.Union[str, int, float, Component, None]],
+]
+
+NumberType = typing.Union[
+    typing.SupportsFloat, typing.SupportsInt, typing.SupportsComplex
+]
 
 
 class MapContainer(Component):
@@ -297,11 +305,11 @@ Keyword arguments:
     InitialViewState = TypedDict(
         "InitialViewState",
             {
-            "longitude": NotRequired[typing.Union[int, float, numbers.Number]],
-            "latitude": NotRequired[typing.Union[int, float, numbers.Number]],
-            "zoom": NotRequired[typing.Union[int, float, numbers.Number]],
-            "pitch": NotRequired[typing.Union[int, float, numbers.Number]],
-            "bearing": NotRequired[typing.Union[int, float, numbers.Number]],
+            "longitude": NotRequired[NumberType],
+            "latitude": NotRequired[NumberType],
+            "zoom": NotRequired[NumberType],
+            "pitch": NotRequired[NumberType],
+            "bearing": NotRequired[NumberType],
             "bounds": NotRequired[typing.Sequence]
         }
     )
@@ -321,25 +329,25 @@ Keyword arguments:
     ClickedLngLat = TypedDict(
         "ClickedLngLat",
             {
-            "lng": NotRequired[typing.Union[int, float, numbers.Number]],
-            "lat": NotRequired[typing.Union[int, float, numbers.Number]],
-            "timestamp": NotRequired[typing.Union[int, float, numbers.Number]]
+            "lng": NotRequired[NumberType],
+            "lat": NotRequired[NumberType],
+            "timestamp": NotRequired[NumberType]
         }
     )
 
     HoveredLngLat = TypedDict(
         "HoveredLngLat",
             {
-            "lng": NotRequired[typing.Union[int, float, numbers.Number]],
-            "lat": NotRequired[typing.Union[int, float, numbers.Number]],
-            "timestamp": NotRequired[typing.Union[int, float, numbers.Number]]
+            "lng": NotRequired[NumberType],
+            "lat": NotRequired[NumberType],
+            "timestamp": NotRequired[NumberType]
         }
     )
 
-    @_explicitize_args
+
     def __init__(
         self,
-        children: typing.Optional[typing.Union[str, int, float, ComponentType, typing.Sequence[typing.Union[str, int, float, ComponentType]]]] = None,
+        children: typing.Optional[ComponentType] = None,
         id: typing.Optional[typing.Union[str, dict]] = None,
         key: typing.Optional[str] = None,
         style: typing.Optional[typing.Any] = None,
@@ -347,15 +355,15 @@ Keyword arguments:
         mapStyle: typing.Optional[typing.Union[str, dict]] = None,
         renderWorldCopies: typing.Optional[bool] = None,
         initialViewState: typing.Optional["InitialViewState"] = None,
-        longitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        latitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        zoom: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        pitch: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        bearing: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        minZoom: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        maxZoom: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        minPitch: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        maxPitch: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        longitude: typing.Optional[NumberType] = None,
+        latitude: typing.Optional[NumberType] = None,
+        zoom: typing.Optional[NumberType] = None,
+        pitch: typing.Optional[NumberType] = None,
+        bearing: typing.Optional[NumberType] = None,
+        minZoom: typing.Optional[NumberType] = None,
+        maxZoom: typing.Optional[NumberType] = None,
+        minPitch: typing.Optional[NumberType] = None,
+        maxPitch: typing.Optional[NumberType] = None,
         maxBounds: typing.Optional[typing.Sequence] = None,
         boxZoom: typing.Optional[bool] = None,
         doubleClickZoom: typing.Optional[bool] = None,
@@ -365,14 +373,14 @@ Keyword arguments:
         scrollZoom: typing.Optional[bool] = None,
         touchPitch: typing.Optional[bool] = None,
         clickListenLayerIds: typing.Optional[typing.Sequence] = None,
-        clickListenBoxSize: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        clickListenBoxSize: typing.Optional[NumberType] = None,
         enableDraw: typing.Optional[bool] = None,
         drawControls: typing.Optional["DrawControls"] = None,
         setDrawMode: typing.Optional[Literal["simple_select", "draw_line_string", "draw_polygon", "draw_point", "draw_circle", "freehand_polygon"]] = None,
         currentDrawMode: typing.Optional[str] = None,
         drawControlsPosition: typing.Optional[Literal["top-right", "top-left", "bottom-right", "bottom-left"]] = None,
         drawOnlyOne: typing.Optional[bool] = None,
-        drawCircleSteps: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        drawCircleSteps: typing.Optional[NumberType] = None,
         drawStyles: typing.Optional[typing.Sequence] = None,
         drawnFeatures: typing.Optional[typing.Sequence] = None,
         enableDrawSpatialJudge: typing.Optional[bool] = None,
@@ -384,23 +392,23 @@ Keyword arguments:
         locale: typing.Optional[Literal["zh-cn", "en-us"]] = None,
         localeInfo: typing.Optional[dict] = None,
         interactive: typing.Optional[bool] = None,
-        workerCount: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        resizeEventCount: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        wheelEventCount: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        moveStartEventCount: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        dragStartEventCount: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        workerCount: typing.Optional[NumberType] = None,
+        resizeEventCount: typing.Optional[NumberType] = None,
+        wheelEventCount: typing.Optional[NumberType] = None,
+        moveStartEventCount: typing.Optional[NumberType] = None,
+        dragStartEventCount: typing.Optional[NumberType] = None,
         clickedLngLat: typing.Optional["ClickedLngLat"] = None,
         hoveredLngLat: typing.Optional["HoveredLngLat"] = None,
         clickListenLayerFeatures: typing.Optional[typing.Sequence] = None,
-        clickListenLayerCount: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        clickListenLayerCount: typing.Optional[NumberType] = None,
         loadedSources: typing.Optional[dict] = None,
         loadedLayers: typing.Optional[typing.Sequence] = None,
-        debounceWait: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        longitudeDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        latitudeDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        zoomDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        pitchDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        bearingDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        debounceWait: typing.Optional[NumberType] = None,
+        longitudeDebounce: typing.Optional[NumberType] = None,
+        latitudeDebounce: typing.Optional[NumberType] = None,
+        zoomDebounce: typing.Optional[NumberType] = None,
+        pitchDebounce: typing.Optional[NumberType] = None,
+        bearingDebounce: typing.Optional[NumberType] = None,
         boundsDebounce: typing.Optional[typing.Sequence] = None,
         debug: typing.Optional[bool] = None,
         debugProps: typing.Optional[typing.Sequence[Literal["viewState", "loadedSources", "loadedLayers", "clickedLngLat", "hoveredLngLat"]]] = None,
@@ -418,3 +426,5 @@ Keyword arguments:
         args = {k: _locals[k] for k in _explicit_args if k != 'children'}
 
         super(MapContainer, self).__init__(children=children, **args)
+
+setattr(MapContainer, "__init__", _explicitize_args(MapContainer.__init__))

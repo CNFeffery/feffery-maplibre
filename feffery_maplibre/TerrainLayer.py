@@ -1,13 +1,21 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 import typing  # noqa: F401
-import numbers # noqa: F401
 from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
-try:
-    from dash.development.base_component import ComponentType # noqa: F401
-except ImportError:
-    ComponentType = typing.TypeVar("ComponentType", bound=Component)
+
+ComponentType = typing.Union[
+    str,
+    int,
+    float,
+    Component,
+    None,
+    typing.Sequence[typing.Union[str, int, float, Component, None]],
+]
+
+NumberType = typing.Union[
+    typing.SupportsFloat, typing.SupportsInt, typing.SupportsComplex
+]
 
 
 class TerrainLayer(Component):
@@ -63,14 +71,14 @@ Keyword arguments:
     ElevationDecoder = TypedDict(
         "ElevationDecoder",
             {
-            "rScaler": NotRequired[typing.Union[int, float, numbers.Number]],
-            "gScaler": NotRequired[typing.Union[int, float, numbers.Number]],
-            "bScaler": NotRequired[typing.Union[int, float, numbers.Number]],
-            "offset": NotRequired[typing.Union[int, float, numbers.Number]]
+            "rScaler": NotRequired[NumberType],
+            "gScaler": NotRequired[NumberType],
+            "bScaler": NotRequired[NumberType],
+            "offset": NotRequired[NumberType]
         }
     )
 
-    @_explicitize_args
+
     def __init__(
         self,
         id: typing.Optional[typing.Union[str, dict]] = None,
@@ -78,8 +86,8 @@ Keyword arguments:
         elevationData: typing.Optional[str] = None,
         texture: typing.Optional[str] = None,
         elevationDecoder: typing.Optional["ElevationDecoder"] = None,
-        bounds: typing.Optional[typing.Sequence[typing.Union[int, float, numbers.Number]]] = None,
-        color: typing.Optional[typing.Sequence[typing.Union[int, float, numbers.Number]]] = None,
+        bounds: typing.Optional[typing.Sequence[NumberType]] = None,
+        color: typing.Optional[typing.Sequence[NumberType]] = None,
         wireframe: typing.Optional[bool] = None,
         material: typing.Optional[bool] = None,
         **kwargs
@@ -99,3 +107,5 @@ Keyword arguments:
                     'Required argument `' + k + '` was not specified.')
 
         super(TerrainLayer, self).__init__(**args)
+
+setattr(TerrainLayer, "__init__", _explicitize_args(TerrainLayer.__init__))

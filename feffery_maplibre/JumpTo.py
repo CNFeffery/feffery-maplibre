@@ -1,13 +1,21 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 import typing  # noqa: F401
-import numbers # noqa: F401
 from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
-try:
-    from dash.development.base_component import ComponentType # noqa: F401
-except ImportError:
-    ComponentType = typing.TypeVar("ComponentType", bound=Component)
+
+ComponentType = typing.Union[
+    str,
+    int,
+    float,
+    Component,
+    None,
+    typing.Sequence[typing.Union[str, int, float, Component, None]],
+]
+
+NumberType = typing.Union[
+    typing.SupportsFloat, typing.SupportsInt, typing.SupportsComplex
+]
 
 
 class JumpTo(Component):
@@ -65,31 +73,31 @@ Keyword arguments:
     MapActionConfigPadding = TypedDict(
         "MapActionConfigPadding",
             {
-            "top": NotRequired[typing.Union[int, float, numbers.Number]],
-            "bottom": NotRequired[typing.Union[int, float, numbers.Number]],
-            "left": NotRequired[typing.Union[int, float, numbers.Number]],
-            "right": NotRequired[typing.Union[int, float, numbers.Number]]
+            "top": NotRequired[NumberType],
+            "bottom": NotRequired[NumberType],
+            "left": NotRequired[NumberType],
+            "right": NotRequired[NumberType]
         }
     )
 
     MapActionConfig = TypedDict(
         "MapActionConfig",
             {
-            "center": NotRequired[typing.Sequence[typing.Union[int, float, numbers.Number]]],
-            "zoom": NotRequired[typing.Union[int, float, numbers.Number]],
-            "pitch": NotRequired[typing.Union[int, float, numbers.Number]],
-            "bearing": NotRequired[typing.Union[int, float, numbers.Number]],
+            "center": NotRequired[typing.Sequence[NumberType]],
+            "zoom": NotRequired[NumberType],
+            "pitch": NotRequired[NumberType],
+            "bearing": NotRequired[NumberType],
             "padding": NotRequired["MapActionConfigPadding"]
         }
     )
 
-    @_explicitize_args
+
     def __init__(
         self,
         id: typing.Optional[typing.Union[str, dict]] = None,
         key: typing.Optional[str] = None,
         mapActionConfig: typing.Optional["MapActionConfig"] = None,
-        delay: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        delay: typing.Optional[NumberType] = None,
         **kwargs
     ):
         self._prop_names = ['id', 'key', 'mapActionConfig', 'delay']
@@ -102,3 +110,5 @@ Keyword arguments:
         args = {k: _locals[k] for k in _explicit_args}
 
         super(JumpTo, self).__init__(**args)
+
+setattr(JumpTo, "__init__", _explicitize_args(JumpTo.__init__))

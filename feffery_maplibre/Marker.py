@@ -1,13 +1,21 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 import typing  # noqa: F401
-import numbers # noqa: F401
 from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
 from dash.development.base_component import Component, _explicitize_args
-try:
-    from dash.development.base_component import ComponentType # noqa: F401
-except ImportError:
-    ComponentType = typing.TypeVar("ComponentType", bound=Component)
+
+ComponentType = typing.Union[
+    str,
+    int,
+    float,
+    Component,
+    None,
+    typing.Sequence[typing.Union[str, int, float, Component, None]],
+]
+
+NumberType = typing.Union[
+    typing.SupportsFloat, typing.SupportsInt, typing.SupportsComplex
+]
 
 
 class Marker(Component):
@@ -73,27 +81,27 @@ Keyword arguments:
     _namespace = 'feffery_maplibre'
     _type = 'Marker'
 
-    @_explicitize_args
+
     def __init__(
         self,
-        children: typing.Optional[typing.Union[str, int, float, ComponentType, typing.Sequence[typing.Union[str, int, float, ComponentType]]]] = None,
+        children: typing.Optional[ComponentType] = None,
         id: typing.Optional[typing.Union[str, dict]] = None,
         key: typing.Optional[str] = None,
         style: typing.Optional[typing.Any] = None,
         anchor: typing.Optional[Literal["center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right"]] = None,
         color: typing.Optional[str] = None,
         draggable: typing.Optional[bool] = None,
-        latitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        longitude: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        offset: typing.Optional[typing.Sequence[typing.Union[int, float, numbers.Number]]] = None,
+        latitude: typing.Optional[NumberType] = None,
+        longitude: typing.Optional[NumberType] = None,
+        offset: typing.Optional[typing.Sequence[NumberType]] = None,
         pitchAlignment: typing.Optional[Literal["map", "viewport", "auto"]] = None,
-        rotation: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        rotation: typing.Optional[NumberType] = None,
         rotationAlignment: typing.Optional[Literal["map", "viewport", "auto"]] = None,
-        scale: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        nClicks: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        debounceWait: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        longitudeDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
-        latitudeDebounce: typing.Optional[typing.Union[int, float, numbers.Number]] = None,
+        scale: typing.Optional[NumberType] = None,
+        nClicks: typing.Optional[NumberType] = None,
+        debounceWait: typing.Optional[NumberType] = None,
+        longitudeDebounce: typing.Optional[NumberType] = None,
+        latitudeDebounce: typing.Optional[NumberType] = None,
         **kwargs
     ):
         self._prop_names = ['id', 'children', 'key', 'style', 'anchor', 'color', 'draggable', 'latitude', 'longitude', 'offset', 'pitchAlignment', 'rotation', 'rotationAlignment', 'scale', 'nClicks', 'debounceWait', 'longitudeDebounce', 'latitudeDebounce']
@@ -111,3 +119,5 @@ Keyword arguments:
                     'Required argument `' + k + '` was not specified.')
 
         super(Marker, self).__init__(children=children, **args)
+
+setattr(Marker, "__init__", _explicitize_args(Marker.__init__))
